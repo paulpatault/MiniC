@@ -12,12 +12,13 @@
 %token INT_KW BOOL_KW VOID_KW RETURN_KW
 %token PUTCHAR_KW SET IF_KW ELSE_KW WHILE_KW
 %token PLUS STAR MINUS
-%token LT
-%token EOF 
+%token LT GT AND OR NOT
+%token EOF
 
+%nonassoc NOT
 %left COMMA
-%left LT
-%left PLUS
+%left LT GT AND OR
+%left PLUS MINUS
 %left STAR
 
 %start program
@@ -32,7 +33,7 @@ type_def:
 ;
 
 program:
-| gl=glob_var_list fl=list(decl_function) EOF
+| gl=var_list fl=list(decl_function) EOF
   { 
     {globals=gl; functions=fl}
   }
@@ -44,10 +45,10 @@ program:
   }
 ;
 
-glob_var_list:
+var_list:
   { [] }
   | decl_var { [$1] } 
-  | glob_var_list decl_var { $1@[$2] }
+  | var_list decl_var { $1@[$2] }
 ;
 
 decl:
@@ -72,7 +73,7 @@ decl_function:
 ;
 
 fun_block:
-| LBRACE locals=list(decl_var) code=list(instruction) RBRACE 
+| LBRACE locals=var_list code=list(instruction) RBRACE 
   { (locals, code) }
 ;
 
@@ -109,16 +110,28 @@ instruction:
 expression:
 | n=CST
   { Cst(n) }
+| b=BOOL
+  { Bool(b) }
 | id=IDENT 
   { Get(id) }
 | e=delimited_expr
   { e }
 | e1=expression PLUS e2=expression 
   { Add(e1, e2) }
+| e1=expression MINUS e2=expression 
+  { Sub(e1, e2) }
 | e1=expression STAR e2=expression 
   { Mul(e1, e2) }
 | e1=expression LT e2=expression 
   { Lt(e1, e2) }
+| e1=expression GT e2=expression 
+  { Gt(e1, e2) }
+| e1=expression AND e2=expression 
+  { And(e1, e2) }
+| e1=expression OR e2=expression 
+  { Or(e1, e2) }
+| NOT e=expression
+  { Not(e) }
 | MINUS n=CST 
   { Cst(-n) }
 | func=IDENT LPAR param=separated_list(COMMA, expression) RPAR 

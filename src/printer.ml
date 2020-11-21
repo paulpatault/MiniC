@@ -16,9 +16,15 @@ let typeToString t =
 let rec print_expr e = 
   match e with 
   | Cst n          -> Printf.printf "%d" n
+  | Bool b         -> Printf.printf "%b" b
   | Add (e1, e2)   -> print_expr e1; Printf.printf " + "; print_expr e2
+  | Sub (e1, e2)   -> print_expr e1; Printf.printf " - "; print_expr e2
   | Mul (e1, e2)   -> print_expr e1; Printf.printf " * "; print_expr e2
-  | Lt  (e1, e2)   -> print_expr e1; Printf.printf " + "; print_expr e2
+  | Lt  (e1, e2)   -> print_expr e1; Printf.printf " < "; print_expr e2
+  | Gt  (e1, e2)   -> print_expr e1; Printf.printf " > "; print_expr e2
+  | And (e1, e2)   -> print_expr e1; Printf.printf " and "; print_expr e2
+  | Or  (e1, e2)   -> print_expr e1; Printf.printf " or "; print_expr e2
+  | Not e          -> Printf.printf "Not "; print_expr e
   | Get s          -> Printf.printf "%s" s
   | Call (s, expL) -> 
     Printf.printf "%s(" s;  
@@ -28,9 +34,15 @@ let rec print_expr e =
 let rec exprToString e = 
   match e with 
   | Cst n          -> string_of_int n
-  | Add (e1, e2)   -> (exprToString e1) ^ " + " ^ (exprToString e2)
-  | Mul (e1, e2)   -> (exprToString e1) ^ " * " ^ (exprToString e2)
-  | Lt  (e1, e2)   -> (exprToString e1) ^ " < " ^ (exprToString e2)
+  | Bool b         -> string_of_bool b
+  | Add (e1, e2)   -> exprToString e1 ^ " + " ^ exprToString e2
+  | Sub (e1, e2)   -> exprToString e1 ^ " - " ^ exprToString e2
+  | Mul (e1, e2)   -> exprToString e1 ^ " * " ^ exprToString e2
+  | Lt  (e1, e2)   -> exprToString e1 ^ " < " ^ exprToString e2
+  | Gt  (e1, e2)   -> exprToString e1 ^ " > " ^ exprToString e2
+  | And (e1, e2)   -> exprToString e1 ^ " and " ^ exprToString e2
+  | Or  (e1, e2)   -> exprToString e1 ^ " or " ^ exprToString e2
+  | Not e          -> "Not " ^ exprToString e
   | Get s          -> s
   | Call (s, expL) -> 
     let m = List.fold_left (fun acc e -> acc ^ exprToString e  ^ ",") "" expL in 

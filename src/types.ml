@@ -5,9 +5,15 @@ type typ =
 
 type expr =
   | Cst  of int
+  | Bool of bool
   | Add  of expr * expr
+  | Sub  of expr * expr
   | Mul  of expr * expr
   | Lt   of expr * expr
+  | Gt   of expr * expr
+  | And  of expr * expr
+  | Or   of expr * expr
+  | Not  of expr
   | Get  of string
   | Call of string * expr list
 

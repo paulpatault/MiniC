@@ -12,6 +12,8 @@ type token =
   | RBRACE
   | PUTCHAR_KW
   | PLUS
+  | OR
+  | NOT
   | MINUS
   | LT
   | LPAR
@@ -19,12 +21,14 @@ type token =
   | INT_KW
   | IF_KW
   | IDENT of (string)
+  | GT
   | EOF
   | ELSE_KW
   | CST of (int)
   | COMMA
   | BOOL_KW
   | BOOL of (bool)
+  | AND
 
 (* This exception is raised by the monolithic API functions. *)
 

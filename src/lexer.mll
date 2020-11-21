@@ -9,8 +9,6 @@
         "if",       IF_KW;
         "else",     ELSE_KW;
         "while",    WHILE_KW;
-        "true",     BOOL true;
-        "false",    BOOL false;
         "int",      INT_KW;
         "bool",     BOOL_KW;
         "void",     VOID_KW;
@@ -32,8 +30,10 @@ rule token = parse
   | [' ' '\t' '\r']+  { token lexbuf }
   | comment_line      { new_line lexbuf; token lexbuf }
   | "/*"              { comment lexbuf; token lexbuf }
-  | number as n       {  CST(int_of_string n) }
   | ident as id       { keyword_or_ident id }
+  | number as n       { CST(int_of_string n) }
+  | "true"            { BOOL(true) }
+  | "false"           { BOOL(false) }
   | ";"  { SEMI }
   | ","  { COMMA }
   | "="  { SET }
@@ -41,6 +41,10 @@ rule token = parse
   | "-"  { MINUS }
   | "*"  { STAR }
   | "<"  { LT }
+  | ">"  { GT }
+  | "!"  { NOT }
+  | "||" { OR }
+  | "&&" { AND }
   | "("  { LPAR }
   | ")"  { RPAR }
   | "{"  { LBRACE }
