@@ -1,3 +1,6 @@
+
+// erreur de type
+
 int PARAM1 = 1;
 int PARAM2 = 2;
 int PARAM3 = 3;
