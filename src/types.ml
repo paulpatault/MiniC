@@ -34,6 +34,7 @@ type prog = {
 }
 
 type env = (string, typ) Hashtbl.t
+type fun_env = (string, fun_def) Hashtbl.t
 
 exception Eof
 exception TypeError of string
