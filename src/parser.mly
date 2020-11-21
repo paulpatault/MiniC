@@ -35,11 +35,6 @@ program:
 | gl=list(decl_var) fl=list(decl_function) EOF
   { 
     {globals=gl; functions=fl}
-    (* match gl, fl with
-    | [], [] -> Printf.printf "gf: [].."; {globals=[]; functions=[]}
-    | _, []  -> Printf.printf "fl: [].."; {globals=gl; functions=[]}
-    | [], _  -> Printf.printf "gl: [].."; {globals=[]; functions=fl}
-    | _, _   -> Printf.printf "gf: ![] "; {globals=gl; functions=fl} *)
   }
 | error 
   {
@@ -62,7 +57,7 @@ decl_var:
 ;
 
 decl_function:
-| decl=decl LPAR params=params RPAR block=fun_block
+| decl=decl params=params block=fun_block
   {
     let locals, code = block in
     let id, ftype =  decl in
@@ -76,7 +71,7 @@ fun_block:
 ;
 
 params:
-| l=separated_list(COMMA, decl) 
+| LPAR l=separated_list(COMMA, decl) RPAR
   { l }
 ;
 
