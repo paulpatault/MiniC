@@ -5,7 +5,7 @@ let rec type_expr (e : expr) (env : env) (fun_env : fun_env): typ =
   match e with
   | Cst _ -> Int
   | Bool _ -> Bool
-  | Add (e1, e2) | Sub (e1, e2) | Mul (e1, e2) ->
+  | Add (e1, e2) | Sub (e1, e2) | Mul (e1, e2) | Div (e1, e2) ->
       let t1 = type_expr e1 env fun_env in
       let t2 = type_expr e2 env fun_env in
       if t1 = Int && t2 = Int then Int 

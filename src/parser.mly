@@ -11,7 +11,7 @@
 %token SEMI COMMA
 %token INT_KW BOOL_KW VOID_KW RETURN_KW
 %token PUTCHAR_KW SET IF_KW ELSE_KW WHILE_KW
-%token PLUS STAR MINUS
+%token PLUS MINUS STAR SLASH
 %token LT LE GT GE AND OR NOT DOUBLE_EQ NEQ
 %token EOF
 
@@ -19,7 +19,7 @@
 %left AND
 %left LT LE GT GE DOUBLE_EQ NEQ
 %left PLUS MINUS
-%left STAR
+%left STAR SLASH
 %nonassoc NOT
 
 %start program
@@ -123,6 +123,8 @@ expression:
   { Sub(e1, e2) }
 | e1=expression STAR e2=expression 
   { Mul(e1, e2) }
+| e1=expression SLASH e2=expression 
+  { Div(e1, e2) }
 | e1=expression LT e2=expression 
   { Lt(e1, e2) }
 | e1=expression LE e2=expression 

@@ -42,6 +42,7 @@ rule token = parse
   | "+"  { PLUS }
   | "-"  { MINUS }
   | "*"  { STAR }
+  | "/"  { SLASH }
   | "<"  { LT }
   | "<=" { LE }
   | ">"  { GT }

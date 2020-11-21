@@ -5,6 +5,7 @@ type token =
   | WHILE_KW
   | VOID_KW
   | STAR
+  | SLASH
   | SET
   | SEMI
   | RPAR

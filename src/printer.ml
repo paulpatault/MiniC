@@ -20,8 +20,11 @@ let rec print_expr e =
   | Add (e1, e2)   -> print_expr e1; Printf.printf " + "; print_expr e2
   | Sub (e1, e2)   -> print_expr e1; Printf.printf " - "; print_expr e2
   | Mul (e1, e2)   -> print_expr e1; Printf.printf " * "; print_expr e2
+  | Div (e1, e2)   -> print_expr e1; Printf.printf " / "; print_expr e2
   | Lt  (e1, e2)   -> print_expr e1; Printf.printf " < "; print_expr e2
-  | Gt  (e1, e2)   -> print_expr e1; Printf.printf " > "; print_expr e2
+  | Le  (e1, e2)   -> print_expr e1; Printf.printf " <= "; print_expr e2
+  | Gt  (e1, e2)   -> print_expr e1; Printf.printf " >= "; print_expr e2
+  | Ge  (e1, e2)   -> print_expr e1; Printf.printf " > "; print_expr e2
   | And (e1, e2)   -> print_expr e1; Printf.printf " and "; print_expr e2
   | Or  (e1, e2)   -> print_expr e1; Printf.printf " or "; print_expr e2
   | Eq  (e1, e2)   -> print_expr e1; Printf.printf " == "; print_expr e2
@@ -40,8 +43,11 @@ let rec exprToString e =
   | Add (e1, e2)   -> exprToString e1 ^ " + " ^ exprToString e2
   | Sub (e1, e2)   -> exprToString e1 ^ " - " ^ exprToString e2
   | Mul (e1, e2)   -> exprToString e1 ^ " * " ^ exprToString e2
+  | Div (e1, e2)   -> exprToString e1 ^ " / " ^ exprToString e2
   | Lt  (e1, e2)   -> exprToString e1 ^ " < " ^ exprToString e2
+  | Le  (e1, e2)   -> exprToString e1 ^ " <= " ^ exprToString e2
   | Gt  (e1, e2)   -> exprToString e1 ^ " > " ^ exprToString e2
+  | Ge  (e1, e2)   -> exprToString e1 ^ " >= " ^ exprToString e2
   | And (e1, e2)   -> exprToString e1 ^ " and " ^ exprToString e2
   | Or  (e1, e2)   -> exprToString e1 ^ " or " ^ exprToString e2
   | Eq  (e1, e2)   -> exprToString e1 ^ " == " ^ exprToString e2
