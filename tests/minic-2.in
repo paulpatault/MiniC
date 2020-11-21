@@ -1,5 +1,5 @@
 
-// erreur de type
+// erreur de type -> fact est void
 
 int PARAM1 = 1;
 int PARAM2 = 2;

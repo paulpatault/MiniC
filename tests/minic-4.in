@@ -1,12 +1,12 @@
 
-// erreur de type ligne 10
+// trop d'arguments donnés ligne 18
 
 int PARAM1 = 1;
 int PARAM2 = 2;
 int PARAM3 = 3;
 
 void fun(int n, int alpha) {
-  bool n = 1; 
+  int beta;
   if( n < 10 ) {
     alpha = alpha + 1;
   } else {
@@ -15,5 +15,5 @@ void fun(int n, int alpha) {
 }
 
 void main() {
-  fun(2, 3);
+  fun(2, 3, 5);
 }
