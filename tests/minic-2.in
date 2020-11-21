@@ -1,0 +1,15 @@
+int PARAM1 = 1;
+int PARAM2 = 2;
+int PARAM3 = 3;
+
+void fact(int n) {
+  if (n < 2) {
+    return 1;
+  } else {
+    return n * fact(n + -1);
+  }
+}
+
+void main() {
+  putchar(fact(PARAM));
+}

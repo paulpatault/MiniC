@@ -1,18 +1,16 @@
 open Printf 
 open Types
 open Printer
+open Typage
 
-let file = Sys.argv.(1)
-let cout = open_out (file ^ ".out")
-let print s = fprintf cout s
 
-let cin = open_in file
-let lexbuf = Lexing.from_channel cin
-  
-(* let () = print "%s" (toString (Parser.program Lexer.token lexbuf)) *)
-
-let () = print_prog (Parser.program Lexer.token lexbuf)
-
-let () = close_in cin
-
-let () = close_out cout
+let () =
+  let cin = open_in Sys.argv.(1) in
+  let lexbuf = Lexing.from_channel cin in
+  let () = 
+    try
+      Parser.program Lexer.token lexbuf 
+      |> check_type_prog 
+      |> Printf.printf "%b"
+    with TypeError -> close_in cin; failwith "Il y a un probleme de typage" in
+  close_in cin

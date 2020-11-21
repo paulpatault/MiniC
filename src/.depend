@@ -4,11 +4,13 @@ lexer.cmx : \
     parser.cmx
 main.cmo : \
     types.cmo \
+    typage.cmi \
     printer.cmi \
     parser.cmi \
     lexer.cmo
 main.cmx : \
     types.cmx \
+    typage.cmx \
     printer.cmx \
     parser.cmx \
     lexer.cmx
@@ -31,8 +33,12 @@ printer.cmx : \
 printer.cmi : \
     types.cmo
 typage.cmo : \
-    types.cmo
+    types.cmo \
+    typage.cmi
 typage.cmx : \
-    types.cmx
+    types.cmx \
+    typage.cmi
+typage.cmi : \
+    types.cmo
 types.cmo :
 types.cmx :

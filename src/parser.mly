@@ -32,7 +32,7 @@ type_def:
 ;
 
 program:
-| gl=list(decl_var) fl=list(decl_function) EOF
+| gl=glob_var_list fl=list(decl_function) EOF
   { 
     {globals=gl; functions=fl}
   }
@@ -44,6 +44,12 @@ program:
   }
 ;
 
+glob_var_list:
+  { [] }
+  | decl_var { [$1] } 
+  | glob_var_list decl_var { $1@[$2] }
+;
+
 decl:
 | t=type_def id=IDENT 
   { (id, t) }
@@ -52,7 +58,7 @@ decl:
 decl_var:
 | decl=decl SEMI 
   { decl }
-| decl=decl SET n=CST SEMI 
+| decl=decl SET CST SEMI 
   { decl }
 ;
 
