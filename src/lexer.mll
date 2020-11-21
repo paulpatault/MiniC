@@ -5,16 +5,16 @@
   let keyword_or_ident =
     let h = Hashtbl.create 17 in
     List.iter (fun (s, k) -> Hashtbl.add h s k)
-      [ "putchar",  PUTCHAR;
-        "if",       IF;
-        "else",     ELSE;
-        "while",    WHILE;
+      [ "putchar",  PUTCHAR_KW;
+        "if",       IF_KW;
+        "else",     ELSE_KW;
+        "while",    WHILE_KW;
         "true",     BOOL true;
         "false",    BOOL false;
-        "int",      TYPINT;
-        "bool",     TYPBOOL;
-        "void",     TYPVOID;
-        "return",   RETURN;
+        "int",      INT_KW;
+        "bool",     BOOL_KW;
+        "void",     VOID_KW;
+        "return",   RETURN_KW;
       ] ;
     fun s ->
       try  Hashtbl.find h s; Printf.printf "KEY_%s " s; Hashtbl.find h s
@@ -64,9 +64,9 @@ rule token = parse
   | ")"
       { Printf.printf "RPAR ";RPAR }
   | "{"
-      { Printf.printf "BEGIN ";BEGIN }
+      { Printf.printf "BEGIN ";LBRACE }
   | "}"
-      { Printf.printf "END ";END }
+      { Printf.printf "END ";RBRACE }
   | _
       { failwith ("Unknown character : " ^ (lexeme lexbuf)) }
   | eof

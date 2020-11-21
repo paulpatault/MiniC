@@ -10,11 +10,12 @@
 %token <int> CST
 %token <bool> BOOL
 %token <string> IDENT
-%token TYPINT TYPBOOL TYPVOID RETURN
-%token LPAR RPAR BEGIN END SEMI COMMA
-%token PUTCHAR SET IF ELSE WHILE
-%token EOF /* STOP */
+%token INT_KW BOOL_KW VOID_KW RETURN_KW
+%token LPAR RPAR LBRACE RBRACE SEMI COMMA
+%token PUTCHAR_KW SET IF_KW ELSE_KW WHILE_KW
+%token EOF 
 
+%left COMMA
 %left LT
 %left PLUS /* MINUS */
 %left STAR
@@ -24,79 +25,94 @@
 
 %%
 
+type_def:
+| INT_KW  { Int }
+| BOOL_KW { Bool }
+| VOID_KW { Void }
+;
+
 program:
-| gl=list(decl_var)
-  fl=list(decl_function)
-  EOF
-    { {globals=gl; functions=fl} }
-| error {
+| gl=list(decl_var) fl=list(decl_function) EOF
+  { {globals=gl; functions=fl} }
+| error 
+  {
     let pos = $startpos in
-    let message =
-      Printf.sprintf
-        "Syntax error: ln %d, col %d"
-        pos.pos_lnum (pos.pos_cnum - pos.pos_bol)
-    in
-    failwith message 
+    let message = Printf.sprintf "Syntax error: ln %d, col %d" pos.pos_lnum (pos.pos_cnum - pos.pos_bol) in
+    failwith message
   }
 ;
 
 decl:
-| t=types id=IDENT {  (id, t) }
+| t=type_def id=IDENT 
+  { (id, t) }
 ;
 
 decl_var:
-| d=decl SEMI { d }
-| d=decl SET n=CST SEMI { d }
+| decl=decl SEMI 
+  { decl }
+| decl=decl SET n=CST SEMI 
+  { decl }
 ;
 
 decl_function:
-| decl=decl LPAR params=params RPAR
-  BEGIN locals=list(decl_var) code=list(instruction) END
-  { 
-    let (name, return) = decl in
-    {name=name; params=params; return=return; locals=locals; code=code} 
+| decl=decl LPAR params=params RPAR block=fun_block
+  {
+    let locals, code = block in
+    let id, ftype =  decl in
+    {name=id; params=params; return=ftype; locals=locals; code=code} 
   }
 ;
 
-params:
-| l=separated_list(COMMA, decl) { l }
+fun_block:
+| LBRACE locals=list(decl_var) code=list(instruction) RBRACE 
+  { (locals, code) }
 ;
 
-types:
-| TYPINT  { Int }
-| TYPBOOL { Bool }
-| TYPVOID { Void }
+params:
+| l=separated_list(COMMA, decl) 
+  { l }
+;
+
+block:
+| LBRACE block=list(instruction) RBRACE
+  { block }
+;
+
+delimited_expr:
+| LPAR e=expression RPAR 
+  { e }
 ;
 
 instruction:
-| PUTCHAR LPAR e=expression RPAR SEMI { Putchar(e) }
-| id=IDENT SET e=expression SEMI { Set(id, e) }
-| IF LPAR cond=expression RPAR
-  BEGIN block1=loption(nonempty_list(instruction)) END
-  ELSE BEGIN block2=loption(nonempty_list(instruction)) END 
+| PUTCHAR_KW e=delimited_expr SEMI 
+  { Putchar(e) }
+| id=IDENT SET e=expression SEMI 
+  { Set(id, e) }
+| IF_KW cond=delimited_expr block1=block ELSE_KW block2=block 
   { If(cond, block1, block2) }
-| WHILE LPAR c=expression RPAR
-    BEGIN s=loption(nonempty_list(instruction)) END { While(c, s) }
-| RETURN e=expression SEMI { Return(e) }
-| e=expression SEMI { Expr(e) }
+| WHILE_KW cond=delimited_expr block=block 
+  { While(cond, block) }
+| RETURN_KW e=expression SEMI 
+  { Return(e) }
+| e=expression SEMI
+  { Expr(e) }
 ;
-
-
 
 expression:
-| n=CST { Cst(n) }
-| id=IDENT { Get(id) }
-| LPAR e=expression RPAR { e }
-| e1=expression PLUS e2=expression { Add(e1, e2) }
-| e1=expression STAR e2=expression { Mul(e1, e2) }
-| e1=expression LT e2=expression { Lt(e1, e2) }
-| MINUS n=CST { Cst(-n) }
-| func=IDENT LPAR param=loption(separated_nonempty_list(COMMA, expression)) RPAR { Call(func, param) }
+| n=CST
+  { Cst(n) }
+| id=IDENT 
+  { Get(id) }
+| e=delimited_expr
+  { e }
+| e1=expression PLUS e2=expression 
+  { Add(e1, e2) }
+| e1=expression STAR e2=expression 
+  { Mul(e1, e2) }
+| e1=expression LT e2=expression 
+  { Lt(e1, e2) }
+| MINUS n=CST 
+  { Cst(-n) }
+| func=IDENT LPAR param=loption(separated_nonempty_list(COMMA, expression)) RPAR 
+  { Call(func, param) }
 ;
-
-/* 
-| e1=expression b=binop e2=expression { b(e1, e2) }
-%inline binop:
-| PLUS  { Plus }
-| STAR  { Mul }
-| LT  { Lt } */
