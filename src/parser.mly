@@ -33,7 +33,14 @@ type_def:
 
 program:
 | gl=list(decl_var) fl=list(decl_function) EOF
-  { {globals=gl; functions=fl} }
+  { 
+    {globals=gl; functions=fl}
+    (* match gl, fl with
+    | [], [] -> Printf.printf "gf: [].."; {globals=[]; functions=[]}
+    | _, []  -> Printf.printf "fl: [].."; {globals=gl; functions=[]}
+    | [], _  -> Printf.printf "gl: [].."; {globals=[]; functions=fl}
+    | _, _   -> Printf.printf "gf: ![] "; {globals=gl; functions=fl} *)
+  }
 | error 
   {
     let pos = $startpos in
@@ -92,7 +99,7 @@ instruction:
   { If(cond, block1, block2) }
 | WHILE_KW cond=delimited_expr block=block 
   { While(cond, block) }
-| RETURN_KW e=expression SEMI 
+| RETURN_KW e=expression SEMI
   { Return(e) }
 | e=expression SEMI
   { Expr(e) }
@@ -113,6 +120,6 @@ expression:
   { Lt(e1, e2) }
 | MINUS n=CST 
   { Cst(-n) }
-| func=IDENT LPAR param=loption(separated_nonempty_list(COMMA, expression)) RPAR 
+| func=IDENT LPAR param=separated_list(COMMA, expression) RPAR 
   { Call(func, param) }
 ;
