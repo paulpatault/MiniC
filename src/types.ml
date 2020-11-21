@@ -12,7 +12,9 @@ type expr =
   | Eq   of expr * expr
   | Neq  of expr * expr
   | Lt   of expr * expr
+  | Le   of expr * expr
   | Gt   of expr * expr
+  | Ge   of expr * expr
   | And  of expr * expr
   | Or   of expr * expr
   | Not  of expr

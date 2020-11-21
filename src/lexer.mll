@@ -43,7 +43,9 @@ rule token = parse
   | "-"  { MINUS }
   | "*"  { STAR }
   | "<"  { LT }
+  | "<=" { LE }
   | ">"  { GT }
+  | ">=" { GE }
   | "!"  { NOT }
   | "||" { OR }
   | "&&" { AND }

@@ -18,11 +18,13 @@ type token =
   | MINUS
   | LT
   | LPAR
+  | LE
   | LBRACE
   | INT_KW
   | IF_KW
   | IDENT of (string)
   | GT
+  | GE
   | EOF
   | ELSE_KW
   | DOUBLE_EQ

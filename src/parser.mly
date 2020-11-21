@@ -12,16 +12,15 @@
 %token INT_KW BOOL_KW VOID_KW RETURN_KW
 %token PUTCHAR_KW SET IF_KW ELSE_KW WHILE_KW
 %token PLUS STAR MINUS
-%token LT GT AND OR NOT DOUBLE_EQ NEQ
+%token LT LE GT GE AND OR NOT DOUBLE_EQ NEQ
 %token EOF
 
-%nonassoc NOT
 %left OR
 %left AND
-%left DOUBLE_EQ NEQ
-%left LT GT  
+%left LT LE GT GE DOUBLE_EQ NEQ
 %left PLUS MINUS
 %left STAR
+%nonassoc NOT
 
 %start program
 %type <Types.prog> program
@@ -126,8 +125,12 @@ expression:
   { Mul(e1, e2) }
 | e1=expression LT e2=expression 
   { Lt(e1, e2) }
+| e1=expression LE e2=expression 
+  { Le(e1, e2) }
 | e1=expression GT e2=expression 
   { Gt(e1, e2) }
+| e1=expression GE e2=expression 
+  { Ge(e1, e2) }
 | e1=expression AND e2=expression 
   { And(e1, e2) }
 | e1=expression OR e2=expression 

@@ -5,27 +5,12 @@ let rec type_expr (e : expr) (env : env) (fun_env : fun_env): typ =
   match e with
   | Cst _ -> Int
   | Bool _ -> Bool
-  | Add (e1, e2) ->
+  | Add (e1, e2) | Sub (e1, e2) | Mul (e1, e2) ->
       let t1 = type_expr e1 env fun_env in
       let t2 = type_expr e2 env fun_env in
       if t1 = Int && t2 = Int then Int 
-      else raise ( TypeError ("Addition entre un "^(typeToString t1)^" et un "^(typeToString t2) ))
-  | Sub (e1, e2) ->
-      let t1 = type_expr e1 env fun_env in
-      let t2 = type_expr e2 env fun_env in
-      if t1 = Int && t2 = Int then Int 
-      else raise ( TypeError ("Soustraction entre un "^(typeToString t1)^" et un "^(typeToString t2) ))
-  | Mul (e1, e2) ->
-      let t1 = type_expr e1 env fun_env in
-      let t2 = type_expr e2 env fun_env in
-      if t1 = Int && t2 = Int then Int
-      else raise ( TypeError ("Multiplication entre un "^(typeToString t1)^" et un "^(typeToString t2) ))
-  | Lt (e1, e2) -> 
-      let t1 = type_expr e1 env fun_env in
-      let t2 = type_expr e2 env fun_env in
-      if t1 = Int && t2 = Int then Bool
-      else raise ( TypeError ("Comparaison entre un "^(typeToString t1)^" et un "^(typeToString t2) ))
-  | Gt (e1, e2) ->
+      else raise ( TypeError ("Operation entre un "^(typeToString t1)^" et un "^(typeToString t2) ))
+  | Lt (e1, e2) | Le (e1, e2) | Gt (e1, e2) | Ge (e1, e2) | Eq (e1, e2) | Neq (e1, e2) -> 
       let t1 = type_expr e1 env fun_env in
       let t2 = type_expr e2 env fun_env in
       if t1 = Int && t2 = Int then Bool
@@ -40,16 +25,6 @@ let rec type_expr (e : expr) (env : env) (fun_env : fun_env): typ =
       let t2 = type_expr e2 env fun_env in
       if t1 = Bool && t2 = Bool then Bool
       else raise ( TypeError ("OR entre un "^(typeToString t1)^" et un "^(typeToString t2) ))
-  | Eq (e1, e2) -> 
-      let t1 = type_expr e1 env fun_env in
-      let t2 = type_expr e2 env fun_env in
-      if t1 = t2 then Bool
-      else raise ( TypeError ("Test d'egalite entre un "^(typeToString t1)^" et un "^(typeToString t2) ))
-  | Neq (e1, e2) -> 
-      let t1 = type_expr e1 env fun_env in
-      let t2 = type_expr e2 env fun_env in
-      if t1 = t2 then Bool
-      else raise ( TypeError ("Test de non egalite entre un "^(typeToString t1)^" et un "^(typeToString t2) ))
   | Not e -> 
       let t = type_expr e env fun_env in
       if t = Bool then Bool
