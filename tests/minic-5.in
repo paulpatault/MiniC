@@ -1,0 +1,17 @@
+
+// devrait marcher
+
+int PA = 2;
+
+int fun(int a) {
+  bool a = true;
+  if( a && true ) {
+    return 1;
+  } else {
+    return 2;
+  }
+}
+
+void main() {
+  fun(2);
+}
