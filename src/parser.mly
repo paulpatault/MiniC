@@ -16,8 +16,10 @@
 %token EOF
 
 %nonassoc NOT
-%left COMMA
-%left LT GT AND OR
+%left OR
+%left AND
+%left DOUBLE_EQ NEQ
+%left LT GT  
 %left PLUS MINUS
 %left STAR
 
