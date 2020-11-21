@@ -1,0 +1,19 @@
+
+// erreur de type
+
+int PARAM1 = 1;
+int PARAM2 = 2;
+int PARAM3 = 3;
+
+void fun(int n, int alpha) {
+  bool n = 1; 
+  if( n < 10 ) {
+    alpha = alpha + 1;
+  } else {
+    alpha = alpha + 21;
+  }
+}
+
+void main() {
+  fun(2, 3);
+}
