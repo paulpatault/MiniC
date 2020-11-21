@@ -4,7 +4,7 @@
     ```sh
     $ cd src
     $ make opt
-    $ ./main.opt ../tests/mini-c.in
+    $ ./main.opt ../tests/minic-*.in
     ```
 + Tests de grammaire
   + Génération .automaton et .conflicts
