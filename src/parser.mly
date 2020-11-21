@@ -4,20 +4,20 @@
   open Printer
 %}
 
-%token PLUS STAR MINUS
-%token LT
-
 %token <int> CST
 %token <bool> BOOL
 %token <string> IDENT
+%token LPAR RPAR LBRACE RBRACE 
+%token SEMI COMMA
 %token INT_KW BOOL_KW VOID_KW RETURN_KW
-%token LPAR RPAR LBRACE RBRACE SEMI COMMA
 %token PUTCHAR_KW SET IF_KW ELSE_KW WHILE_KW
+%token PLUS STAR MINUS
+%token LT
 %token EOF 
 
 %left COMMA
 %left LT
-%left PLUS /* MINUS */
+%left PLUS
 %left STAR
 
 %start program
