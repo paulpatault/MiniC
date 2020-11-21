@@ -1,7 +1,0 @@
-
-
-INT_KW IDENT SET CST SEMI EOF
-int    alpha =   23  ;    EOF
-
-INT_KW IDENT LPAR INT_KW IDENT RPAR LBRACE RETURN_KW CST SEMI RBRACE EOF
-int    alpha (    int    n     )    {      return    2   ;    }      EOF
