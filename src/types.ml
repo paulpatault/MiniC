@@ -9,6 +9,8 @@ type expr =
   | Add  of expr * expr
   | Sub  of expr * expr
   | Mul  of expr * expr
+  | Eq   of expr * expr
+  | Neq  of expr * expr
   | Lt   of expr * expr
   | Gt   of expr * expr
   | And  of expr * expr

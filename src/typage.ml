@@ -40,6 +40,16 @@ let rec type_expr (e : expr) (env : env) (fun_env : fun_env): typ =
       let t2 = type_expr e2 env fun_env in
       if t1 = Bool && t2 = Bool then Bool
       else raise ( TypeError ("OR entre un "^(typeToString t1)^" et un "^(typeToString t2) ))
+  | Eq (e1, e2) -> 
+      let t1 = type_expr e1 env fun_env in
+      let t2 = type_expr e2 env fun_env in
+      if t1 = t2 then Bool
+      else raise ( TypeError ("Test d'egalite entre un "^(typeToString t1)^" et un "^(typeToString t2) ))
+  | Neq (e1, e2) -> 
+      let t1 = type_expr e1 env fun_env in
+      let t2 = type_expr e2 env fun_env in
+      if t1 = t2 then Bool
+      else raise ( TypeError ("Test de non egalite entre un "^(typeToString t1)^" et un "^(typeToString t2) ))
   | Not e -> 
       let t = type_expr e env fun_env in
       if t = Bool then Bool

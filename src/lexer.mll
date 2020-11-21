@@ -37,6 +37,8 @@ rule token = parse
   | ";"  { SEMI }
   | ","  { COMMA }
   | "="  { SET }
+  | "==" { DOUBLE_EQ }
+  | "!=" { NEQ }
   | "+"  { PLUS }
   | "-"  { MINUS }
   | "*"  { STAR }

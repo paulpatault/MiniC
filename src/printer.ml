@@ -24,6 +24,8 @@ let rec print_expr e =
   | Gt  (e1, e2)   -> print_expr e1; Printf.printf " > "; print_expr e2
   | And (e1, e2)   -> print_expr e1; Printf.printf " and "; print_expr e2
   | Or  (e1, e2)   -> print_expr e1; Printf.printf " or "; print_expr e2
+  | Eq  (e1, e2)   -> print_expr e1; Printf.printf " == "; print_expr e2
+  | Neq (e1, e2)   -> print_expr e1; Printf.printf " != "; print_expr e2
   | Not e          -> Printf.printf "Not "; print_expr e
   | Get s          -> Printf.printf "%s" s
   | Call (s, expL) -> 
@@ -42,6 +44,8 @@ let rec exprToString e =
   | Gt  (e1, e2)   -> exprToString e1 ^ " > " ^ exprToString e2
   | And (e1, e2)   -> exprToString e1 ^ " and " ^ exprToString e2
   | Or  (e1, e2)   -> exprToString e1 ^ " or " ^ exprToString e2
+  | Eq  (e1, e2)   -> exprToString e1 ^ " == " ^ exprToString e2
+  | Neq (e1, e2)   -> exprToString e1 ^ " != " ^ exprToString e2
   | Not e          -> "Not " ^ exprToString e
   | Get s          -> s
   | Call (s, expL) -> 

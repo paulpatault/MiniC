@@ -14,6 +14,7 @@ type token =
   | PLUS
   | OR
   | NOT
+  | NEQ
   | MINUS
   | LT
   | LPAR
@@ -24,6 +25,7 @@ type token =
   | GT
   | EOF
   | ELSE_KW
+  | DOUBLE_EQ
   | CST of (int)
   | COMMA
   | BOOL_KW

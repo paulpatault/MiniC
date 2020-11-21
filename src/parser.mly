@@ -12,7 +12,7 @@
 %token INT_KW BOOL_KW VOID_KW RETURN_KW
 %token PUTCHAR_KW SET IF_KW ELSE_KW WHILE_KW
 %token PLUS STAR MINUS
-%token LT GT AND OR NOT
+%token LT GT AND OR NOT DOUBLE_EQ NEQ
 %token EOF
 
 %nonassoc NOT
@@ -130,6 +130,10 @@ expression:
   { And(e1, e2) }
 | e1=expression OR e2=expression 
   { Or(e1, e2) }
+| e1=expression DOUBLE_EQ e2=expression 
+  { Eq(e1, e2) }
+| e1=expression NEQ e2=expression 
+  { Neq(e1, e2) }
 | NOT e=expression
   { Not(e) }
 | MINUS n=CST 
