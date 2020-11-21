@@ -33,5 +33,7 @@ type prog = {
   functions: fun_def list;
 }
 
+type env = (string, typ) Hashtbl.t
 
 exception Eof
+exception TypeError

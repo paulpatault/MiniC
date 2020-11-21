@@ -30,5 +30,9 @@ printer.cmx : \
     printer.cmi
 printer.cmi : \
     types.cmo
+typage.cmo : \
+    types.cmo
+typage.cmx : \
+    types.cmx
 types.cmo :
 types.cmx :
