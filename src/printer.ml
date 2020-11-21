@@ -25,6 +25,17 @@ let rec print_expr e =
     List.iter (fun e -> print_expr e; Printf.printf ",") expL;
     Printf.printf ")"
 
+let rec exprToString e = 
+  match e with 
+  | Cst n          -> string_of_int n
+  | Add (e1, e2)   -> (exprToString e1) ^ " + " ^ (exprToString e2)
+  | Mul (e1, e2)   -> (exprToString e1) ^ " * " ^ (exprToString e2)
+  | Lt  (e1, e2)   -> (exprToString e1) ^ " < " ^ (exprToString e2)
+  | Get s          -> s
+  | Call (s, expL) -> 
+    let m = List.fold_left (fun acc e -> acc ^ exprToString e  ^ ",") "" expL in 
+    s ^ "(" ^ m  ^ ")"
+
 let rec print_instr i =
   pspace ();
   match i with

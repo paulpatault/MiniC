@@ -1,4 +1,5 @@
 open Types
+open Printer
 
 let rec type_expr (e : expr) (env : env) : typ =
   match e with
@@ -6,15 +7,18 @@ let rec type_expr (e : expr) (env : env) : typ =
   | Add (e1, e2) ->
       let t1 = type_expr e1 env in
       let t2 = type_expr e2 env in
-      if t1 = Int && t2 = Int then Int else raise TypeError
+      if t1 = Int && t2 = Int then Int 
+      else raise ( TypeError ("Addition entre un "^(typeToString t1)^" et un "^(typeToString t2) ))
   | Mul (e1, e2) ->
       let t1 = type_expr e1 env in
       let t2 = type_expr e2 env in
-      if t1 = Int && t2 = Int then Int else raise TypeError
+      if t1 = Int && t2 = Int then Int
+      else raise ( TypeError ("Multiplication entre un "^(typeToString t1)^" et un "^(typeToString t2) ))
   | Lt (e1, e2) -> 
     let t1 = type_expr e1 env in
     let t2 = type_expr e2 env in
-    if t1 = Int && t2 = Int then Bool else raise TypeError
+    if t1 = Int && t2 = Int then Bool
+    else raise ( TypeError ("Comparaison entre un "^(typeToString t1)^" et un "^(typeToString t2) ))
   | Get x -> Hashtbl.find env x
   | Call (f, a) -> Int (* todo *)
 
@@ -28,16 +32,17 @@ let rec check_type_intr (i : instr) (env : env) (type_fun : typ): bool =
       if type_expr c env = Bool 
       then List.for_all (fun i -> check_type_intr i env type_fun) b1
            && List.for_all (fun i -> check_type_intr i env type_fun) b2
-      else raise TypeError
+      else raise (TypeError ("L'expression suivante aurait du etre un boolean : " ^ exprToString c) )
   | While(c, b) -> 
     if type_expr c env = Bool 
     then List.for_all (fun i -> check_type_intr i env type_fun) b
-    else raise TypeError
+    else raise (TypeError ("L'expression suivante aurait du etre un boolean : " ^ exprToString c) )
   | Return e ->
       begin match type_expr e env, type_fun with
       | Int, Int -> true
       | Bool, Bool -> true
-      | _ -> raise TypeError
+      | t1, t2 -> raise ( TypeError ("La fonction rend un "^(typeToString t1)^" au lien d'un "^(typeToString t2) ))
+
       end
   | Expr e -> type_expr e env = Void
 

@@ -18,8 +18,8 @@
         "return",   RETURN_KW;
       ] ;
     fun s ->
-      try  Hashtbl.find h s; Printf.printf "KEY_%s " s; Hashtbl.find h s
-      with Not_found -> Printf.printf "%s " s; IDENT(s)
+      try  Hashtbl.find h s
+      with Not_found -> IDENT(s)
 
 # 25 "lexer.ml"
 let __ocaml_lex_tables = {
@@ -163,108 +163,108 @@ let rec token lexbuf =
 and __ocaml_lex_token_rec lexbuf __ocaml_lex_state =
   match Lexing.engine __ocaml_lex_tables __ocaml_lex_state lexbuf with
       | 0 ->
-# 37 "lexer.mll"
-      ( Printf.printf "\n"; new_line lexbuf; token lexbuf )
+# 31 "lexer.mll"
+                      ( new_line lexbuf; token lexbuf )
 # 169 "lexer.ml"
 
   | 1 ->
-# 39 "lexer.mll"
-      ( token lexbuf )
+# 32 "lexer.mll"
+                      ( token lexbuf )
 # 174 "lexer.ml"
 
   | 2 ->
-# 41 "lexer.mll"
-      ( new_line lexbuf; token lexbuf )
+# 33 "lexer.mll"
+                      ( new_line lexbuf; token lexbuf )
 # 179 "lexer.ml"
 
   | 3 ->
-# 43 "lexer.mll"
-      ( comment lexbuf; token lexbuf )
+# 34 "lexer.mll"
+                      ( comment lexbuf; token lexbuf )
 # 184 "lexer.ml"
 
   | 4 ->
 let
-# 44 "lexer.mll"
+# 35 "lexer.mll"
               n
 # 190 "lexer.ml"
 = Lexing.sub_lexeme lexbuf lexbuf.Lexing.lex_start_pos lexbuf.Lexing.lex_curr_pos in
-# 45 "lexer.mll"
-      ( Printf.printf "CST_%s " n; CST(int_of_string n) )
+# 35 "lexer.mll"
+                      (  CST(int_of_string n) )
 # 194 "lexer.ml"
 
   | 5 ->
 let
-# 46 "lexer.mll"
+# 36 "lexer.mll"
              id
 # 200 "lexer.ml"
 = Lexing.sub_lexeme lexbuf lexbuf.Lexing.lex_start_pos lexbuf.Lexing.lex_curr_pos in
-# 47 "lexer.mll"
-      ( keyword_or_ident id )
+# 36 "lexer.mll"
+                      ( keyword_or_ident id )
 # 204 "lexer.ml"
 
   | 6 ->
-# 49 "lexer.mll"
-      (  Printf.printf "SEMI "; SEMI )
+# 37 "lexer.mll"
+         ( SEMI )
 # 209 "lexer.ml"
 
   | 7 ->
-# 51 "lexer.mll"
-      (  Printf.printf "COMMA "; COMMA )
+# 38 "lexer.mll"
+         ( COMMA )
 # 214 "lexer.ml"
 
   | 8 ->
-# 53 "lexer.mll"
-      (  Printf.printf "SET "; SET )
+# 39 "lexer.mll"
+         ( SET )
 # 219 "lexer.ml"
 
   | 9 ->
-# 55 "lexer.mll"
-      (  Printf.printf "PLUS ";PLUS )
+# 40 "lexer.mll"
+         ( PLUS )
 # 224 "lexer.ml"
 
   | 10 ->
-# 57 "lexer.mll"
-      (  Printf.printf "MINUS ";MINUS )
+# 41 "lexer.mll"
+         ( MINUS )
 # 229 "lexer.ml"
 
   | 11 ->
-# 59 "lexer.mll"
-      ( Printf.printf "STAR ";STAR )
+# 42 "lexer.mll"
+         ( STAR )
 # 234 "lexer.ml"
 
   | 12 ->
-# 61 "lexer.mll"
-      ( Printf.printf "LT ";LT )
+# 43 "lexer.mll"
+         ( LT )
 # 239 "lexer.ml"
 
   | 13 ->
-# 63 "lexer.mll"
-      ( Printf.printf "LPAR ";LPAR )
+# 44 "lexer.mll"
+         ( LPAR )
 # 244 "lexer.ml"
 
   | 14 ->
-# 65 "lexer.mll"
-      ( Printf.printf "RPAR ";RPAR )
+# 45 "lexer.mll"
+         ( RPAR )
 # 249 "lexer.ml"
 
   | 15 ->
-# 67 "lexer.mll"
-      ( Printf.printf "BEGIN ";LBRACE )
+# 46 "lexer.mll"
+         ( LBRACE )
 # 254 "lexer.ml"
 
   | 16 ->
-# 69 "lexer.mll"
-      ( Printf.printf "END ";RBRACE )
+# 47 "lexer.mll"
+         ( RBRACE )
 # 259 "lexer.ml"
 
   | 17 ->
-# 71 "lexer.mll"
-      ( failwith ("Unknown character : " ^ (lexeme lexbuf)) )
+# 48 "lexer.mll"
+         ( failwith ("Caractere inconnu : " ^ (lexeme lexbuf)) )
 # 264 "lexer.ml"
 
   | 18 ->
-# 73 "lexer.mll"
-      ( EOF )
+# 49 "lexer.mll"
+         ( EOF )
 # 269 "lexer.ml"
 
   | __ocaml_lex_state -> lexbuf.Lexing.refill_buff lexbuf;
@@ -275,18 +275,18 @@ and comment lexbuf =
 and __ocaml_lex_comment_rec lexbuf __ocaml_lex_state =
   match Lexing.engine __ocaml_lex_tables __ocaml_lex_state lexbuf with
       | 0 ->
-# 77 "lexer.mll"
-      ( () )
+# 52 "lexer.mll"
+         ( () )
 # 281 "lexer.ml"
 
   | 1 ->
-# 79 "lexer.mll"
-      ( comment lexbuf )
+# 53 "lexer.mll"
+         ( comment lexbuf )
 # 286 "lexer.ml"
 
   | 2 ->
-# 81 "lexer.mll"
-      ( failwith "unfinished comment" )
+# 54 "lexer.mll"
+         ( failwith "Commentaire non termine.." )
 # 291 "lexer.ml"
 
   | __ocaml_lex_state -> lexbuf.Lexing.refill_buff lexbuf;
