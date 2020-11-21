@@ -25,8 +25,8 @@
 %%
 
 program:
-| gl=loption(nonempty_list(decl_var))
-  fl=loption(nonempty_list(decl_function))
+| gl=list(decl_var)
+  fl=list(decl_function)
   EOF
     { {globals=gl; functions=fl} }
 | error {

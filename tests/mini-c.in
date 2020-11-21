@@ -13,17 +13,3 @@ int fact(int n) {
 void main() {
   putchar(fact(PARAM));
 }
-
-
-/*
-menhir --interpret --interpret-show-cst parser.mly
-menhir -v parser.mly
-
-
-TYPINT IDENT SET CST SEMI 
-TYPINT IDENT SET CST SEMI
-
- TYPINT IDENT LPAR TYPINT RPAR BEGIN RETURN TYPINT SEMI END EOF
-
-
-*/
