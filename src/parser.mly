@@ -40,27 +40,29 @@ program:
   }
 ;
 
-%inline decl_var:
-| t=var_type id=IDENT SET n=CST SEMI { (id, t) (*(id, Cst n)*) }
+decl:
+| t=types id=IDENT {  (id, t) }
 ;
 
-%inline decl_function:
-| return=fun_type name=IDENT 
-  LPAR params=loption(separated_nonempty_list(COMMA, params)) RPAR
-  BEGIN locals=loption(nonempty_list(decl_var)) code=loption(nonempty_list(instruction)) END
-  { {name=name; params=params; return=return; locals=locals; code=code} }
+decl_var:
+| d=decl SEMI { d }
+| d=decl SET n=CST SEMI { d }
+;
+
+decl_function:
+| decl=decl LPAR params=params RPAR
+  BEGIN locals=list(decl_var) code=list(instruction) END
+  { 
+    let (name, return) = decl in
+    {name=name; params=params; return=return; locals=locals; code=code} 
+  }
 ;
 
 params:
-| t=var_type name=IDENT { (name, t) }
+| l=separated_list(COMMA, decl) { l }
 ;
 
-var_type:
-| TYPINT  { Int }
-| TYPBOOL { Bool }
-;
-
-fun_type:
+types:
 | TYPINT  { Int }
 | TYPBOOL { Bool }
 | TYPVOID { Void }
