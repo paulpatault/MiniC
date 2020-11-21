@@ -1,0 +1,10 @@
+
+.DS_Store
+*.cmx
+*.cmo
+*.o
+*.cmi
+main.opt
+*.automaton
+*.conflicts
+*.out

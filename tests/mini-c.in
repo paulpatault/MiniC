@@ -1,0 +1,29 @@
+int PARAM1 = 1;
+int PARAM2 = 2;
+int PARAM3 = 3;
+
+int fact(int n) {
+  if (n < 2) {
+    return 1;
+  } else {
+    return n * fact(n + -1);
+  }
+}
+
+void main() {
+  putchar(fact(PARAM));
+}
+
+
+/*
+menhir --interpret --interpret-show-cst parser.mly
+menhir -v parser.mly
+
+
+TYPINT IDENT SET CST SEMI 
+TYPINT IDENT SET CST SEMI
+
+ TYPINT IDENT LPAR TYPINT RPAR BEGIN RETURN TYPINT SEMI END EOF
+
+
+*/

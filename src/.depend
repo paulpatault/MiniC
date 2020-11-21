@@ -1,0 +1,34 @@
+lexer.cmo : \
+    parser.cmi
+lexer.cmx : \
+    parser.cmx
+main.cmo : \
+    types.cmo \
+    printer.cmi \
+    parser.cmi \
+    lexer.cmo
+main.cmx : \
+    types.cmx \
+    printer.cmx \
+    parser.cmx \
+    lexer.cmx
+parser.cmo : \
+    types.cmo \
+    printer.cmi \
+    parser.cmi
+parser.cmx : \
+    types.cmx \
+    printer.cmx \
+    parser.cmi
+parser.cmi : \
+    types.cmo
+printer.cmo : \
+    types.cmo \
+    printer.cmi
+printer.cmx : \
+    types.cmx \
+    printer.cmi
+printer.cmi : \
+    types.cmo
+types.cmo :
+types.cmx :
