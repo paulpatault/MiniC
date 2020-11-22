@@ -1,17 +1,16 @@
+// tout fonctionne
 
-// devrait marcher
+int PARAM1 = 1;
+int PARAM2 = 2;
 
-int PA = 2;
-
-int fun(int a) {
-  bool a = true;
-  if( a && true ) {
-    return 1;
+int test(bool b) {
+  if ( b ) {
+    return PARAM1;
   } else {
-    return 2;
+    return PARAM2;
   }
 }
 
 void main() {
-  fun(2);
+  test(true);
 }
