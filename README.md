@@ -1,6 +1,11 @@
 # DM Compilation
 
 + Compilation & exécution
+  + Automatique sur tous les exemples:
+    ```sh
+    $ sh test.sh
+    ```
+  + À la main :
     ```sh
     $ cd src
     $ make opt
