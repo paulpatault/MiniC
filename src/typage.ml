@@ -15,16 +15,11 @@ let rec type_expr (e : expr) (env : env) (fun_env : fun_env): typ =
       let t2 = type_expr e2 env fun_env in
       if t1 = Int && t2 = Int then Bool
       else raise ( TypeError ("Comparaison entre un "^(typeToString t1)^" et un "^(typeToString t2) ))
-  | And (e1, e2) -> 
+  | And (e1, e2) | Or (e1, e2) -> 
       let t1 = type_expr e1 env fun_env in
       let t2 = type_expr e2 env fun_env in
       if t1 = Bool && t2 = Bool then Bool
-      else raise ( TypeError ("AND entre un "^(typeToString t1)^" et un "^(typeToString t2) ))
-  | Or (e1, e2) -> 
-      let t1 = type_expr e1 env fun_env in
-      let t2 = type_expr e2 env fun_env in
-      if t1 = Bool && t2 = Bool then Bool
-      else raise ( TypeError ("OR entre un "^(typeToString t1)^" et un "^(typeToString t2) ))
+      else raise ( TypeError ("Operation logique entre un "^(typeToString t1)^" et un "^(typeToString t2) ))
   | Not e -> 
       let t = type_expr e env fun_env in
       if t = Bool then Bool
