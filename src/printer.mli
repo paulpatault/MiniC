@@ -1,9 +1,10 @@
 open Types
 
 val typeToString : typ -> string
-val print_expr : expr -> unit
 val exprToString : expr -> string
-val print_instr : instr -> unit
-val print_fun : fun_def -> unit
-val print_glob : (string * typ) -> unit
-val print_prog : prog -> unit
+val instrToString : instr -> string
+val funToString : fun_def -> string
+val globToString : (string * typ) -> string
+val progToString : prog -> string
+
+val print : printUtil -> unit
