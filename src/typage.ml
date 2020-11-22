@@ -1,4 +1,5 @@
 open Types
+open Printf
 open Printer
 
 let rec type_expr (e : expr) (env : env) (fun_env : fun_env): typ =
@@ -9,24 +10,24 @@ let rec type_expr (e : expr) (env : env) (fun_env : fun_env): typ =
       let t1 = type_expr e1 env fun_env in
       let t2 = type_expr e2 env fun_env in
       if t1 = Int && t2 = Int then Int 
-      else raise ( TypeError ("Operation entre un [" ^ typeToString t1 ^ "] et un [" ^ typeToString t2 ^ "]" ))
+      else raise ( TypeError (sprintf "Operation entre un [%s] et un [%s]" (typeToString t1) (typeToString t2) ))
   | Lt (e1, e2) | Le (e1, e2) | Gt (e1, e2) | Ge (e1, e2) | Eq (e1, e2) | Neq (e1, e2) -> 
       let t1 = type_expr e1 env fun_env in
       let t2 = type_expr e2 env fun_env in
       if t1 = Int && t2 = Int then Bool
-      else raise ( TypeError ("Comparaison entre un [" ^ typeToString t1 ^ "] et un [" ^ typeToString t2 ^ "]" ))
+      else raise ( TypeError (sprintf "Comparaison entre un [%s] et un [%s]" (typeToString t1) (typeToString t2) ))
   | And (e1, e2) | Or (e1, e2) -> 
       let t1 = type_expr e1 env fun_env in
       let t2 = type_expr e2 env fun_env in
       if t1 = Bool && t2 = Bool then Bool
-      else raise ( TypeError ("Operation logique entre un [" ^ typeToString t1 ^ "] et un [" ^ typeToString t2 ^ "]" ))
+      else raise ( TypeError (sprintf "Operation logique entre un [%s] et un [%s]" (typeToString t1) (typeToString t2)))
   | Not e -> 
       let t = type_expr e env fun_env in
       if t = Bool then Bool
-      else raise ( TypeError ("Not avec un " ^ typeToString t))
+      else raise ( TypeError (sprintf "Not avec un %s" (typeToString t)))
   | Get x -> 
       begin try Hashtbl.find env x 
-      with Not_found -> raise ( TypeError ("La variable [" ^ x ^ "] appelee n'existe pas" )) 
+      with Not_found -> raise ( TypeError (sprintf "La variable [%s] appelee n'existe pas" x)) 
       end
   | Call (f, a) ->
       try
@@ -35,15 +36,15 @@ let rec type_expr (e : expr) (env : env) (fun_env : fun_env): typ =
         let btype = List.for_all2 (fun t1 (_, t2) -> t1 = t2) params_typ func.params in
         if btype then func.return
         else raise ( TypeError ("Parametre mal type"))
-      with Not_found -> raise ( TypeError ("La fonction [" ^ f ^ "] appelee n'existe pas" )) 
-          | Invalid_argument _ -> raise ( TypeError ("Le nombre de parametre le correspond pas avec la definition de la fonction" ))
+      with Not_found -> raise ( TypeError (sprintf "La fonction [%s] appelee n'existe pas" f )) 
+          | Invalid_argument _ -> raise ( TypeError ("Le nombre d'argmuent ne correspond pas avec la definition de la fonction" ))
 
 let rec check_type_intr (i : instr) (env : env) (type_fun : typ) (fun_env : fun_env): bool =
   match i with
   | Putchar e ->
       let t = type_expr e env fun_env in 
       if t = Int then true
-      else raise (TypeError ("La fonction putchar attend un [int] mais un " ^ typeToString t ^ " lui a ete donnee"))
+      else raise (TypeError (sprintf "La fonction putchar attend un [int] mais un %s lui a ete donnee" (typeToString t)))
   | Set(s, e) -> 
       Hashtbl.find env s = type_expr e env fun_env
   | If(c, b1, b2) ->
@@ -54,19 +55,19 @@ let rec check_type_intr (i : instr) (env : env) (type_fun : typ) (fun_env : fun_
           if bb1 
           then
             if bb2 then true
-            else raise (TypeError ("Il y a une erreur dans le block du if(" ^ exprToString c ^ ")") )
-          else raise (TypeError ("Il y a une erreur dans le block (else) du if(" ^ exprToString c ^ ")") )
+            else raise (TypeError (sprintf "Il y a une erreur dans le block du if(%s)" (exprToString c)) )
+          else raise (TypeError (sprintf "Il y a une erreur dans le block (else) du if(%s)" (exprToString c)) )
         )
-      else raise (TypeError ("L'expression " ^ exprToString c ^ " aurait du etre un [boolean]. ") )
+      else raise (TypeError (sprintf "L'expression %s aurait du etre un [boolean]" (exprToString c) ) )
   | While(c, b) -> 
       if type_expr c env fun_env = Bool 
       then List.for_all (fun i -> check_type_intr i env type_fun fun_env) b
-      else raise (TypeError ("L'expression" ^ exprToString c ^ "aurait du etre un [boolean]. ") )
+      else raise (TypeError (sprintf "L'expression %s aurait du etre un [boolean]" (exprToString c) ) )
   | Return e ->
       begin match type_expr e env fun_env, type_fun with
       | Int, Int -> true
       | Bool, Bool -> true
-      | t1, t2 -> raise ( TypeError ("La fonction de type [" ^ typeToString t2 ^ "] retourne un [" ^ typeToString t1 ^ "]" ))
+      | t1, t2 -> raise ( TypeError (sprintf "La fonction de type [%s] retourne un [%s]" (typeToString t2) (typeToString t1) ))
       end
   | Expr e -> let _ = type_expr e env fun_env in true
 

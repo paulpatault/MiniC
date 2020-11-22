@@ -12,7 +12,7 @@
     | "\n" -> Printf.printf "\n"
     | "true" -> Printf.printf "Bool(true) "
     | "false" -> Printf.printf "Bool(false) "
-    | _ -> try Printf.printf "Int(%d) " (int_of_string t) with Failure _ -> Printf.printf "Ident_kw(%s) " t
+    | _ -> try Printf.printf "Int(%d) " (int_of_string t) with Failure _ -> Printf.printf "Ident_or_KW(%s) " t
 
   let keyword_or_ident =
     let h = Hashtbl.create 17 in

@@ -34,22 +34,22 @@ type_def:
 ;
 
 program:
-| gl=var_list fl=list(decl_function) EOF
-  { 
-    {globals=gl; functions=fl}
+| g = decl_var p = program
+  {
+    { globals=g::p.globals; functions=p.functions }
   }
+| f = decl_function p = program
+  { 
+    { globals=p.globals; functions=f::p.functions } 
+  }
+| EOF 
+  { { globals=[]; functions=[] }  }
 | error 
   {
     let pos = $startpos in
     let message = Printf.sprintf "Syntax error: ln %d, col %d" pos.pos_lnum (pos.pos_cnum - pos.pos_bol) in
     failwith message
   }
-;
-
-var_list:
-  { [] }
-  | d=decl_var { [d] } 
-  | vl=var_list d=decl_var { vl@[d] }
 ;
 
 decl:
@@ -76,7 +76,7 @@ decl_function:
 ;
 
 fun_block:
-| LBRACE locals=var_list code=list(instruction) RBRACE 
+| LBRACE locals=list(decl_var) code=list(instruction) RBRACE 
   { (locals, code) }
 ;
 
@@ -150,5 +150,5 @@ expression:
 | MINUS n=CST 
   { Cst(-n) }
 | func=IDENT LPAR param=separated_list(COMMA, expression) RPAR 
-  { (* Printf.printf ".mly: call : "; List.iter print_expr param; Printf.printf "\n"; *) Call(func, param) }
+  { Call(func, param) }
 ;
