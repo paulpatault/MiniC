@@ -1,0 +1,6 @@
+
+// tout fonctionne
+
+void main() {
+  putchar(fun(10));
+}
