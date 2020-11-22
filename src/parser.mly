@@ -34,11 +34,11 @@ type_def:
 ;
 
 program:
-| g = decl_var p = program
+| g=decl_var p=program
   {
     { globals=g::p.globals; functions=p.functions }
   }
-| f = decl_function p = program
+| f=decl_function p=program
   { 
     { globals=p.globals; functions=f::p.functions } 
   }
