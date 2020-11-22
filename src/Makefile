@@ -186,6 +186,7 @@ clean:
 	rm -f *.cm[iox] *~ .*~ #*#
 	rm -f $(EXEC)
 	rm -f $(EXEC).opt
+	rm *.automaton *.conflicts
 
 .depend: $(SOURCES2)
 	$(CAMLDEP) *.mli *.ml > .depend
