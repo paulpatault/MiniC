@@ -10,7 +10,7 @@ let rec type_expr (e : expr) (env : env) (fun_env : fun_env): typ =
       let t1 = type_expr e1 env fun_env in
       let t2 = type_expr e2 env fun_env in
       if t1 = Int && t2 = Int then Int 
-      else raise ( TypeError (sprintf "Operation entre un [%s] et un [%s]" (typeToString t1) (typeToString t2) ))
+      else raise ( TypeError (sprintf "Operation arithmetique entre un [%s] et un [%s]" (typeToString t1) (typeToString t2) ))
   | Lt (e1, e2) | Le (e1, e2) | Gt (e1, e2) | Ge (e1, e2) | Eq (e1, e2) | Neq (e1, e2) -> 
       let t1 = type_expr e1 env fun_env in
       let t2 = type_expr e2 env fun_env in

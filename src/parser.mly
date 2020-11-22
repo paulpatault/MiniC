@@ -34,16 +34,14 @@ type_def:
 ;
 
 program:
-| g=decl_var p=program
-  {
-    { globals=g::p.globals; functions=p.functions }
-  }
-| f=decl_function p=program
-  { 
-    { globals=p.globals; functions=f::p.functions } 
-  }
+| gl=decl_var g=program { {globals=gl::g.globals; functions=g.functions}  }
+| fl=funcs { {globals=[]; functions=fl} }
+
+funcs:
+| f=decl_function p=funcs
+  { f::p }
 | EOF 
-  { { globals=[]; functions=[] }  }
+  { [] }
 | error 
   {
     let pos = $startpos in
