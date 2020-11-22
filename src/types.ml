@@ -44,14 +44,6 @@ type prog = {
   functions: fun_def list;
 }
 
-type printUtil = 
-  | Typ of typ
-  | Expr of expr
-  | Instr of instr
-  | Glob of (string * typ)
-  | Fun of fun_def
-  | Prog of prog
-
 type env = (string, typ) Hashtbl.t
 type fun_env = (string, fun_def) Hashtbl.t
 

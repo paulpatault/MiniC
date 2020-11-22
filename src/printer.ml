@@ -78,12 +78,3 @@ let rec progToString p =
   let entete2 =  "\n---Functions---\n" in
   let funcs = String.concat "" (List.map funToString p.functions) in
   entete1 ^ globs ^ entete2 ^ funcs
-
-let print v = 
-  match v with
-  | Typ t   -> printf "%s" (typeToString t)
-  | Expr e  -> printf "%s" (exprToString e)
-  | Instr i -> printf "%s" (instrToString i)
-  | Glob g  -> printf "%s" (globToString g)
-  | Fun f   -> printf "%s" (funToString f)
-  | Prog p  -> printf "%s" (progToString p)
