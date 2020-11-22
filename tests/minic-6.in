@@ -1,7 +1,10 @@
-int GLOB_PARAM = 5;
+// pas de fonction main
 
-int test(int param) {
+int a = 5;
+int a = 5;
+
+void test(int param) {
     if (true) {
-        return param
+        return param;
     }
 }

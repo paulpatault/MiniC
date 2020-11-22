@@ -1,13 +1,14 @@
 // tout fonctionne
 
 int PARAM1 = 1;
-int PARAM2 = 2;
+bool PARAM2 = true;
+int PARAM3 = 2;
 
 int test(bool b) {
   if ( b ) {
     return PARAM1;
   } else {
-    return PARAM2;
+    return PARAM3;
   }
 }
 

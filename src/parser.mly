@@ -100,6 +100,8 @@ instruction:
   { Putchar(e) }
 | id=IDENT SET e=expression SEMI 
   { Set(id, e) }
+| IF_KW cond=delimited_expr block=block
+  { If(cond, block, []) }
 | IF_KW cond=delimited_expr block1=block ELSE_KW block2=block 
   { If(cond, block1, block2) }
 | WHILE_KW cond=delimited_expr block=block 
