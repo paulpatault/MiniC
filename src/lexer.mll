@@ -30,10 +30,10 @@ rule token = parse
   | [' ' '\t' '\r']+  { token lexbuf }
   | comment_line      { new_line lexbuf; token lexbuf }
   | "/*"              { comment lexbuf; token lexbuf }
-  | ident as id       { keyword_or_ident id }
   | number as n       { CST(int_of_string n) }
   | "true"            { BOOL(true) }
   | "false"           { BOOL(false) }
+  | ident as id       { keyword_or_ident id }
   | ";"  { SEMI }
   | ","  { COMMA }
   | "="  { SET }

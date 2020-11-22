@@ -48,8 +48,8 @@ program:
 
 var_list:
   { [] }
-  | decl_var { [$1] } 
-  | var_list decl_var { $1@[$2] }
+  | d=decl_var { [d] } 
+  | vl=var_list d=decl_var { vl@[d] }
 ;
 
 decl:
@@ -61,6 +61,8 @@ decl_var:
 | decl=decl SEMI 
   { decl }
 | decl=decl SET CST SEMI 
+  { decl }
+| decl=decl SET BOOL SEMI 
   { decl }
 ;
 
@@ -146,5 +148,5 @@ expression:
 | MINUS n=CST 
   { Cst(-n) }
 | func=IDENT LPAR param=separated_list(COMMA, expression) RPAR 
-  { Call(func, param) }
+  { (* Printf.printf ".mly: call : "; List.iter print_expr param; Printf.printf "\n"; *) Call(func, param) }
 ;

@@ -15,8 +15,8 @@ let typeToString t =
 
 let rec print_expr e = 
   match e with 
-  | Cst n          -> Printf.printf "%d" n
-  | Bool b         -> Printf.printf "%b" b
+  | Cst n          -> Printf.printf "Cst(%d)" n
+  | Bool b         -> Printf.printf "Bool(%b)" b
   | Add (e1, e2)   -> print_expr e1; Printf.printf " + "; print_expr e2
   | Sub (e1, e2)   -> print_expr e1; Printf.printf " - "; print_expr e2
   | Mul (e1, e2)   -> print_expr e1; Printf.printf " * "; print_expr e2
@@ -30,7 +30,7 @@ let rec print_expr e =
   | Eq  (e1, e2)   -> print_expr e1; Printf.printf " == "; print_expr e2
   | Neq (e1, e2)   -> print_expr e1; Printf.printf " != "; print_expr e2
   | Not e          -> Printf.printf "Not "; print_expr e
-  | Get s          -> Printf.printf "%s" s
+  | Get s          -> Printf.printf "Var(%s)" s
   | Call (s, expL) -> 
     Printf.printf "%s(" s;  
     List.iter (fun e -> print_expr e; Printf.printf ",") expL;
