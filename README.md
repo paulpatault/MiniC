@@ -1,17 +1,22 @@
 # DM Compilation
 
-+ Compilation et exécution 
++ Compilation & exécution
     ```sh
     $ cd src
     $ make opt
-    $ ./main.opt ../tests/minic-*.in
+    $ ./main.opt ../tests/minic-ok-1.in
     ```
-+ Tests de grammaire
-  + Génération .automaton et .conflicts
++ Détails 
+  + Retrouvez l'ensemble des fichiers de tests dans le dossier `tests/`, ou avec la commande
     ```sh
-    $ menhir -v parser.mly
+    $ ls tests/*.in
     ```
-  + Interprète menhir
-    ```sh
-    $ menhir --interpret --interpret-show-cst parser.mly
-    ```
+  + Tests de grammaire
+    + Génération .automaton et .conflicts
+      ```sh
+      $ menhir -v parser.mly
+      ```
+    + Interprète menhir
+      ```sh
+      $ menhir --interpret --interpret-show-cst parser.mly
+      ``` 
