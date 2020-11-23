@@ -1,0 +1,9 @@
+
+// erreur de type ligne 10
+
+int PARAM1 = 1;
+bool PARAM2 = 2;
+
+void main() {
+  putchar(1);
+}

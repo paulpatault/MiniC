@@ -45,8 +45,14 @@ let rec check_type_intr (i : instr) (env : env) (type_fun : typ) (fun_env : fun_
       let t = type_expr e env fun_env in 
       if t = Int then true
       else raise (TypeError (sprintf "La fonction putchar attend un [int] mais un %s lui a ete donnee" (typeToString t)))
-  | Set(s, e) -> 
-      Hashtbl.find env s = type_expr e env fun_env
+  | Set(x, e) ->
+      let te = type_expr e env fun_env in
+      begin try 
+        let ts = Hashtbl.find env x in 
+        if ts = te then true
+        else raise ( TypeError (sprintf "La variable [%s] de type [%s] est assigee a un [%s]" x (typeToString ts) (typeToString te)))
+      with Not_found -> raise ( TypeError (sprintf "La variable [%s] appelee n'existe pas" x)) 
+      end
   | If(c, b1, b2) ->
       if type_expr c env fun_env = Bool 
       then (
