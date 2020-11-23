@@ -53,7 +53,7 @@ program:
       params=[];
       return=Void;
       locals=[];
-      code= !ag_list;
+      code= List.rev !ag_list;
     } in
     { globals=[]; functions=assign_globs_fun::fl } 
   }
@@ -73,27 +73,19 @@ decl:
 decl_var_glob:
 | decl=decl SEMI 
   { decl }
-| decl=decl SET n=CST SEMI 
+| decl=decl SET e=expression SEMI 
   { 
     let id, _ = decl in
-    ag_list := Set(id, Cst(n)) :: !ag_list;
-    decl 
-  }
-| decl=decl SET b=BOOL SEMI 
-  { 
-    let id, _ = decl in
-    ag_list := Set(id, Bool(b)) :: !ag_list;
+    ag_list := Set(id, e) :: !ag_list;
     decl 
   }
 ;
 
-decl_var:
+decl_var_local:
 | decl=decl SEMI 
-  { decl }
-| decl=decl SET CST SEMI 
-  { decl }
-| decl=decl SET BOOL SEMI 
-  { decl }
+  { decl, None }
+| decl=decl SET e=expression SEMI 
+  { decl, Some(e) }
 ;
 
 decl_function:
@@ -106,8 +98,20 @@ decl_function:
 ;
 
 fun_block:
-| LBRACE locals=list(decl_var) code=list(instruction) RBRACE 
-  { (locals, code) }
+| LBRACE locals=list(decl_var_local) code=list(instruction) RBRACE 
+  { 
+    let decls, asss = 
+      List.fold_left 
+        (
+          fun (decls, ass) (d, a) -> 
+            match a with 
+            None -> (d::decls, ass) 
+            | Some(e') -> (d::decls, Set(fst d, e') :: ass)
+        ) 
+        ([],[]) locals 
+    in
+    (List.rev decls, (List.rev asss)@code) 
+  }
 ;
 
 params:

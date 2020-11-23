@@ -5,13 +5,12 @@ bool PARAM2 = true;
 int PARAM3 = 2;
 
 int test(bool b) {
-  if ( b ) {
+  if ( b || PARAM2 && true ) {
     return PARAM1;
-  } else {
-    return PARAM3;
-  }
+  } 
+  return PARAM1 + 2 * 9;
 }
 
 void main() {
-  test(true);
+  test(PARAM2);
 }
