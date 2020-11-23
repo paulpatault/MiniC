@@ -34,8 +34,17 @@ type_def:
 ;
 
 program:
-| gl=decl_var g=program { {globals=gl::g.globals; functions=g.functions}  }
-| fl=nonempty_list(decl_function) EOF { {globals=[]; functions=fl} }
+| gl=decl_var prog=program 
+  {
+    { 
+      globals=gl::prog.globals; 
+      functions=prog.functions
+    }  
+  }
+| fl=nonempty_list(decl_function) EOF 
+  { 
+    { globals=[]; functions=fl } 
+  }
 | error 
   {
     let pos = $startpos in
