@@ -2,6 +2,11 @@
   open Lexing
   open Types
   open Printer
+
+
+  type assign_globs = seq ref
+
+  let ag_list : assign_globs = ref []
 %}
 
 %token <int> CST
@@ -34,7 +39,7 @@ type_def:
 ;
 
 program:
-| gl=decl_var prog=program 
+| gl=decl_var_glob prog=program 
   {
     { 
       globals=gl::prog.globals; 
@@ -43,7 +48,14 @@ program:
   }
 | fl=nonempty_list(decl_function) EOF 
   { 
-    { globals=[]; functions=fl } 
+    let assign_globs_fun = {
+      name="assign_globs_fun";
+      params=[];
+      return=Void;
+      locals=[];
+      code= !ag_list;
+    } in
+    { globals=[]; functions=assign_globs_fun::fl } 
   }
 | error 
   {
@@ -56,6 +68,23 @@ program:
 decl:
 | t=type_def id=IDENT 
   { (id, t) }
+;
+
+decl_var_glob:
+| decl=decl SEMI 
+  { decl }
+| decl=decl SET n=CST SEMI 
+  { 
+    let id, _ = decl in
+    ag_list := Set(id, Cst(n)) :: !ag_list;
+    decl 
+  }
+| decl=decl SET b=BOOL SEMI 
+  { 
+    let id, _ = decl in
+    ag_list := Set(id, Bool(b)) :: !ag_list;
+    decl 
+  }
 ;
 
 decl_var:

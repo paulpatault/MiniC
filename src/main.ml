@@ -7,8 +7,10 @@ let () =
   let lexbuf = Lexing.from_channel cin in
   let () = 
     try
-      Parser.program Lexer.token lexbuf
+      let ast = Parser.program Lexer.token lexbuf in
+      ast
       |> check_type_prog
-      |> Printf.printf "%b\n"
+      |> Printf.printf "%b\n"; 
+      Printf.printf "%s" (progToString ast);
     with TypeError s -> close_in cin; failwith ("Il y a un probleme de typage : " ^ s) in
   close_in cin
