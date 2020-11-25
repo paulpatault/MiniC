@@ -1,9 +1,9 @@
 int a;
 
 int fun(int n) {
-   while (true)
+   while (true) {
       return 1;
-  }
+  
 }
 
 void main() {
