@@ -68,7 +68,7 @@
 #
 # The Caml sources (including camlyacc and camllex source files)
 
-SOURCES = types.ml printer.mli printer.ml lexer.mll parser.mly typage.mli typage.ml main.ml
+SOURCES = types.ml printer.mli printer.ml lexer.mll mcparser.mly typage.mli typage.ml main.ml
 
 # The executable file to generate (default a.out under Unix)
 

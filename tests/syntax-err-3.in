@@ -1,0 +1,10 @@
+
+
+int fun(int n) while (true){
+      return 1;
+  }
+}
+
+void main() {
+  putchar(fun(1));
+}

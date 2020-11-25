@@ -59,7 +59,7 @@ let rec instrToString i =
   | Return e -> sprintf "return(%s)" (exprToString e)
   | Expr e -> sprintf "%s" (exprToString e)
 
-let rec funToString f = 
+let funToString f = 
   let fdef = sprintf "%s %s(" (typeToString f.return) (f.name) in
   let params = List.fold_left (fun acc (s, t) -> acc ^ (sprintf "%s %s," (typeToString t) s)) "" f.params in
   let fin_def = sprintf ") {\n" in
@@ -72,7 +72,7 @@ let rec funToString f =
 let globToString (s, t) =
   sprintf "%s %s\n" (typeToString t) s
 
-let rec progToString p =
+let progToString p =
   let entete1 =  "\n---Globals---\n" in
   let globs = String.concat "" (List.map globToString p.globals) in
   let entete2 =  "\n---Functions---\n" in

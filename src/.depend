@@ -1,29 +1,29 @@
 lexer.cmo : \
-    parser.cmi
+    mcparser.cmi
 lexer.cmx : \
-    parser.cmx
+    mcparser.cmx
 main.cmo : \
+    utils.cmo \
     types.cmo \
     typage.cmi \
-    printer.cmi \
-    parser.cmi \
+    mcparser.cmi \
     lexer.cmo
 main.cmx : \
+    utils.cmx \
     types.cmx \
     typage.cmx \
-    printer.cmx \
-    parser.cmx \
+    mcparser.cmx \
     lexer.cmx
-parser.cmo : \
+mcparser.cmo : \
     types.cmo \
-    printer.cmi \
-    parser.cmi
-parser.cmx : \
+    mcparser.cmi
+mcparser.cmx : \
     types.cmx \
-    printer.cmx \
-    parser.cmi
-parser.cmi : \
+    mcparser.cmi
+mcparser.cmi : \
     types.cmo
+parser_message.cmo :
+parser_message.cmx :
 printer.cmo : \
     types.cmo \
     printer.cmi
@@ -44,3 +44,5 @@ typage.cmi : \
     types.cmo
 types.cmo :
 types.cmx :
+utils.cmo :
+utils.cmx :

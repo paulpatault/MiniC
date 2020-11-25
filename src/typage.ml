@@ -77,12 +77,12 @@ let rec check_type_intr (i : instr) (env : env) (type_fun : typ) (fun_env : fun_
       end
   | Expr e -> let _ = type_expr e env fun_env in true
 
-let rec check_type_fun (f : fun_def) (env : env) (fun_env : fun_env): bool =
+let check_type_fun (f : fun_def) (env : env) (fun_env : fun_env): bool =
   List.iter (fun (s, t) -> Hashtbl.add env s t) f.params; 
   List.iter (fun (s, t) -> Hashtbl.add env s t) f.locals; 
   let res = List.for_all (fun i -> check_type_intr i env f.return fun_env) f.code in
-  List.iter (fun (s, _) -> Hashtbl.remove env s) f.params; 
   List.iter (fun (s, _) -> Hashtbl.remove env s) f.locals;
+  List.iter (fun (s, _) -> Hashtbl.remove env s) f.params; 
   res
 
 let init_env (p : prog): env * fun_env = 
@@ -95,7 +95,7 @@ let init_env (p : prog): env * fun_env =
 let check_main (fl : fun_def list): bool = 
   List.exists (fun f -> f.name = "main") fl
 
-let rec check_type_prog (p : prog) : bool = 
+let check_type_prog (p : prog) : bool = 
   let env, fun_env = init_env p in
   if check_main p.functions 
   then List.for_all (fun f -> check_type_fun f env fun_env) p.functions

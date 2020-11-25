@@ -8,3 +8,5 @@ main.opt
 *.automaton
 *.conflicts
 *.out
+_build
+.merlin

@@ -1,0 +1,8 @@
+
+
+int PARAM3 = PARAM1 + 
+
+
+void main() {
+  putchar(1);
+}

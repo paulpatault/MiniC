@@ -1,6 +1,6 @@
 {
   open Lexing
-  open Parser
+  open Mcparser
 
   let verbose = try let _ = Sys.argv.(2) in true with Invalid_argument _ -> false
   

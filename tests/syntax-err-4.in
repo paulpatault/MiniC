@@ -1,0 +1,11 @@
+int a = ;
+
+int fun(int n) {
+   while {
+      return 1;
+  }
+}
+
+void main() {
+  putchar(1);
+}

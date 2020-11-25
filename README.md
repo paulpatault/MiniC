@@ -1,5 +1,5 @@
 # DM Compilation
-
+<!-- 
 + Compilation & exécution
   + Automatique sur tous les exemples:
     ```sh
@@ -24,4 +24,17 @@
     + Interprète menhir
       ```sh
       $ menhir --interpret --interpret-show-cst parser.mly
-      ``` 
+      ```  -->
+
++ Compilation & exécution
+  + Automatique (sur tous les exemples):
+    ```sh
+    $ sh dune.sh
+    ```
+  + À la main :
+    ```sh
+    $ cd src
+    $ dune clean
+    $ dune build
+    $ ./_build/default/main.exe ../tests/minic-ok-1.in
+    ```

@@ -1,0 +1,14 @@
+(ocamllex lexer)
+
+(menhir
+  (flags --table -v)
+  (modules mcparser))
+
+(rule
+  (targets parser_messages.ml)
+  (deps mcparser.messages mcparser.mly)
+  (action (with-stdout-to %{targets} (run menhir --compile-errors %{deps}))))
+
+(executable
+  (name main)
+  (libraries menhirLib))

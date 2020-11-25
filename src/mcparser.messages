@@ -1,0 +1,1008 @@
+program: VOID_KW IDENT LPAR RPAR LBRACE CST WHILE_KW
+##
+## Ends in an error in state: 88.
+##
+## expression -> expression . PLUS expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
+## expression -> expression . MINUS expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
+## expression -> expression . STAR expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
+## expression -> expression . SLASH expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
+## expression -> expression . LT expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
+## expression -> expression . LE expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
+## expression -> expression . GT expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
+## expression -> expression . GE expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
+## expression -> expression . AND expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
+## expression -> expression . OR expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
+## expression -> expression . DOUBLE_EQ expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
+## expression -> expression . NEQ expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
+## instruction -> expression . SEMI [ WHILE_KW RETURN_KW RBRACE PUTCHAR_KW NOT MINUS LPAR IF_KW IDENT CST BOOL ]
+##
+## The known suffix of the stack is as follows:
+## expression
+##
+
+<Un ';' est attendu a la fin d'une expression.>
+
+program: VOID_KW IDENT LPAR RPAR LBRACE IDENT SEMI VOID_KW
+##
+## Ends in an error in state: 86.
+##
+## list(instruction) -> instruction . list(instruction) [ RBRACE ]
+##
+## The known suffix of the stack is as follows:
+## instruction
+##
+
+<Une fonction doit se terminer par un '}'.>
+
+program: VOID_KW IDENT LPAR RPAR LBRACE IDENT SET IDENT RPAR
+##
+## Ends in an error in state: 82.
+##
+## expression -> expression . PLUS expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
+## expression -> expression . MINUS expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
+## expression -> expression . STAR expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
+## expression -> expression . SLASH expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
+## expression -> expression . LT expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
+## expression -> expression . LE expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
+## expression -> expression . GT expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
+## expression -> expression . GE expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
+## expression -> expression . AND expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
+## expression -> expression . OR expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
+## expression -> expression . DOUBLE_EQ expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
+## expression -> expression . NEQ expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
+## instruction -> IDENT SET expression . SEMI [ WHILE_KW RETURN_KW RBRACE PUTCHAR_KW NOT MINUS LPAR IF_KW IDENT CST BOOL ]
+##
+## The known suffix of the stack is as follows:
+## IDENT SET expression
+##
+## WARNING: This example involves spurious reductions.
+## This implies that, although the LR(1) items shown above provide an
+## accurate view of the past (what has been recognized so far), they
+## may provide an INCOMPLETE view of the future (what was expected next).
+## In state 29, spurious reduction of production expression -> IDENT 
+##
+
+<Un ';' est attendu a la fin d'une expression.>
+
+program: VOID_KW IDENT LPAR RPAR LBRACE IDENT SET WHILE_KW
+##
+## Ends in an error in state: 81.
+##
+## instruction -> IDENT SET . expression SEMI [ WHILE_KW RETURN_KW RBRACE PUTCHAR_KW NOT MINUS LPAR IF_KW IDENT CST BOOL ]
+##
+## The known suffix of the stack is as follows:
+## IDENT SET
+##
+
+<Une expression est attendue apres un '='.>
+
+program: VOID_KW IDENT LPAR RPAR LBRACE IDENT WHILE_KW
+##
+## Ends in an error in state: 80.
+##
+## expression -> IDENT . [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
+## expression -> IDENT . LPAR loption(separated_nonempty_list(COMMA,expression)) RPAR [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
+## instruction -> IDENT . SET expression SEMI [ WHILE_KW RETURN_KW RBRACE PUTCHAR_KW NOT MINUS LPAR IF_KW IDENT CST BOOL ]
+##
+## The known suffix of the stack is as follows:
+## IDENT
+##
+
+<Un identifiant ne peut pas etre suivi par un while.>
+
+program: VOID_KW IDENT LPAR RPAR LBRACE IF_KW LPAR BOOL RPAR LBRACE RBRACE ELSE_KW WHILE_KW
+##
+## Ends in an error in state: 78.
+##
+## instruction -> IF_KW delimited_expr block ELSE_KW . block [ WHILE_KW RETURN_KW RBRACE PUTCHAR_KW NOT MINUS LPAR IF_KW IDENT CST BOOL ]
+##
+## The known suffix of the stack is as follows:
+## IF_KW delimited_expr block ELSE_KW
+##
+
+<Les blocs internes des if et else doivent etre encadres par des accolades.>
+
+program: VOID_KW IDENT LPAR RPAR LBRACE IF_KW LPAR BOOL RPAR LBRACE RBRACE VOID_KW
+##
+## Ends in an error in state: 77.
+##
+## instruction -> IF_KW delimited_expr block . [ WHILE_KW RETURN_KW RBRACE PUTCHAR_KW NOT MINUS LPAR IF_KW IDENT CST BOOL ]
+## instruction -> IF_KW delimited_expr block . ELSE_KW block [ WHILE_KW RETURN_KW RBRACE PUTCHAR_KW NOT MINUS LPAR IF_KW IDENT CST BOOL ]
+##
+## The known suffix of the stack is as follows:
+## IF_KW delimited_expr block
+##
+
+<Une fonction ne peut pas etre definie dans une autre fonction.>
+
+program: VOID_KW IDENT LPAR RPAR LBRACE IF_KW LPAR BOOL RPAR WHILE_KW
+##
+## Ends in an error in state: 76.
+##
+## instruction -> IF_KW delimited_expr . block [ WHILE_KW RETURN_KW RBRACE PUTCHAR_KW NOT MINUS LPAR IF_KW IDENT CST BOOL ]
+## instruction -> IF_KW delimited_expr . block ELSE_KW block [ WHILE_KW RETURN_KW RBRACE PUTCHAR_KW NOT MINUS LPAR IF_KW IDENT CST BOOL ]
+##
+## The known suffix of the stack is as follows:
+## IF_KW delimited_expr
+##
+
+<Il manque une '{' apres le la condition du if.>
+
+program: VOID_KW IDENT LPAR RPAR LBRACE IF_KW WHILE_KW
+##
+## Ends in an error in state: 75.
+##
+## instruction -> IF_KW . delimited_expr block [ WHILE_KW RETURN_KW RBRACE PUTCHAR_KW NOT MINUS LPAR IF_KW IDENT CST BOOL ]
+## instruction -> IF_KW . delimited_expr block ELSE_KW block [ WHILE_KW RETURN_KW RBRACE PUTCHAR_KW NOT MINUS LPAR IF_KW IDENT CST BOOL ]
+##
+## The known suffix of the stack is as follows:
+## IF_KW
+##
+
+<Il manque une '{' apres le la condition du if.>
+
+program: VOID_KW IDENT LPAR RPAR LBRACE PUTCHAR_KW LPAR BOOL RPAR WHILE_KW
+##
+## Ends in an error in state: 73.
+##
+## instruction -> PUTCHAR_KW delimited_expr . SEMI [ WHILE_KW RETURN_KW RBRACE PUTCHAR_KW NOT MINUS LPAR IF_KW IDENT CST BOOL ]
+##
+## The known suffix of the stack is as follows:
+## PUTCHAR_KW delimited_expr
+##
+
+<La fonction putchar() attend un parametre de type int.>
+
+program: VOID_KW IDENT LPAR RPAR LBRACE PUTCHAR_KW WHILE_KW
+##
+## Ends in an error in state: 72.
+##
+## instruction -> PUTCHAR_KW . delimited_expr SEMI [ WHILE_KW RETURN_KW RBRACE PUTCHAR_KW NOT MINUS LPAR IF_KW IDENT CST BOOL ]
+##
+## The known suffix of the stack is as follows:
+## PUTCHAR_KW
+##
+
+<La fonction putchar() attend un parametre de type int.>
+
+program: VOID_KW IDENT LPAR RPAR LBRACE RBRACE VOID_KW IDENT WHILE_KW
+##
+## Ends in an error in state: 13.
+##
+## decl_function -> decl . params fun_block [ VOID_KW INT_KW EOF BOOL_KW ]
+##
+## The known suffix of the stack is as follows:
+## decl
+##
+
+<Les parametre d'une fonction doivent etre entre parentheses.>
+
+program: VOID_KW IDENT LPAR RPAR LBRACE RBRACE WHILE_KW
+##
+## Ends in an error in state: 11.
+##
+## nonempty_list(decl_function) -> decl_function . [ EOF ]
+## nonempty_list(decl_function) -> decl_function . nonempty_list(decl_function) [ EOF ]
+##
+## The known suffix of the stack is as follows:
+## decl_function
+##
+
+<Les instructions doivent etre dans une fonction.>
+
+program: VOID_KW IDENT LPAR RPAR LBRACE RETURN_KW IDENT RPAR
+##
+## Ends in an error in state: 70.
+##
+## expression -> expression . PLUS expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
+## expression -> expression . MINUS expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
+## expression -> expression . STAR expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
+## expression -> expression . SLASH expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
+## expression -> expression . LT expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
+## expression -> expression . LE expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
+## expression -> expression . GT expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
+## expression -> expression . GE expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
+## expression -> expression . AND expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
+## expression -> expression . OR expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
+## expression -> expression . DOUBLE_EQ expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
+## expression -> expression . NEQ expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
+## instruction -> RETURN_KW expression . SEMI [ WHILE_KW RETURN_KW RBRACE PUTCHAR_KW NOT MINUS LPAR IF_KW IDENT CST BOOL ]
+##
+## The known suffix of the stack is as follows:
+## RETURN_KW expression
+##
+## WARNING: This example involves spurious reductions.
+## This implies that, although the LR(1) items shown above provide an
+## accurate view of the past (what has been recognized so far), they
+## may provide an INCOMPLETE view of the future (what was expected next).
+## In state 29, spurious reduction of production expression -> IDENT 
+##
+
+<Un ';' est attendu a la fin d'une expression.>
+
+program: VOID_KW IDENT LPAR RPAR LBRACE RETURN_KW WHILE_KW
+##
+## Ends in an error in state: 69.
+##
+## instruction -> RETURN_KW . expression SEMI [ WHILE_KW RETURN_KW RBRACE PUTCHAR_KW NOT MINUS LPAR IF_KW IDENT CST BOOL ]
+##
+## The known suffix of the stack is as follows:
+## RETURN_KW
+##
+
+<L'instruction return attend une expression.>
+
+program: VOID_KW IDENT LPAR RPAR LBRACE STAR
+##
+## Ends in an error in state: 22.
+##
+## fun_block -> LBRACE . list(decl_var_local) list(instruction) RBRACE [ VOID_KW INT_KW EOF BOOL_KW ]
+##
+## The known suffix of the stack is as follows:
+## LBRACE
+##
+
+<Le corps d'une fontion doit suivre les regles de la grammaire : definitions de variables locales, puis liste d'instructions.>
+
+program: VOID_KW IDENT LPAR RPAR LBRACE VOID_KW IDENT SEMI STAR
+##
+## Ends in an error in state: 93.
+##
+## list(decl_var_local) -> decl_var_local . list(decl_var_local) [ WHILE_KW RETURN_KW RBRACE PUTCHAR_KW NOT MINUS LPAR IF_KW IDENT CST BOOL ]
+##
+## The known suffix of the stack is as follows:
+## decl_var_local
+##
+
+<Le corps d'une fontion doit suivre les regles de la grammaire : definitions de variables locales, puis liste d'instructions.>
+
+program: VOID_KW IDENT LPAR RPAR LBRACE VOID_KW IDENT SET IDENT RPAR
+##
+## Ends in an error in state: 97.
+##
+## decl_var_local -> decl SET expression . SEMI [ WHILE_KW VOID_KW RETURN_KW RBRACE PUTCHAR_KW NOT MINUS LPAR INT_KW IF_KW IDENT CST BOOL_KW BOOL ]
+## expression -> expression . PLUS expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
+## expression -> expression . MINUS expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
+## expression -> expression . STAR expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
+## expression -> expression . SLASH expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
+## expression -> expression . LT expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
+## expression -> expression . LE expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
+## expression -> expression . GT expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
+## expression -> expression . GE expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
+## expression -> expression . AND expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
+## expression -> expression . OR expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
+## expression -> expression . DOUBLE_EQ expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
+## expression -> expression . NEQ expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
+##
+## The known suffix of the stack is as follows:
+## decl SET expression
+##
+## WARNING: This example involves spurious reductions.
+## This implies that, although the LR(1) items shown above provide an
+## accurate view of the past (what has been recognized so far), they
+## may provide an INCOMPLETE view of the future (what was expected next).
+## In state 29, spurious reduction of production expression -> IDENT 
+##
+
+<Un ';' est attendu a la fin d'une expression.>
+
+program: VOID_KW IDENT LPAR RPAR LBRACE VOID_KW IDENT SET WHILE_KW
+##
+## Ends in an error in state: 96.
+##
+## decl_var_local -> decl SET . expression SEMI [ WHILE_KW VOID_KW RETURN_KW RBRACE PUTCHAR_KW NOT MINUS LPAR INT_KW IF_KW IDENT CST BOOL_KW BOOL ]
+##
+## The known suffix of the stack is as follows:
+## decl SET
+##
+
+<Un ';' est attendu a la fin d'une expression.>
+
+program: VOID_KW IDENT LPAR RPAR LBRACE VOID_KW IDENT WHILE_KW
+##
+## Ends in an error in state: 95.
+##
+## decl_var_local -> decl . SEMI [ WHILE_KW VOID_KW RETURN_KW RBRACE PUTCHAR_KW NOT MINUS LPAR INT_KW IF_KW IDENT CST BOOL_KW BOOL ]
+## decl_var_local -> decl . SET expression SEMI [ WHILE_KW VOID_KW RETURN_KW RBRACE PUTCHAR_KW NOT MINUS LPAR INT_KW IF_KW IDENT CST BOOL_KW BOOL ]
+##
+## The known suffix of the stack is as follows:
+## decl
+##
+
+<Un ';' est attendu a la fin d'une expression.>
+
+program: VOID_KW IDENT LPAR RPAR LBRACE WHILE_KW LPAR IDENT RPAR LBRACE VOID_KW
+##
+## Ends in an error in state: 68.
+##
+## block -> LBRACE . list(instruction) RBRACE [ WHILE_KW RETURN_KW RBRACE PUTCHAR_KW NOT MINUS LPAR IF_KW IDENT ELSE_KW CST BOOL ]
+##
+## The known suffix of the stack is as follows:
+## LBRACE
+##
+
+<Il ne peut y avoir que des instructions a l'interieur d'une boucle.>
+
+program: VOID_KW IDENT LPAR RPAR LBRACE WHILE_KW LPAR IDENT RPAR WHILE_KW
+##
+## Ends in an error in state: 67.
+##
+## instruction -> WHILE_KW delimited_expr . block [ WHILE_KW RETURN_KW RBRACE PUTCHAR_KW NOT MINUS LPAR IF_KW IDENT CST BOOL ]
+##
+## The known suffix of the stack is as follows:
+## WHILE_KW delimited_expr
+##
+
+<La condition d'une boucle doit etre suivie de '{'.>
+
+program: VOID_KW IDENT LPAR RPAR LBRACE WHILE_KW WHILE_KW
+##
+## Ends in an error in state: 24.
+##
+## instruction -> WHILE_KW . delimited_expr block [ WHILE_KW RETURN_KW RBRACE PUTCHAR_KW NOT MINUS LPAR IF_KW IDENT CST BOOL ]
+##
+## The known suffix of the stack is as follows:
+## WHILE_KW
+##
+
+<La syntaxe de definition d'une boucle doit suivre : boucle(condition){ block }.>
+
+program: VOID_KW IDENT LPAR RPAR WHILE_KW
+##
+## Ends in an error in state: 21.
+##
+## decl_function -> decl params . fun_block [ VOID_KW INT_KW EOF BOOL_KW ]
+##
+## The known suffix of the stack is as follows:
+## decl params
+##
+
+<La syntaxe de definition d'une boucle doit suivre : boucle(condition){ block }. >
+
+program: VOID_KW IDENT LPAR VOID_KW IDENT COMMA WHILE_KW
+##
+## Ends in an error in state: 19.
+##
+## separated_nonempty_list(COMMA,decl) -> decl COMMA . separated_nonempty_list(COMMA,decl) [ RPAR ]
+##
+## The known suffix of the stack is as follows:
+## decl COMMA
+##
+
+<Les parametres de fonctions sont optionnels, mais s'il y en a, ils doivent etre separes pas des ','.>
+
+program: VOID_KW IDENT LPAR VOID_KW IDENT WHILE_KW
+##
+## Ends in an error in state: 18.
+##
+## separated_nonempty_list(COMMA,decl) -> decl . [ RPAR ]
+## separated_nonempty_list(COMMA,decl) -> decl . COMMA separated_nonempty_list(COMMA,decl) [ RPAR ]
+##
+## The known suffix of the stack is as follows:
+## decl
+##
+
+<Les parametres de fonctions sont optionnels, mais s'il y en a, ils doivent etre separes pas des ','.>
+
+program: VOID_KW IDENT LPAR WHILE_KW
+##
+## Ends in an error in state: 14.
+##
+## params -> LPAR . loption(separated_nonempty_list(COMMA,decl)) RPAR [ LBRACE ]
+##
+## The known suffix of the stack is as follows:
+## LPAR
+##
+
+<Les parametres de fonctions sont optionnels, mais s'il y en a, ils doivent etre separes pas des ','.>
+
+program: VOID_KW IDENT SEMI WHILE_KW
+##
+## Ends in an error in state: 9.
+##
+## program -> decl_var_glob . program [ # ]
+##
+## The known suffix of the stack is as follows:
+## decl_var_glob
+##
+
+<Un programme est une suite de variables globales suivient d'une suite de fonctions.>
+
+program: VOID_KW IDENT SET IDENT AND CST WHILE_KW
+##
+## Ends in an error in state: 61.
+##
+## expression -> expression . PLUS expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . MINUS expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . STAR expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . SLASH expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . LT expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . LE expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . GT expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . GE expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . AND expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression AND expression . [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . OR expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . DOUBLE_EQ expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . NEQ expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+##
+## The known suffix of the stack is as follows:
+## expression AND expression
+##
+
+<Un ';' est attendu a la fin d'une expression.>
+
+program: VOID_KW IDENT SET IDENT AND WHILE_KW
+##
+## Ends in an error in state: 60.
+##
+## expression -> expression AND . expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+##
+## The known suffix of the stack is as follows:
+## expression AND
+##
+
+<Il ne peut y avoir que des operations entre expressions a l'interieur d'une definition de variable.>
+
+program: VOID_KW IDENT SET IDENT DOUBLE_EQ CST WHILE_KW
+##
+## Ends in an error in state: 59.
+##
+## expression -> expression . PLUS expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . MINUS expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . STAR expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . SLASH expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . LT expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . LE expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . GT expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . GE expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . AND expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . OR expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . DOUBLE_EQ expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression DOUBLE_EQ expression . [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . NEQ expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+##
+## The known suffix of the stack is as follows:
+## expression DOUBLE_EQ expression
+##
+
+<Un ';' est attendu a la fin d'une expression.>
+
+program: VOID_KW IDENT SET IDENT DOUBLE_EQ WHILE_KW
+##
+## Ends in an error in state: 58.
+##
+## expression -> expression DOUBLE_EQ . expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+##
+## The known suffix of the stack is as follows:
+## expression DOUBLE_EQ
+##
+
+<Une comparaison s'effectue entre deux expressions.>
+
+program: VOID_KW IDENT SET IDENT GE CST WHILE_KW
+##
+## Ends in an error in state: 57.
+##
+## expression -> expression . PLUS expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . MINUS expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . STAR expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . SLASH expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . LT expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . LE expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . GT expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . GE expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression GE expression . [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . AND expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . OR expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . DOUBLE_EQ expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . NEQ expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+##
+## The known suffix of the stack is as follows:
+## expression GE expression
+##
+
+<Un ';' est attendu a la fin d'une expression.>
+
+program: VOID_KW IDENT SET IDENT GE WHILE_KW
+##
+## Ends in an error in state: 56.
+##
+## expression -> expression GE . expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+##
+## The known suffix of the stack is as follows:
+## expression GE
+##
+
+<Une comparaison s'effectue entre deux expressions.>
+
+program: VOID_KW IDENT SET IDENT GT CST WHILE_KW
+##
+## Ends in an error in state: 55.
+##
+## expression -> expression . PLUS expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . MINUS expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . STAR expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . SLASH expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . LT expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . LE expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . GT expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression GT expression . [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . GE expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . AND expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . OR expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . DOUBLE_EQ expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . NEQ expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+##
+## The known suffix of the stack is as follows:
+## expression GT expression
+##
+
+<Un ';' est attendu a la fin d'une expression.>
+
+program: VOID_KW IDENT SET IDENT GT WHILE_KW
+##
+## Ends in an error in state: 54.
+##
+## expression -> expression GT . expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+##
+## The known suffix of the stack is as follows:
+## expression GT
+##
+
+<Une comparaison s'effectue entre deux expressions.>
+
+program: VOID_KW IDENT SET IDENT LE CST WHILE_KW
+##
+## Ends in an error in state: 53.
+##
+## expression -> expression . PLUS expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . MINUS expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . STAR expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . SLASH expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . LT expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . LE expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression LE expression . [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . GT expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . GE expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . AND expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . OR expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . DOUBLE_EQ expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . NEQ expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+##
+## The known suffix of the stack is as follows:
+## expression LE expression
+##
+
+<Un ';' est attendu a la fin d'une expression.>
+
+program: VOID_KW IDENT SET IDENT LE WHILE_KW
+##
+## Ends in an error in state: 52.
+##
+## expression -> expression LE . expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+##
+## The known suffix of the stack is as follows:
+## expression LE
+##
+
+<Une comparaison s'effectue entre deux expressions.>
+
+program: VOID_KW IDENT SET IDENT LPAR IDENT COMMA WHILE_KW
+##
+## Ends in an error in state: 62.
+##
+## separated_nonempty_list(COMMA,expression) -> expression COMMA . separated_nonempty_list(COMMA,expression) [ RPAR ]
+##
+## The known suffix of the stack is as follows:
+## expression COMMA
+##
+
+<Les parametres de fonctions sont optionnels, mais s'il y en a, ils doivent etre separes pas des ','.>
+
+program: VOID_KW IDENT SET IDENT LPAR IDENT SEMI
+##
+## Ends in an error in state: 36.
+##
+## expression -> expression . PLUS expression [ STAR SLASH RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . MINUS expression [ STAR SLASH RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . STAR expression [ STAR SLASH RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . SLASH expression [ STAR SLASH RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . LT expression [ STAR SLASH RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . LE expression [ STAR SLASH RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . GT expression [ STAR SLASH RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . GE expression [ STAR SLASH RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . AND expression [ STAR SLASH RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . OR expression [ STAR SLASH RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . DOUBLE_EQ expression [ STAR SLASH RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . NEQ expression [ STAR SLASH RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## separated_nonempty_list(COMMA,expression) -> expression . [ RPAR ]
+## separated_nonempty_list(COMMA,expression) -> expression . COMMA separated_nonempty_list(COMMA,expression) [ RPAR ]
+##
+## The known suffix of the stack is as follows:
+## expression
+##
+## WARNING: This example involves spurious reductions.
+## This implies that, although the LR(1) items shown above provide an
+## accurate view of the past (what has been recognized so far), they
+## may provide an INCOMPLETE view of the future (what was expected next).
+## In state 29, spurious reduction of production expression -> IDENT 
+##
+
+<Un ';' est attendu a la fin d'une expression.>
+
+program: VOID_KW IDENT SET IDENT LPAR WHILE_KW
+##
+## Ends in an error in state: 30.
+##
+## expression -> IDENT LPAR . loption(separated_nonempty_list(COMMA,expression)) RPAR [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+##
+## The known suffix of the stack is as follows:
+## IDENT LPAR
+##
+
+<Les parametres de fonctions sont optionnels, mais s'il y en a, ils doivent etre separes pas des ','.>
+
+program: VOID_KW IDENT SET IDENT LT CST WHILE_KW
+##
+## Ends in an error in state: 51.
+##
+## expression -> expression . PLUS expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . MINUS expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . STAR expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . SLASH expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . LT expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression LT expression . [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . LE expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . GT expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . GE expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . AND expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . OR expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . DOUBLE_EQ expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . NEQ expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+##
+## The known suffix of the stack is as follows:
+## expression LT expression
+##
+
+<Un ';' est attendu a la fin d'une expression.>
+
+program: VOID_KW IDENT SET IDENT LT WHILE_KW
+##
+## Ends in an error in state: 50.
+##
+## expression -> expression LT . expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+##
+## The known suffix of the stack is as follows:
+## expression LT
+##
+
+<Une comparaison s'effectue entre deux expressions.>
+
+program: VOID_KW IDENT SET IDENT MINUS CST WHILE_KW
+##
+## Ends in an error in state: 49.
+##
+## expression -> expression . PLUS expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . MINUS expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression MINUS expression . [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . STAR expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . SLASH expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . LT expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . LE expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . GT expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . GE expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . AND expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . OR expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . DOUBLE_EQ expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . NEQ expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+##
+## The known suffix of the stack is as follows:
+## expression MINUS expression
+##
+
+<Un ';' est attendu a la fin d'une expression.>
+
+program: VOID_KW IDENT SET IDENT MINUS WHILE_KW
+##
+## Ends in an error in state: 48.
+##
+## expression -> expression MINUS . expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+##
+## The known suffix of the stack is as follows:
+## expression MINUS
+##
+
+<Une operation s'effectue entre deux expressions.>
+
+program: VOID_KW IDENT SET IDENT NEQ CST WHILE_KW
+##
+## Ends in an error in state: 47.
+##
+## expression -> expression . PLUS expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . MINUS expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . STAR expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . SLASH expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . LT expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . LE expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . GT expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . GE expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . AND expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . OR expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . DOUBLE_EQ expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . NEQ expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression NEQ expression . [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+##
+## The known suffix of the stack is as follows:
+## expression NEQ expression
+##
+
+<Un ';' est attendu a la fin d'une expression.>
+
+program: VOID_KW IDENT SET IDENT NEQ WHILE_KW
+##
+## Ends in an error in state: 46.
+##
+## expression -> expression NEQ . expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+##
+## The known suffix of the stack is as follows:
+## expression NEQ
+##
+
+<Une comparaison s'effectue entre deux expressions.>
+
+program: VOID_KW IDENT SET IDENT OR CST WHILE_KW
+##
+## Ends in an error in state: 45.
+##
+## expression -> expression . PLUS expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . MINUS expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . STAR expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . SLASH expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . LT expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . LE expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . GT expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . GE expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . AND expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . OR expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression OR expression . [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . DOUBLE_EQ expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . NEQ expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+##
+## The known suffix of the stack is as follows:
+## expression OR expression
+##
+
+<Un ';' est attendu a la fin d'une expression.>
+
+program: VOID_KW IDENT SET IDENT OR WHILE_KW
+##
+## Ends in an error in state: 44.
+##
+## expression -> expression OR . expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+##
+## The known suffix of the stack is as follows:
+## expression OR
+##
+
+<Une comparaison s'effectue entre deux expressions.>
+
+program: VOID_KW IDENT SET IDENT PLUS CST WHILE_KW
+##
+## Ends in an error in state: 43.
+##
+## expression -> expression . PLUS expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression PLUS expression . [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . MINUS expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . STAR expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . SLASH expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . LT expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . LE expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . GT expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . GE expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . AND expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . OR expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . DOUBLE_EQ expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . NEQ expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+##
+## The known suffix of the stack is as follows:
+## expression PLUS expression
+##
+
+<Un ';' est attendu a la fin d'une expression.>
+
+program: VOID_KW IDENT SET IDENT PLUS WHILE_KW
+##
+## Ends in an error in state: 42.
+##
+## expression -> expression PLUS . expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+##
+## The known suffix of the stack is as follows:
+## expression PLUS
+##
+
+<Un ';' est attendu a la fin d'une expression.>
+
+program: VOID_KW IDENT SET IDENT RPAR
+##
+## Ends in an error in state: 103.
+##
+## decl_var_glob -> decl SET expression . SEMI [ VOID_KW INT_KW BOOL_KW ]
+## expression -> expression . PLUS expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
+## expression -> expression . MINUS expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
+## expression -> expression . STAR expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
+## expression -> expression . SLASH expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
+## expression -> expression . LT expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
+## expression -> expression . LE expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
+## expression -> expression . GT expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
+## expression -> expression . GE expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
+## expression -> expression . AND expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
+## expression -> expression . OR expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
+## expression -> expression . DOUBLE_EQ expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
+## expression -> expression . NEQ expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
+##
+## The known suffix of the stack is as follows:
+## decl SET expression
+##
+## WARNING: This example involves spurious reductions.
+## This implies that, although the LR(1) items shown above provide an
+## accurate view of the past (what has been recognized so far), they
+## may provide an INCOMPLETE view of the future (what was expected next).
+## In state 29, spurious reduction of production expression -> IDENT 
+##
+
+<Un ';' est attendu a la fin d'une expression.>
+
+program: VOID_KW IDENT SET IDENT SLASH WHILE_KW
+##
+## Ends in an error in state: 40.
+##
+## expression -> expression SLASH . expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+##
+## The known suffix of the stack is as follows:
+## expression SLASH
+##
+
+<Une operation s'effectue entre deux expressions.>
+
+program: VOID_KW IDENT SET IDENT STAR WHILE_KW
+##
+## Ends in an error in state: 37.
+##
+## expression -> expression STAR . expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+##
+## The known suffix of the stack is as follows:
+## expression STAR
+##
+
+<Une operation s'effectue entre deux expressions.>
+
+program: VOID_KW IDENT SET IDENT WHILE_KW
+##
+## Ends in an error in state: 29.
+##
+## expression -> IDENT . [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> IDENT . LPAR loption(separated_nonempty_list(COMMA,expression)) RPAR [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+##
+## The known suffix of the stack is as follows:
+## IDENT
+##
+
+<Un ';' est attendu a la fin d'une expression.>
+
+program: VOID_KW IDENT SET LPAR IDENT SEMI
+##
+## Ends in an error in state: 65.
+##
+## delimited_expr -> LPAR expression . RPAR [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE LBRACE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression . PLUS expression [ STAR SLASH RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
+## expression -> expression . MINUS expression [ STAR SLASH RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
+## expression -> expression . STAR expression [ STAR SLASH RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
+## expression -> expression . SLASH expression [ STAR SLASH RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
+## expression -> expression . LT expression [ STAR SLASH RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
+## expression -> expression . LE expression [ STAR SLASH RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
+## expression -> expression . GT expression [ STAR SLASH RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
+## expression -> expression . GE expression [ STAR SLASH RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
+## expression -> expression . AND expression [ STAR SLASH RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
+## expression -> expression . OR expression [ STAR SLASH RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
+## expression -> expression . DOUBLE_EQ expression [ STAR SLASH RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
+## expression -> expression . NEQ expression [ STAR SLASH RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
+##
+## The known suffix of the stack is as follows:
+## LPAR expression
+##
+## WARNING: This example involves spurious reductions.
+## This implies that, although the LR(1) items shown above provide an
+## accurate view of the past (what has been recognized so far), they
+## may provide an INCOMPLETE view of the future (what was expected next).
+## In state 29, spurious reduction of production expression -> IDENT 
+##
+
+<Un ';' est attendu a la fin d'une expression.>
+
+program: VOID_KW IDENT SET LPAR WHILE_KW
+##
+## Ends in an error in state: 25.
+##
+## delimited_expr -> LPAR . expression RPAR [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE LBRACE GT GE DOUBLE_EQ COMMA AND ]
+##
+## The known suffix of the stack is as follows:
+## LPAR
+##
+
+<Un varible ne peut etre definie qu'a partir d'expressions.>
+
+program: VOID_KW IDENT SET MINUS WHILE_KW
+##
+## Ends in an error in state: 27.
+##
+## expression -> MINUS . CST [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+##
+## The known suffix of the stack is as follows:
+## MINUS
+##
+
+<Un varible ne peut etre definie qu'a partir d'expressions.>
+
+program: VOID_KW IDENT SET NOT WHILE_KW
+##
+## Ends in an error in state: 26.
+##
+## expression -> NOT . expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+##
+## The known suffix of the stack is as follows:
+## NOT
+##
+
+<Un varible ne peut etre definie qu'a partir d'expressions.>
+
+program: VOID_KW IDENT SET WHILE_KW
+##
+## Ends in an error in state: 102.
+##
+## decl_var_glob -> decl SET . expression SEMI [ VOID_KW INT_KW BOOL_KW ]
+##
+## The known suffix of the stack is as follows:
+## decl SET
+##
+
+<Un varible ne peut etre definie qu'a partir d'expressions.>
+
+program: VOID_KW IDENT WHILE_KW
+##
+## Ends in an error in state: 101.
+##
+## decl_function -> decl . params fun_block [ VOID_KW INT_KW EOF BOOL_KW ]
+## decl_var_glob -> decl . SEMI [ VOID_KW INT_KW BOOL_KW ]
+## decl_var_glob -> decl . SET expression SEMI [ VOID_KW INT_KW BOOL_KW ]
+##
+## The known suffix of the stack is as follows:
+## decl
+##
+
+<Un varible ne peut etre definie qu'a partir d'expressions.>
+
+program: VOID_KW WHILE_KW
+##
+## Ends in an error in state: 4.
+##
+## decl -> type_def . IDENT [ SET SEMI RPAR LPAR COMMA ]
+##
+## The known suffix of the stack is as follows:
+## type_def
+##
+
+<Un varible ne peut etre definie qu'a partir d'expressions.>
+
+program: WHILE_KW
+##
+## Ends in an error in state: 0.
+##
+## program' -> . program [ # ]
+##
+## The known suffix of the stack is as follows:
+##
+##
+
+<Un programme est une suite de variables globales suivient d'une suite de fonctions.>
+

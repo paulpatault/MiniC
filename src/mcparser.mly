@@ -1,7 +1,7 @@
 %{
-  open Lexing
+  (* open Lexing *)
   open Types
-  open Printer
+  (*open Printer*)
 
 
   type assign_globs = seq ref
@@ -57,12 +57,12 @@ program:
     } in
     { globals=[]; functions=assign_globs_fun::fl } 
   }
-| error 
+/* | error 
   {
     let pos = $startpos in
     let message = Printf.sprintf "Syntax error: ln %d, col %d" pos.pos_lnum (pos.pos_cnum - pos.pos_bol) in
     failwith message
-  }
+  } */
 ;
 
 decl:
