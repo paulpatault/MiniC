@@ -1,0 +1,8 @@
+// acces a l'adresse d'un nombre
+
+int PARAM1 = 1;
+int* PARAM2 = &2;
+
+void main() {
+  putchar(PARAM1);
+}

@@ -61,6 +61,7 @@ rule token = parse
   | "!"  { print_token "!" ; NOT }
   | "||" { print_token "||"; OR }
   | "&&" { print_token "&&"; AND }
+  | "&"  { print_token "&"; ADDR }
   | "("  { print_token "(" ; LPAR }
   | ")"  { print_token ")" ; RPAR }
   | "{"  { print_token "{" ; LBRACE }

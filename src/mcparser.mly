@@ -7,6 +7,13 @@
   type assign_globs = seq ref
 
   let ag_list : assign_globs = ref []
+
+  let makeDereferencing len id = 
+    let rec md acc i =
+      if i = 0 then acc
+      else md (Dereferencing acc) (i-1)
+    in
+    md (Get id) len
 %}
 
 %token <int> CST
@@ -16,7 +23,7 @@
 %token SEMI COMMA
 %token INT_KW BOOL_KW VOID_KW RETURN_KW
 %token PUTCHAR_KW SET IF_KW ELSE_KW WHILE_KW
-%token PLUS MINUS STAR SLASH
+%token PLUS MINUS STAR SLASH ADDR
 %token LT LE GT GE AND OR NOT DOUBLE_EQ NEQ
 %token EOF
 
@@ -36,6 +43,10 @@ type_def:
 | INT_KW  { Int }
 | BOOL_KW { Bool }
 | VOID_KW { Void }
+| t=type_def STAR
+  {
+    Pointeur t
+  }
 ;
 
 program:
@@ -151,8 +162,14 @@ expression:
   { Cst(n) }
 | b=BOOL
   { Bool(b) }
+| stars=nonempty_list(STAR) id=IDENT {
+    let len = List.length stars in
+    makeDereferencing len id
+  }
 | id=IDENT 
   { Get(id) }
+| ADDR e=expression 
+  { Addr(e) }
 | e=delimited_expr
   { e }
 | e1=expression PLUS e2=expression 

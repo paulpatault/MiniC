@@ -1,0 +1,14 @@
+int PARAM1 = 1;
+int* PARAM2 = &PARAM1;
+int PARAM3 = PARAM1 + *PARAM2;
+
+int fun(int n) {
+  if (n <= 2) {
+    return PARAM3 * 6;
+  } 
+  return 9 / *PARAM2;
+}
+
+void main() {
+  putchar(fun(PARAM1));
+}

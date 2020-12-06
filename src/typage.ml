@@ -6,6 +6,16 @@ let rec type_expr (e : expr) (env : env) (fun_env : fun_env): typ =
   match e with
   | Cst _ -> Int
   | Bool _ -> Bool
+  | Dereferencing e -> 
+      begin match type_expr e env fun_env with
+      | Pointeur p -> p
+      | _          -> raise ( TypeError "Tentative de dereferencement d'une expression qui n'est pas un pointeur" )
+      end
+  | Addr e -> 
+      begin match e with
+      | Get _ -> Pointeur(type_expr e env fun_env)
+      | _     -> raise ( TypeError "Tentative d'acces a l'adresse d'une expression qui n'est pas une variable" )
+      end
   | Add (e1, e2) | Sub (e1, e2) | Mul (e1, e2) | Div (e1, e2) ->
       let t1 = type_expr e1 env fun_env in
       let t2 = type_expr e2 env fun_env in

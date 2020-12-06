@@ -2,10 +2,13 @@ type typ =
   | Int
   | Bool
   | Void
+  | Pointeur of typ
 
 type expr =
   | Cst  of int
   | Bool of bool
+  | Dereferencing of expr
+  | Addr of expr
   | Add  of expr * expr
   | Sub  of expr * expr
   | Mul  of expr * expr

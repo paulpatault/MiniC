@@ -1,0 +1,8 @@
+// dereferencement d'un int
+
+int PARAM1 = 1;
+int* PARAM2 = &PARAM1;
+
+void main() {
+  putchar(*PARAM1);
+}

@@ -5,16 +5,19 @@ let space = ref 1
 
 let spaces () = String.make !space ' '
 
-let typeToString t = 
+let rec typeToString t = 
   match t with 
   | Int  -> "int"
   | Bool -> "bool"
   | Void -> "void"
+  | Pointeur t -> sprintf "pointeur(%s)" (typeToString t)
 
 let rec exprToString e = 
   match e with 
   | Cst n          -> string_of_int n
   | Bool b         -> string_of_bool b
+  | Dereferencing e -> sprintf "*%s" (exprToString e)
+  | Addr e         -> sprintf "&(%s)" (exprToString e) 
   | Add (e1, e2)   -> sprintf "%s + %s" (exprToString e1) (exprToString e2)
   | Sub (e1, e2)   -> sprintf "%s - %s" (exprToString e1) (exprToString e2)
   | Mul (e1, e2)   -> sprintf "%s * %s" (exprToString e1) (exprToString e2)
