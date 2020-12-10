@@ -46,8 +46,9 @@
       + [x] Unaires (!, &, ...)
     + [x] Pointeurs
     + [x] Structures
+    + [ ] Tableaux
   + Raffiner l'analyse
     + [x] Messages d'erreurs personnalisés
   + Compléter le projet
     + [x] Afficheur
-    + [] Interpréteur (inc.)
+    + [ ] Interpréteur (inc.)
