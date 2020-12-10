@@ -26,7 +26,7 @@
       $ menhir --interpret --interpret-show-cst parser.mly
       ```  -->
 
-+ Compilation & exécution
+### Compilation & exécution
   + Automatique (sur tous les exemples):
     ```sh
     $ sh dune.sh
@@ -39,7 +39,7 @@
     $ ./_build/default/main.exe ../tests/minic-ok-1.in
     ```
 
-+ Extensions
+### Extensions
   + Étendre le langage
     + [x] Opérateurs 
       + [x] Binaires (-, /, &&, ||, >=, ...)
