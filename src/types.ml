@@ -41,7 +41,6 @@ type expr =
   | Get           of string
   | Call          of string * expr list
   | GetStruct     of expr * string list
-  (*| GetStructP    of string * string list*)
   | Cast          of typ * expr
 
 (*
@@ -54,7 +53,7 @@ type instr =
   | While        of expr * seq
   | Return       of expr
   | Expr         of expr
-  | SetSubStruct of expr * string list * expr
+  | SetSubStruct of expr * expr
 and seq = instr list
 
 type fun_def = {

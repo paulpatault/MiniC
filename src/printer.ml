@@ -67,10 +67,22 @@ let rec instrToString i =
     !res
   | Return e -> !res ^ sprintf "return(%s);" (exprToString e)
   | Expr e -> !res ^ sprintf "%s;" (exprToString e)
-  | SetSubStruct (name, ext, expr) -> 
-    !res ^ sprintf "%s%s = %s;" (exprToString name) 
-    (List.fold_left (fun acc e -> acc ^ sprintf ".%s" e) "" ext)
-    (exprToString expr)
+  | SetSubStruct (name, expr) ->
+      sprintf "%s%s = %s;" !res (exprToString name) (exprToString expr)
+
+
+let globToString (s, t) =
+  sprintf "%s %s;\n" (typeToString t) s
+
+let structToString s =
+  let name, args = s in
+  let core = 
+    List.fold_left 
+    (fun acc (s, t) -> sprintf "%s%s%s" acc (spaces ()) (globToString (s, t))) 
+    "" args 
+  in
+  sprintf "%s{\n%s}\n" name core
+  (*structs: (string * (string * typ) list) list;*)
 
 let funToString f = 
   let fdef = sprintf "%s %s(" (typeToString f.return) (f.name) in
@@ -83,12 +95,12 @@ let funToString f =
   decr space;
   fdef ^ params ^ fin_def ^ locals ^ code ^ "}\n"
 
-let globToString (s, t) =
-  sprintf "%s %s\n" (typeToString t) s
 
 let progToString p =
-  let entete1 =  "\n---Globals---\n" in
+  let entete1 =  "\n---Structs---\n" in
+  let structs = String.concat "" (List.map structToString p.structs) in
+  let entete2 =  "\n---Globals---\n" in
   let globs = String.concat "" (List.map globToString p.globals) in
-  let entete2 =  "\n---Functions---\n" in
+  let entete3 =  "\n---Functions---\n" in
   let funcs = String.concat "" (List.map funToString p.functions) in
-  entete1 ^ globs ^ entete2 ^ funcs
+  entete1 ^ structs ^ entete2 ^ globs ^ entete3 ^ funcs

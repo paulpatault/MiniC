@@ -88,7 +88,7 @@ program: STRUCT_KW WHILE_KW
 
 program: VOID_KW IDENT LPAR RPAR LBRACE FCST WHILE_KW
 ##
-## Ends in an error in state: 129.
+## Ends in an error in state: 127.
 ##
 ## expression -> expression . PLUS expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
 ## expression -> expression . MINUS expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
@@ -110,83 +110,9 @@ program: VOID_KW IDENT LPAR RPAR LBRACE FCST WHILE_KW
 
 <Un ';' est attendu a la fin d'une expression.>
 
-program: VOID_KW IDENT LPAR RPAR LBRACE IDENT DOT IDENT RPAR
-##
-## Ends in an error in state: 121.
-##
-## expression -> IDENT ext . [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
-## instruction -> IDENT ext . SET expression SEMI [ WHILE_KW STAR RETURN_KW RBRACE PUTCHAR_KW NOT MINUS LPAR IF_KW IDENT FCST CST BOOL ADDR ]
-##
-## The known suffix of the stack is as follows:
-## IDENT ext
-##
-## WARNING: This example involves spurious reductions.
-## This implies that, although the LR(1) items shown above provide an
-## accurate view of the past (what has been recognized so far), they
-## may provide an INCOMPLETE view of the future (what was expected next).
-## In state 91, spurious reduction of production nonempty_list(__anonymous_1) -> DOT IDENT
-## In state 97, spurious reduction of production ext -> nonempty_list(__anonymous_1)
-##
-
-<Les parentheses fermantes doivent etre ouvertes.>
-
-program: VOID_KW IDENT LPAR RPAR LBRACE IDENT DOT IDENT SET IDENT RPAR
-##
-## Ends in an error in state: 123.
-##
-## expression -> expression . PLUS expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
-## expression -> expression . MINUS expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
-## expression -> expression . STAR expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
-## expression -> expression . SLASH expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
-## expression -> expression . LT expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
-## expression -> expression . LE expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
-## expression -> expression . GT expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
-## expression -> expression . GE expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
-## expression -> expression . AND expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
-## expression -> expression . OR expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
-## expression -> expression . DOUBLE_EQ expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
-## expression -> expression . NEQ expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
-## instruction -> IDENT ext SET expression . SEMI [ WHILE_KW STAR RETURN_KW RBRACE PUTCHAR_KW NOT MINUS LPAR IF_KW IDENT FCST CST BOOL ADDR ]
-##
-## The known suffix of the stack is as follows:
-## IDENT ext SET expression
-##
-## WARNING: This example involves spurious reductions.
-## This implies that, although the LR(1) items shown above provide an
-## accurate view of the past (what has been recognized so far), they
-## may provide an INCOMPLETE view of the future (what was expected next).
-## In state 48, spurious reduction of production expression -> IDENT
-##
-
-<Un ';' est attendu a la fin d'une expression.>
-
-program: VOID_KW IDENT LPAR RPAR LBRACE IDENT DOT IDENT SET WHILE_KW
-##
-## Ends in an error in state: 122.
-##
-## instruction -> IDENT ext SET . expression SEMI [ WHILE_KW STAR RETURN_KW RBRACE PUTCHAR_KW NOT MINUS LPAR IF_KW IDENT FCST CST BOOL ADDR ]
-##
-## The known suffix of the stack is as follows:
-## IDENT ext SET
-##
-
-<Une expression est attendu apres le signe '='.>
-
-program: VOID_KW IDENT LPAR RPAR LBRACE IDENT SEMI VOID_KW
-##
-## Ends in an error in state: 127.
-##
-## list(instruction) -> instruction . list(instruction) [ RBRACE ]
-##
-## The known suffix of the stack is as follows:
-## instruction
-##
-
-<Il manque une accolade fermante : '}'.>
-
 program: VOID_KW IDENT LPAR RPAR LBRACE IDENT SET IDENT RPAR
 ##
-## Ends in an error in state: 119.
+## Ends in an error in state: 121.
 ##
 ## expression -> expression . PLUS expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
 ## expression -> expression . MINUS expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
@@ -216,7 +142,7 @@ program: VOID_KW IDENT LPAR RPAR LBRACE IDENT SET IDENT RPAR
 
 program: VOID_KW IDENT LPAR RPAR LBRACE IDENT SET WHILE_KW
 ##
-## Ends in an error in state: 118.
+## Ends in an error in state: 120.
 ##
 ## instruction -> IDENT SET . expression SEMI [ WHILE_KW STAR RETURN_KW RBRACE PUTCHAR_KW NOT MINUS LPAR IF_KW IDENT FCST CST BOOL ADDR ]
 ##
@@ -228,13 +154,12 @@ program: VOID_KW IDENT LPAR RPAR LBRACE IDENT SET WHILE_KW
 
 program: VOID_KW IDENT LPAR RPAR LBRACE IDENT WHILE_KW
 ##
-## Ends in an error in state: 117.
+## Ends in an error in state: 119.
 ##
+## access -> IDENT . ext [ STAR SLASH SET SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT ARROW AND ]
 ## expression -> IDENT . [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
-## expression -> IDENT . ext [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
 ## expression -> IDENT . LPAR loption(separated_nonempty_list(COMMA,expression)) RPAR [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
 ## instruction -> IDENT . SET expression SEMI [ WHILE_KW STAR RETURN_KW RBRACE PUTCHAR_KW NOT MINUS LPAR IF_KW IDENT FCST CST BOOL ADDR ]
-## instruction -> IDENT . ext SET expression SEMI [ WHILE_KW STAR RETURN_KW RBRACE PUTCHAR_KW NOT MINUS LPAR IF_KW IDENT FCST CST BOOL ADDR ]
 ##
 ## The known suffix of the stack is as follows:
 ## IDENT
@@ -244,7 +169,7 @@ program: VOID_KW IDENT LPAR RPAR LBRACE IDENT WHILE_KW
 
 program: VOID_KW IDENT LPAR RPAR LBRACE IF_KW LPAR BOOL RPAR LBRACE RBRACE ELSE_KW WHILE_KW
 ##
-## Ends in an error in state: 115.
+## Ends in an error in state: 117.
 ##
 ## instruction -> IF_KW delimited_expr block ELSE_KW . block [ WHILE_KW STAR RETURN_KW RBRACE PUTCHAR_KW NOT MINUS LPAR IF_KW IDENT FCST CST BOOL ADDR ]
 ##
@@ -256,7 +181,7 @@ program: VOID_KW IDENT LPAR RPAR LBRACE IF_KW LPAR BOOL RPAR LBRACE RBRACE ELSE_
 
 program: VOID_KW IDENT LPAR RPAR LBRACE IF_KW LPAR BOOL RPAR LBRACE RBRACE VOID_KW
 ##
-## Ends in an error in state: 114.
+## Ends in an error in state: 116.
 ##
 ## instruction -> IF_KW delimited_expr block . [ WHILE_KW STAR RETURN_KW RBRACE PUTCHAR_KW NOT MINUS LPAR IF_KW IDENT FCST CST BOOL ADDR ]
 ## instruction -> IF_KW delimited_expr block . ELSE_KW block [ WHILE_KW STAR RETURN_KW RBRACE PUTCHAR_KW NOT MINUS LPAR IF_KW IDENT FCST CST BOOL ADDR ]
@@ -269,7 +194,7 @@ program: VOID_KW IDENT LPAR RPAR LBRACE IF_KW LPAR BOOL RPAR LBRACE RBRACE VOID_
 
 program: VOID_KW IDENT LPAR RPAR LBRACE IF_KW LPAR BOOL RPAR WHILE_KW
 ##
-## Ends in an error in state: 113.
+## Ends in an error in state: 115.
 ##
 ## instruction -> IF_KW delimited_expr . block [ WHILE_KW STAR RETURN_KW RBRACE PUTCHAR_KW NOT MINUS LPAR IF_KW IDENT FCST CST BOOL ADDR ]
 ## instruction -> IF_KW delimited_expr . block ELSE_KW block [ WHILE_KW STAR RETURN_KW RBRACE PUTCHAR_KW NOT MINUS LPAR IF_KW IDENT FCST CST BOOL ADDR ]
@@ -282,7 +207,7 @@ program: VOID_KW IDENT LPAR RPAR LBRACE IF_KW LPAR BOOL RPAR WHILE_KW
 
 program: VOID_KW IDENT LPAR RPAR LBRACE IF_KW WHILE_KW
 ##
-## Ends in an error in state: 112.
+## Ends in an error in state: 114.
 ##
 ## instruction -> IF_KW . delimited_expr block [ WHILE_KW STAR RETURN_KW RBRACE PUTCHAR_KW NOT MINUS LPAR IF_KW IDENT FCST CST BOOL ADDR ]
 ## instruction -> IF_KW . delimited_expr block ELSE_KW block [ WHILE_KW STAR RETURN_KW RBRACE PUTCHAR_KW NOT MINUS LPAR IF_KW IDENT FCST CST BOOL ADDR ]
@@ -295,7 +220,7 @@ program: VOID_KW IDENT LPAR RPAR LBRACE IF_KW WHILE_KW
 
 program: VOID_KW IDENT LPAR RPAR LBRACE PUTCHAR_KW LPAR BOOL RPAR WHILE_KW
 ##
-## Ends in an error in state: 110.
+## Ends in an error in state: 112.
 ##
 ## instruction -> PUTCHAR_KW delimited_expr . SEMI [ WHILE_KW STAR RETURN_KW RBRACE PUTCHAR_KW NOT MINUS LPAR IF_KW IDENT FCST CST BOOL ADDR ]
 ##
@@ -307,7 +232,7 @@ program: VOID_KW IDENT LPAR RPAR LBRACE PUTCHAR_KW LPAR BOOL RPAR WHILE_KW
 
 program: VOID_KW IDENT LPAR RPAR LBRACE PUTCHAR_KW WHILE_KW
 ##
-## Ends in an error in state: 109.
+## Ends in an error in state: 111.
 ##
 ## instruction -> PUTCHAR_KW . delimited_expr SEMI [ WHILE_KW STAR RETURN_KW RBRACE PUTCHAR_KW NOT MINUS LPAR IF_KW IDENT FCST CST BOOL ADDR ]
 ##
@@ -344,7 +269,7 @@ program: VOID_KW IDENT LPAR RPAR LBRACE RBRACE WHILE_KW
 
 program: VOID_KW IDENT LPAR RPAR LBRACE RETURN_KW IDENT RPAR
 ##
-## Ends in an error in state: 107.
+## Ends in an error in state: 109.
 ##
 ## expression -> expression . PLUS expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
 ## expression -> expression . MINUS expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
@@ -374,7 +299,7 @@ program: VOID_KW IDENT LPAR RPAR LBRACE RETURN_KW IDENT RPAR
 
 program: VOID_KW IDENT LPAR RPAR LBRACE RETURN_KW WHILE_KW
 ##
-## Ends in an error in state: 106.
+## Ends in an error in state: 108.
 ##
 ## instruction -> RETURN_KW . expression SEMI [ WHILE_KW STAR RETURN_KW RBRACE PUTCHAR_KW NOT MINUS LPAR IF_KW IDENT FCST CST BOOL ADDR ]
 ##
@@ -396,9 +321,65 @@ program: VOID_KW IDENT LPAR RPAR LBRACE SLASH
 
 <Le corps d'une fontion doit suivre les regles de la grammaire : definitions de variables locales, puis liste d'instructions.>
 
+program: VOID_KW IDENT LPAR RPAR LBRACE STAR IDENT SET IDENT RPAR
+##
+## Ends in an error in state: 131.
+##
+## expression -> expression . PLUS expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
+## expression -> expression . MINUS expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
+## expression -> expression . STAR expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
+## expression -> expression . SLASH expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
+## expression -> expression . LT expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
+## expression -> expression . LE expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
+## expression -> expression . GT expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
+## expression -> expression . GE expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
+## expression -> expression . AND expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
+## expression -> expression . OR expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
+## expression -> expression . DOUBLE_EQ expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
+## expression -> expression . NEQ expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
+## instruction -> access SET expression . SEMI [ WHILE_KW STAR RETURN_KW RBRACE PUTCHAR_KW NOT MINUS LPAR IF_KW IDENT FCST CST BOOL ADDR ]
+##
+## The known suffix of the stack is as follows:
+## access SET expression
+##
+## WARNING: This example involves spurious reductions.
+## This implies that, although the LR(1) items shown above provide an
+## accurate view of the past (what has been recognized so far), they
+## may provide an INCOMPLETE view of the future (what was expected next).
+## In state 48, spurious reduction of production expression -> IDENT
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+program: VOID_KW IDENT LPAR RPAR LBRACE STAR IDENT SET WHILE_KW
+##
+## Ends in an error in state: 130.
+##
+## instruction -> access SET . expression SEMI [ WHILE_KW STAR RETURN_KW RBRACE PUTCHAR_KW NOT MINUS LPAR IF_KW IDENT FCST CST BOOL ADDR ]
+##
+## The known suffix of the stack is as follows:
+## access SET
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+program: VOID_KW IDENT LPAR RPAR LBRACE STAR IDENT WHILE_KW
+##
+## Ends in an error in state: 129.
+##
+## access -> access . ext [ STAR SLASH SET SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT ARROW AND ]
+## expression -> access . [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
+## instruction -> access . SET expression SEMI [ WHILE_KW STAR RETURN_KW RBRACE PUTCHAR_KW NOT MINUS LPAR IF_KW IDENT FCST CST BOOL ADDR ]
+##
+## The known suffix of the stack is as follows:
+## access
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
 program: VOID_KW IDENT LPAR RPAR LBRACE VOID_KW IDENT SEMI SLASH
 ##
-## Ends in an error in state: 134.
+## Ends in an error in state: 136.
 ##
 ## list(decl_var_local) -> decl_var_local . list(decl_var_local) [ WHILE_KW STAR RETURN_KW RBRACE PUTCHAR_KW NOT MINUS LPAR IF_KW IDENT FCST CST BOOL ADDR ]
 ##
@@ -410,7 +391,7 @@ program: VOID_KW IDENT LPAR RPAR LBRACE VOID_KW IDENT SEMI SLASH
 
 program: VOID_KW IDENT LPAR RPAR LBRACE VOID_KW IDENT SET IDENT RPAR
 ##
-## Ends in an error in state: 138.
+## Ends in an error in state: 140.
 ##
 ## decl_var_local -> decl SET expression . SEMI [ WHILE_KW VOID_KW STRUCT_KW STAR RETURN_KW RBRACE PUTCHAR_KW NOT MINUS LPAR INT_KW IF_KW IDENT FLOAT_KW FCST CST BOOL_KW BOOL ADDR ]
 ## expression -> expression . PLUS expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
@@ -440,7 +421,7 @@ program: VOID_KW IDENT LPAR RPAR LBRACE VOID_KW IDENT SET IDENT RPAR
 
 program: VOID_KW IDENT LPAR RPAR LBRACE VOID_KW IDENT SET WHILE_KW
 ##
-## Ends in an error in state: 137.
+## Ends in an error in state: 139.
 ##
 ## decl_var_local -> decl SET . expression SEMI [ WHILE_KW VOID_KW STRUCT_KW STAR RETURN_KW RBRACE PUTCHAR_KW NOT MINUS LPAR INT_KW IF_KW IDENT FLOAT_KW FCST CST BOOL_KW BOOL ADDR ]
 ##
@@ -452,7 +433,7 @@ program: VOID_KW IDENT LPAR RPAR LBRACE VOID_KW IDENT SET WHILE_KW
 
 program: VOID_KW IDENT LPAR RPAR LBRACE VOID_KW IDENT WHILE_KW
 ##
-## Ends in an error in state: 136.
+## Ends in an error in state: 138.
 ##
 ## decl_var_local -> decl . SEMI [ WHILE_KW VOID_KW STRUCT_KW STAR RETURN_KW RBRACE PUTCHAR_KW NOT MINUS LPAR INT_KW IF_KW IDENT FLOAT_KW FCST CST BOOL_KW BOOL ADDR ]
 ## decl_var_local -> decl . SET expression SEMI [ WHILE_KW VOID_KW STRUCT_KW STAR RETURN_KW RBRACE PUTCHAR_KW NOT MINUS LPAR INT_KW IF_KW IDENT FLOAT_KW FCST CST BOOL_KW BOOL ADDR ]
@@ -465,7 +446,7 @@ program: VOID_KW IDENT LPAR RPAR LBRACE VOID_KW IDENT WHILE_KW
 
 program: VOID_KW IDENT LPAR RPAR LBRACE WHILE_KW LPAR IDENT RPAR LBRACE VOID_KW
 ##
-## Ends in an error in state: 105.
+## Ends in an error in state: 107.
 ##
 ## block -> LBRACE . list(instruction) RBRACE [ WHILE_KW STAR RETURN_KW RBRACE PUTCHAR_KW NOT MINUS LPAR IF_KW IDENT FCST ELSE_KW CST BOOL ADDR ]
 ##
@@ -477,7 +458,7 @@ program: VOID_KW IDENT LPAR RPAR LBRACE WHILE_KW LPAR IDENT RPAR LBRACE VOID_KW
 
 program: VOID_KW IDENT LPAR RPAR LBRACE WHILE_KW LPAR IDENT RPAR WHILE_KW
 ##
-## Ends in an error in state: 104.
+## Ends in an error in state: 106.
 ##
 ## instruction -> WHILE_KW delimited_expr . block [ WHILE_KW STAR RETURN_KW RBRACE PUTCHAR_KW NOT MINUS LPAR IF_KW IDENT FCST CST BOOL ADDR ]
 ##
@@ -598,7 +579,7 @@ program: VOID_KW IDENT SET ADDR WHILE_KW
 
 program: VOID_KW IDENT SET IDENT AND FCST WHILE_KW
 ##
-## Ends in an error in state: 87.
+## Ends in an error in state: 97.
 ##
 ## expression -> expression . PLUS expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
 ## expression -> expression . MINUS expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
@@ -622,7 +603,7 @@ program: VOID_KW IDENT SET IDENT AND FCST WHILE_KW
 
 program: VOID_KW IDENT SET IDENT AND WHILE_KW
 ##
-## Ends in an error in state: 86.
+## Ends in an error in state: 96.
 ##
 ## expression -> expression AND . expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
 ##
@@ -634,10 +615,10 @@ program: VOID_KW IDENT SET IDENT AND WHILE_KW
 
 program: VOID_KW IDENT SET IDENT ARROW IDENT WHILE_KW
 ##
-## Ends in an error in state: 94.
+## Ends in an error in state: 65.
 ##
-## nonempty_list(__anonymous_2) -> ARROW IDENT . [ STAR SLASH SET SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## nonempty_list(__anonymous_2) -> ARROW IDENT . nonempty_list(__anonymous_2) [ STAR SLASH SET SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## nonempty_list(__anonymous_2) -> ARROW IDENT . [ STAR SLASH SET SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## nonempty_list(__anonymous_2) -> ARROW IDENT . nonempty_list(__anonymous_2) [ STAR SLASH SET SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
 ##
 ## The known suffix of the stack is as follows:
 ## ARROW IDENT
@@ -647,10 +628,10 @@ program: VOID_KW IDENT SET IDENT ARROW IDENT WHILE_KW
 
 program: VOID_KW IDENT SET IDENT ARROW WHILE_KW
 ##
-## Ends in an error in state: 93.
+## Ends in an error in state: 64.
 ##
-## nonempty_list(__anonymous_2) -> ARROW . IDENT [ STAR SLASH SET SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## nonempty_list(__anonymous_2) -> ARROW . IDENT nonempty_list(__anonymous_2) [ STAR SLASH SET SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## nonempty_list(__anonymous_2) -> ARROW . IDENT [ STAR SLASH SET SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## nonempty_list(__anonymous_2) -> ARROW . IDENT nonempty_list(__anonymous_2) [ STAR SLASH SET SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
 ##
 ## The known suffix of the stack is as follows:
 ## ARROW
@@ -660,10 +641,10 @@ program: VOID_KW IDENT SET IDENT ARROW WHILE_KW
 
 program: VOID_KW IDENT SET IDENT DOT IDENT WHILE_KW
 ##
-## Ends in an error in state: 91.
+## Ends in an error in state: 62.
 ##
-## nonempty_list(__anonymous_1) -> DOT IDENT . [ STAR SLASH SET SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## nonempty_list(__anonymous_1) -> DOT IDENT . nonempty_list(__anonymous_1) [ STAR SLASH SET SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## nonempty_list(__anonymous_1) -> DOT IDENT . [ STAR SLASH SET SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## nonempty_list(__anonymous_1) -> DOT IDENT . nonempty_list(__anonymous_1) [ STAR SLASH SET SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
 ##
 ## The known suffix of the stack is as follows:
 ## DOT IDENT
@@ -673,10 +654,10 @@ program: VOID_KW IDENT SET IDENT DOT IDENT WHILE_KW
 
 program: VOID_KW IDENT SET IDENT DOT WHILE_KW
 ##
-## Ends in an error in state: 90.
+## Ends in an error in state: 61.
 ##
-## nonempty_list(__anonymous_1) -> DOT . IDENT [ STAR SLASH SET SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## nonempty_list(__anonymous_1) -> DOT . IDENT nonempty_list(__anonymous_1) [ STAR SLASH SET SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## nonempty_list(__anonymous_1) -> DOT . IDENT [ STAR SLASH SET SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## nonempty_list(__anonymous_1) -> DOT . IDENT nonempty_list(__anonymous_1) [ STAR SLASH SET SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
 ##
 ## The known suffix of the stack is as follows:
 ## DOT
@@ -686,7 +667,7 @@ program: VOID_KW IDENT SET IDENT DOT WHILE_KW
 
 program: VOID_KW IDENT SET IDENT DOUBLE_EQ FCST WHILE_KW
 ##
-## Ends in an error in state: 85.
+## Ends in an error in state: 95.
 ##
 ## expression -> expression . PLUS expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
 ## expression -> expression . MINUS expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
@@ -710,7 +691,7 @@ program: VOID_KW IDENT SET IDENT DOUBLE_EQ FCST WHILE_KW
 
 program: VOID_KW IDENT SET IDENT DOUBLE_EQ WHILE_KW
 ##
-## Ends in an error in state: 84.
+## Ends in an error in state: 94.
 ##
 ## expression -> expression DOUBLE_EQ . expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
 ##
@@ -722,7 +703,7 @@ program: VOID_KW IDENT SET IDENT DOUBLE_EQ WHILE_KW
 
 program: VOID_KW IDENT SET IDENT GE FCST WHILE_KW
 ##
-## Ends in an error in state: 83.
+## Ends in an error in state: 93.
 ##
 ## expression -> expression . PLUS expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
 ## expression -> expression . MINUS expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
@@ -746,7 +727,7 @@ program: VOID_KW IDENT SET IDENT GE FCST WHILE_KW
 
 program: VOID_KW IDENT SET IDENT GE WHILE_KW
 ##
-## Ends in an error in state: 82.
+## Ends in an error in state: 92.
 ##
 ## expression -> expression GE . expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
 ##
@@ -758,7 +739,7 @@ program: VOID_KW IDENT SET IDENT GE WHILE_KW
 
 program: VOID_KW IDENT SET IDENT GT FCST WHILE_KW
 ##
-## Ends in an error in state: 81.
+## Ends in an error in state: 91.
 ##
 ## expression -> expression . PLUS expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
 ## expression -> expression . MINUS expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
@@ -782,7 +763,7 @@ program: VOID_KW IDENT SET IDENT GT FCST WHILE_KW
 
 program: VOID_KW IDENT SET IDENT GT WHILE_KW
 ##
-## Ends in an error in state: 80.
+## Ends in an error in state: 90.
 ##
 ## expression -> expression GT . expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
 ##
@@ -794,7 +775,7 @@ program: VOID_KW IDENT SET IDENT GT WHILE_KW
 
 program: VOID_KW IDENT SET IDENT LE FCST WHILE_KW
 ##
-## Ends in an error in state: 79.
+## Ends in an error in state: 89.
 ##
 ## expression -> expression . PLUS expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
 ## expression -> expression . MINUS expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
@@ -818,7 +799,7 @@ program: VOID_KW IDENT SET IDENT LE FCST WHILE_KW
 
 program: VOID_KW IDENT SET IDENT LE WHILE_KW
 ##
-## Ends in an error in state: 78.
+## Ends in an error in state: 88.
 ##
 ## expression -> expression LE . expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
 ##
@@ -830,7 +811,7 @@ program: VOID_KW IDENT SET IDENT LE WHILE_KW
 
 program: VOID_KW IDENT SET IDENT LPAR IDENT COMMA WHILE_KW
 ##
-## Ends in an error in state: 88.
+## Ends in an error in state: 98.
 ##
 ## separated_nonempty_list(COMMA,expression) -> expression COMMA . separated_nonempty_list(COMMA,expression) [ RPAR ]
 ##
@@ -842,7 +823,7 @@ program: VOID_KW IDENT SET IDENT LPAR IDENT COMMA WHILE_KW
 
 program: VOID_KW IDENT SET IDENT LPAR IDENT SEMI
 ##
-## Ends in an error in state: 63.
+## Ends in an error in state: 73.
 ##
 ## expression -> expression . PLUS expression [ STAR SLASH RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
 ## expression -> expression . MINUS expression [ STAR SLASH RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
@@ -885,7 +866,7 @@ program: VOID_KW IDENT SET IDENT LPAR WHILE_KW
 
 program: VOID_KW IDENT SET IDENT LT FCST WHILE_KW
 ##
-## Ends in an error in state: 77.
+## Ends in an error in state: 87.
 ##
 ## expression -> expression . PLUS expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
 ## expression -> expression . MINUS expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
@@ -909,7 +890,7 @@ program: VOID_KW IDENT SET IDENT LT FCST WHILE_KW
 
 program: VOID_KW IDENT SET IDENT LT WHILE_KW
 ##
-## Ends in an error in state: 76.
+## Ends in an error in state: 86.
 ##
 ## expression -> expression LT . expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
 ##
@@ -921,7 +902,7 @@ program: VOID_KW IDENT SET IDENT LT WHILE_KW
 
 program: VOID_KW IDENT SET IDENT MINUS FCST WHILE_KW
 ##
-## Ends in an error in state: 75.
+## Ends in an error in state: 85.
 ##
 ## expression -> expression . PLUS expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
 ## expression -> expression . MINUS expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
@@ -945,7 +926,7 @@ program: VOID_KW IDENT SET IDENT MINUS FCST WHILE_KW
 
 program: VOID_KW IDENT SET IDENT MINUS WHILE_KW
 ##
-## Ends in an error in state: 74.
+## Ends in an error in state: 84.
 ##
 ## expression -> expression MINUS . expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
 ##
@@ -957,7 +938,7 @@ program: VOID_KW IDENT SET IDENT MINUS WHILE_KW
 
 program: VOID_KW IDENT SET IDENT NEQ FCST WHILE_KW
 ##
-## Ends in an error in state: 73.
+## Ends in an error in state: 83.
 ##
 ## expression -> expression . PLUS expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
 ## expression -> expression . MINUS expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
@@ -981,7 +962,7 @@ program: VOID_KW IDENT SET IDENT NEQ FCST WHILE_KW
 
 program: VOID_KW IDENT SET IDENT NEQ WHILE_KW
 ##
-## Ends in an error in state: 72.
+## Ends in an error in state: 82.
 ##
 ## expression -> expression NEQ . expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
 ##
@@ -993,7 +974,7 @@ program: VOID_KW IDENT SET IDENT NEQ WHILE_KW
 
 program: VOID_KW IDENT SET IDENT OR FCST WHILE_KW
 ##
-## Ends in an error in state: 71.
+## Ends in an error in state: 81.
 ##
 ## expression -> expression . PLUS expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
 ## expression -> expression . MINUS expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
@@ -1017,7 +998,7 @@ program: VOID_KW IDENT SET IDENT OR FCST WHILE_KW
 
 program: VOID_KW IDENT SET IDENT OR WHILE_KW
 ##
-## Ends in an error in state: 70.
+## Ends in an error in state: 80.
 ##
 ## expression -> expression OR . expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
 ##
@@ -1029,7 +1010,7 @@ program: VOID_KW IDENT SET IDENT OR WHILE_KW
 
 program: VOID_KW IDENT SET IDENT PLUS FCST WHILE_KW
 ##
-## Ends in an error in state: 69.
+## Ends in an error in state: 79.
 ##
 ## expression -> expression . PLUS expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
 ## expression -> expression PLUS expression . [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
@@ -1053,7 +1034,7 @@ program: VOID_KW IDENT SET IDENT PLUS FCST WHILE_KW
 
 program: VOID_KW IDENT SET IDENT PLUS WHILE_KW
 ##
-## Ends in an error in state: 68.
+## Ends in an error in state: 78.
 ##
 ## expression -> expression PLUS . expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
 ##
@@ -1065,7 +1046,7 @@ program: VOID_KW IDENT SET IDENT PLUS WHILE_KW
 
 program: VOID_KW IDENT SET IDENT RPAR
 ##
-## Ends in an error in state: 144.
+## Ends in an error in state: 146.
 ##
 ## decl_var_glob -> decl SET expression . SEMI [ VOID_KW STRUCT_KW INT_KW FLOAT_KW BOOL_KW ]
 ## expression -> expression . PLUS expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
@@ -1095,7 +1076,7 @@ program: VOID_KW IDENT SET IDENT RPAR
 
 program: VOID_KW IDENT SET IDENT SLASH WHILE_KW
 ##
-## Ends in an error in state: 66.
+## Ends in an error in state: 76.
 ##
 ## expression -> expression SLASH . expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
 ##
@@ -1107,7 +1088,7 @@ program: VOID_KW IDENT SET IDENT SLASH WHILE_KW
 
 program: VOID_KW IDENT SET IDENT STAR WHILE_KW
 ##
-## Ends in an error in state: 64.
+## Ends in an error in state: 74.
 ##
 ## expression -> expression STAR . expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
 ##
@@ -1121,8 +1102,8 @@ program: VOID_KW IDENT SET IDENT WHILE_KW
 ##
 ## Ends in an error in state: 48.
 ##
+## access -> IDENT . ext [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
 ## expression -> IDENT . [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> IDENT . ext [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
 ## expression -> IDENT . LPAR loption(separated_nonempty_list(COMMA,expression)) RPAR [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
 ##
 ## The known suffix of the stack is as follows:
@@ -1145,7 +1126,7 @@ program: VOID_KW IDENT SET LPAR BOOL_KW RPAR WHILE_KW
 
 program: VOID_KW IDENT SET LPAR IDENT SEMI
 ##
-## Ends in an error in state: 101.
+## Ends in an error in state: 103.
 ##
 ## delimited_expr -> LPAR expression . RPAR [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE LBRACE GT GE DOUBLE_EQ COMMA AND ]
 ## expression -> expression . PLUS expression [ STAR SLASH RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
@@ -1175,7 +1156,7 @@ program: VOID_KW IDENT SET LPAR IDENT SEMI
 
 program: VOID_KW IDENT SET LPAR VOID_KW WHILE_KW
 ##
-## Ends in an error in state: 99.
+## Ends in an error in state: 101.
 ##
 ## cast -> LPAR type_def . RPAR [ STAR NOT MINUS LPAR IDENT FCST CST BOOL ADDR ]
 ## type_def -> type_def . STAR [ STAR RPAR ]
@@ -1223,6 +1204,19 @@ program: VOID_KW IDENT SET NOT WHILE_KW
 
 <Un varible ne peut etre definie qu'a partir d'expressions.>
 
+program: VOID_KW IDENT SET STAR IDENT WHILE_KW
+##
+## Ends in an error in state: 60.
+##
+## access -> access . ext [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> access . [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+##
+## The known suffix of the stack is as follows:
+## access
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
 program: VOID_KW IDENT SET STAR WHILE_KW
 ##
 ## Ends in an error in state: 42.
@@ -1238,7 +1232,7 @@ program: VOID_KW IDENT SET STAR WHILE_KW
 
 program: VOID_KW IDENT SET WHILE_KW
 ##
-## Ends in an error in state: 143.
+## Ends in an error in state: 145.
 ##
 ## decl_var_glob -> decl SET . expression SEMI [ VOID_KW STRUCT_KW INT_KW FLOAT_KW BOOL_KW ]
 ##
@@ -1250,7 +1244,7 @@ program: VOID_KW IDENT SET WHILE_KW
 
 program: VOID_KW IDENT WHILE_KW
 ##
-## Ends in an error in state: 142.
+## Ends in an error in state: 144.
 ##
 ## decl_function -> decl . params fun_block [ VOID_KW STRUCT_KW INT_KW FLOAT_KW EOF BOOL_KW ]
 ## decl_var_glob -> decl . SEMI [ VOID_KW STRUCT_KW INT_KW FLOAT_KW BOOL_KW ]

@@ -128,12 +128,18 @@ let rec check_type_intr (i : instr) (env : env) (type_fun : typ): bool =
       if te = type_fun then true
       else raise ( TypeError (sprintf "La fonction de type [%s] retourne un [%s]" (typeToString type_fun) (typeToString te) ))
   | Expr e -> let _ = type_expr e env in true
-  | SetSubStruct (x, ext, e) -> 
-      let te = type_expr e env in
-      let ts = type_sub_struct (type_expr x env) ext env in
-      if te = ts then true
-      else raise ( TypeError (sprintf "La variable [%s] de type [%s] est assigee a un [%s]" (exprToString x) (typeToString ts) (typeToString te)) )
-  
+  | SetSubStruct (x, e) ->
+      begin match x with
+      | Dereferencing e' -> let _ = type_expr e' env in true 
+      | GetStruct (e1, ext) -> 
+        let te = type_expr e env in
+        let ts = type_sub_struct (type_expr e1 env) ext env in
+        if te = ts then true
+        else raise ( TypeError (sprintf "La variable [%s] de type [%s] est assigee a un [%s]" (exprToString x) (typeToString ts) (typeToString te)) )
+      | _ -> raise (TypeError "")
+      end
+
+       
 let check_type_fun (f : fun_def) (env : env): bool =
   List.iter (fun (s, t) -> Hashtbl.add env.gl s t) f.params; 
   List.iter (fun (s, t) -> Hashtbl.add env.gl s t) f.locals; 
@@ -149,7 +155,6 @@ let init_env (p : prog): env =
   List.iter (fun (s, t) -> Hashtbl.add glo_env s t) p.globals;
   List.iter (fun e -> Hashtbl.add fun_env e.name e) p.functions;
   List.iter (fun (name, core) -> Hashtbl.add str_env name core) p.structs;
-  (*List.iter (fun (_, core) -> List.iter (fun (n, _) -> Printf.printf "%s\n" n) core ) p.structs;*)
   {st=str_env; gl=glo_env; fu=fun_env}
 
 let check_main (fl : fun_def list): bool = 

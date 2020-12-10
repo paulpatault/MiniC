@@ -5,7 +5,7 @@
   (modules mcparser))
 
 (rule
-  (targets parser_messages.ml)
+  (targets mcparser_messages.ml)
   (deps mcparser.messages mcparser.mly)
   (action (with-stdout-to %{targets} (run menhir --compile-errors %{deps}))))
 

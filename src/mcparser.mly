@@ -169,8 +169,8 @@ instruction:
   { Putchar(e) }
 | id=IDENT SET e=expression SEMI 
   { Set(id, e) }
-| id=IDENT el=ext SET e=expression SEMI
-  { SetSubStruct(Get id, el, e) }
+| a=access SET e2=expression SEMI
+  { SetSubStruct(a, e2) }
 | IF_KW cond=delimited_expr block=block
   { If(cond, block, []) }
 | IF_KW cond=delimited_expr block1=block ELSE_KW block2=block 
@@ -188,6 +188,20 @@ cast:
   { t }
 ;
 
+access:
+| LPAR a=access RPAR { a }
+| stars=nonempty_list(STAR) id=IDENT 
+  {
+    let len = List.length stars in
+    makeDereferencing len id
+  }
+| a=access el=ext
+  { GetStruct(a, el) }
+| id=IDENT el=ext
+  { GetStruct(Get id, el)  }
+;
+
+
 expression:
 | n=CST
   { Cst(n) }
@@ -195,19 +209,12 @@ expression:
   { FCst(f) }
 | b=BOOL
   { Bool(b) }
-| stars=nonempty_list(STAR) id=IDENT 
-  {
-    let len = List.length stars in
-    makeDereferencing len id
-  }
-| id=IDENT 
-  { Get(id) }
 | ADDR e=expression 
   { Addr(e) }
-(*| id=IDENT el=ext*)
-  (*{ GetStruct(id, el) }*)
-| e=expression el=ext
-  { GetStruct(e, el) } 
+| a=access 
+  { a }
+| id=IDENT 
+  { Get(id) }
 | e=delimited_expr
   { e }
 | e1=expression PLUS e2=expression 

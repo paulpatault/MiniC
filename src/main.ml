@@ -12,7 +12,7 @@ let get_parse_error env =
     match MI.stack env with
     | lazy Nil -> "Invalid syntax"
     | lazy (Cons (MI.Element (state, _, _, _), _)) ->
-        try (Parser_messages.message (MI.number state)) with
+        try (Mcparser_messages.message (MI.number state)) with
         | Not_found -> "invalid syntax (no specific message for this error)"
 
 let rec parse lexbuf (checkpoint : Types.prog MI.checkpoint) =
