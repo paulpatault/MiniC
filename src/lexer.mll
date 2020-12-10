@@ -4,14 +4,6 @@
 
   let verbose = try let _ = Sys.argv.(2) in true with Invalid_argument _ -> false
   
-  let print_token t =
-    if verbose then 
-    match t with
-    | ";" | "," | "=" | "=="| "!="| "+" | "-" | "*" | "/" | "<" | "<="| ">" | ">=" | "!" | "||" | "&&" | "(" | ")" | "{" | "}" -> Printf.printf "%s " t
-    | "\n" -> Printf.printf "\n"
-    | "true" -> Printf.printf "Bool(true) "
-    | "false" -> Printf.printf "Bool(false) "
-    | _ -> try Printf.printf "Int(%d) " (int_of_string t) with Failure _ -> Printf.printf "Ident_or_KW(%s) " t
 
   let keyword_or_ident =
     let h = Hashtbl.create 17 in
@@ -24,10 +16,24 @@
         "bool",     BOOL_KW;
         "void",     VOID_KW;
         "return",   RETURN_KW;
+        "struct",   STRUCT_KW;
       ] ;
     fun s ->
       try  Hashtbl.find h s
       with Not_found -> IDENT(s)
+
+  let print_token t =
+    if verbose then 
+    match t with
+    | "." | ";" | "," | "=" | "=="| "!="| "+" | "-" | "*" | "/" | "<" | "<="| ">" | ">=" | "!" | "||" | "&&" | "(" | ")" | "{" | "}" -> Printf.printf "%s " t
+    | "\n" -> Printf.printf "\n"
+    | "true" -> Printf.printf "Bool(true) "
+    | "false" -> Printf.printf "Bool(false) "
+    | _ -> try Printf.printf "Int(%d) " (int_of_string t) 
+          with Failure _ -> 
+            match keyword_or_ident t with 
+            | IDENT _ -> Printf.printf "ID(%s) " t
+            | _ -> Printf.printf "KW(%s) " t
 }
 
 let digit = ['0'-'9']
@@ -47,6 +53,7 @@ rule token = parse
   | ident as id       { print_token id; keyword_or_ident id }
   | ";"  { print_token ";" ; SEMI }
   | ","  { print_token "," ; COMMA }
+  | "."  { print_token "." ; DOT }
   | "="  { print_token "=" ; SET }
   | "==" { print_token "=="; DOUBLE_EQ }
   | "!=" { print_token "!="; NEQ }

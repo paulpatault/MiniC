@@ -1,0 +1,22 @@
+struct Point {
+  int x;
+  int y;
+  bool l;
+};
+
+
+void main(){
+
+  struct Point pp;
+  pp.l = true; 
+  
+  pp.y = 10;
+
+  if(pp.l){
+    pp.x = 1;
+  } else {
+    pp.x = 2;
+  }
+
+  putchar(pp.x + pp.y);
+}

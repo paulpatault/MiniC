@@ -11,13 +11,14 @@ let rec typeToString t =
   | Bool -> "bool"
   | Void -> "void"
   | Pointeur t -> sprintf "pointeur(%s)" (typeToString t)
+  | Struct name -> sprintf "struct %s" name
 
 let rec exprToString e = 
   match e with 
   | Cst n          -> string_of_int n
   | Bool b         -> string_of_bool b
   | Dereferencing e -> sprintf "*%s" (exprToString e)
-  | Addr e         -> sprintf "&(%s)" (exprToString e) 
+  | Addr e         -> sprintf "&%s" (exprToString e) 
   | Add (e1, e2)   -> sprintf "%s + %s" (exprToString e1) (exprToString e2)
   | Sub (e1, e2)   -> sprintf "%s - %s" (exprToString e1) (exprToString e2)
   | Mul (e1, e2)   -> sprintf "%s * %s" (exprToString e1) (exprToString e2)
@@ -33,34 +34,40 @@ let rec exprToString e =
   | Not e          -> sprintf "Not %s" (exprToString e)
   | Get s          -> s
   | Call (name, argL) -> 
-    (* let m = List.fold_left (fun acc e -> acc ^ exprToString e  ^ ",") "" expL in  *)
     let args = String.concat "," (List.map exprToString argL) in
     sprintf "%s(%s)" name args
+  | GetStruct (name, ext) -> 
+      name ^ (List.fold_left (fun acc e -> acc ^ sprintf ".%s" e) "" ext)
 
 let rec instrToString i =
   let res = ref (spaces ()) in
   match i with
-  | Putchar e -> !res ^ sprintf "Putchar(%s);" (exprToString e)
-  | Set (s, e) -> !res ^ sprintf "Set(%s : %s);" s (exprToString e)
+  | Putchar e -> !res ^ sprintf "putchar(%s);" (exprToString e)
+  | Set (s, e) -> !res ^ sprintf "%s = %s;" s (exprToString e)
   | If (cond, seq1, seq2) -> 
-    res := !res ^ sprintf "If(%s){\n" (exprToString cond);
+    res := !res ^ sprintf "if(%s){\n" (exprToString cond);
 
     let b1 = String.concat "\n" (List.map instrToString seq1) ^ "\n" in
-    res := !res ^ spaces () ^ b1 ^ spaces () ^ "} else {\n";
+    res := !res ^ spaces () ^ b1 ^ spaces () ^ "}";
 
-    let b2 = String.concat "\n" (List.map (fun e -> spaces () ^ instrToString e) seq2) ^ "\n" in
-    res := !res ^ b2 ^ spaces () ^ "}";
-    decr space;
-    !res
+    if seq2 = [] then !res
+    else 
+      !res ^ " else {\n"
+      ^ String.concat "\n" (List.map (fun e -> spaces () ^ instrToString e) seq2) 
+      ^ "\n" ^ spaces () ^ "}"
 
   | While (cond, seq) -> 
-    res := !res ^ sprintf "While(%s){\n" (exprToString cond);
+    res := !res ^ sprintf "while(%s){\n" (exprToString cond);
     let b = String.concat "\n" (List.map instrToString seq) ^ "\n" in
     res := !res ^ spaces () ^ b ^ spaces () ^ "}";
     decr space;
     !res
-  | Return e -> sprintf "return(%s)" (exprToString e)
-  | Expr e -> sprintf "%s" (exprToString e)
+  | Return e -> !res ^ sprintf "return(%s);" (exprToString e)
+  | Expr e -> !res ^ sprintf "%s;" (exprToString e)
+  | SetSubStruct (name, ext, expr) -> 
+    !res ^ sprintf "%s%s = %s;" name 
+    (List.fold_left (fun acc e -> acc ^ sprintf ".%s" e) "" ext)
+    (exprToString expr)
 
 let funToString f = 
   let fdef = sprintf "%s %s(" (typeToString f.return) (f.name) in

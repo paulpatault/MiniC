@@ -1,0 +1,45 @@
+struct Vec3 {
+  int x;
+  int y;
+  int z;
+};
+
+
+struct Mat3x3 {
+  struct Vec3 x;
+  struct Vec3 y;
+  struct Vec3 z;
+};
+
+
+struct Vec3 incr(struct Vec3 v){
+  struct Vec3 res;
+
+  res.x = v.x + 1;
+  res.y = v.y + 1;
+  res.z = v.z + 1;
+  
+  return res;
+}
+
+int main() {
+  
+  struct Vec3 alpha; 
+  struct Mat3x3 beta;
+
+  alpha.x = 1;
+  alpha.y = 2;
+  alpha.z = 3;
+
+  
+  beta.x = alpha;
+  beta.y = incr(alpha);
+  beta.z = incr(beta.y);
+
+  putchar(beta.y.z);
+  putchar(alpha.z);
+
+  return 0;
+}
+
+

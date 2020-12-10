@@ -1,8 +1,5 @@
 %{
-  (* open Lexing *)
   open Types
-  (*open Printer*)
-
 
   type assign_globs = seq ref
 
@@ -20,8 +17,8 @@
 %token <bool> BOOL
 %token <string> IDENT
 %token LPAR RPAR LBRACE RBRACE 
-%token SEMI COMMA
-%token INT_KW BOOL_KW VOID_KW RETURN_KW
+%token SEMI COMMA DOT
+%token INT_KW BOOL_KW VOID_KW RETURN_KW STRUCT_KW
 %token PUTCHAR_KW SET IF_KW ELSE_KW WHILE_KW
 %token PLUS MINUS STAR SLASH ADDR
 %token LT LE GT GE AND OR NOT DOUBLE_EQ NEQ
@@ -32,7 +29,7 @@
 %left LT LE GT GE DOUBLE_EQ NEQ
 %left PLUS MINUS
 %left STAR SLASH
-%nonassoc NOT
+%nonassoc NOT ADDR
 
 %start program
 %type <Types.prog> program
@@ -47,38 +44,56 @@ type_def:
   {
     Pointeur t
   }
+| STRUCT_KW t=IDENT
+  { Struct(t) }
 ;
 
 program:
+| st=decl_struct prog=program
+  {
+    {
+      structs=st::prog.structs;
+      globals=prog.globals; 
+      functions=prog.functions;
+    }
+  }
 | gl=decl_var_glob prog=program 
   {
-    { 
+    {
+      structs=[];
       globals=gl::prog.globals; 
       functions=prog.functions
     }  
   }
 | fl=nonempty_list(decl_function) EOF 
   { 
-    let assign_globs_fun = {
-      name="assign_globs_fun";
-      params=[];
-      return=Void;
-      locals=[];
-      code= List.rev !ag_list;
-    } in
-    { globals=[]; functions=assign_globs_fun::fl } 
+    { 
+      structs=[]; 
+      globals=[];
+      functions=
+        {
+          name="__assignGlobsVars";
+          params=[];
+          return=Void;
+          locals=[];
+          code= List.rev !ag_list;
+        }::fl; 
+    } 
   }
-/* | error 
-  {
-    let pos = $startpos in
-    let message = Printf.sprintf "Syntax error: ln %d, col %d" pos.pos_lnum (pos.pos_cnum - pos.pos_bol) in
-    failwith message
-  } */
 ;
+
+decl_struct:
+| STRUCT_KW id=IDENT LBRACE core=struct_core RBRACE SEMI 
+  { (id, core) }
+; 
 
 decl:
 | t=type_def id=IDENT 
   { (id, t) }
+;
+
+struct_core:
+| dl = nonempty_list(d=decl SEMI { d }) { dl }
 ;
 
 decl_var_glob:
@@ -140,11 +155,17 @@ delimited_expr:
   { e }
 ;
 
+ext:
+| el=nonempty_list(DOT e=IDENT { e }) { el }
+;
+
 instruction:
 | PUTCHAR_KW e=delimited_expr SEMI 
   { Putchar(e) }
 | id=IDENT SET e=expression SEMI 
   { Set(id, e) }
+| id=IDENT el=ext SET e=expression SEMI
+  { SetSubStruct(id, el, e) }
 | IF_KW cond=delimited_expr block=block
   { If(cond, block, []) }
 | IF_KW cond=delimited_expr block1=block ELSE_KW block2=block 
@@ -162,7 +183,8 @@ expression:
   { Cst(n) }
 | b=BOOL
   { Bool(b) }
-| stars=nonempty_list(STAR) id=IDENT {
+| stars=nonempty_list(STAR) id=IDENT 
+  {
     let len = List.length stars in
     makeDereferencing len id
   }
@@ -170,6 +192,8 @@ expression:
   { Get(id) }
 | ADDR e=expression 
   { Addr(e) }
+| id=IDENT el=ext
+  { GetStruct(id, el) }
 | e=delimited_expr
   { e }
 | e1=expression PLUS e2=expression 
