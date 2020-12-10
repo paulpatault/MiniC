@@ -1,11 +1,15 @@
 (* 
- * Ajout des Pointeurs 
- * et des Structs 
+ * Ajout des types
+ * - Bool
+ * - Float 
+ * - Pointeurs 
+ * - Structs 
  *)
 type typ =
   | Int
   | Bool
   | Void
+  | Float
   | Pointeur of typ
   | Struct of string
 
@@ -17,6 +21,7 @@ type typ =
  *)
 type expr =
   | Cst           of int
+  | FCst          of float
   | Bool          of bool
   | Dereferencing of expr
   | Addr          of expr
@@ -35,7 +40,9 @@ type expr =
   | Not           of expr
   | Get           of string
   | Call          of string * expr list
-  | GetStruct     of string * string list
+  | GetStruct     of expr * string list
+  (*| GetStructP    of string * string list*)
+  | Cast          of typ * expr
 
 (*
  * Ajout d'un setter particulier pour les champs de structs.
@@ -47,7 +54,7 @@ type instr =
   | While        of expr * seq
   | Return       of expr
   | Expr         of expr
-  | SetSubStruct of string * string list * expr
+  | SetSubStruct of expr * string list * expr
 and seq = instr list
 
 type fun_def = {

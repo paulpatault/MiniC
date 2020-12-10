@@ -46,5 +46,9 @@ let () =
         | None -> Error (Printf.sprintf "Syntax error: %s" err)
   in
   match res with
-    | Ok prog -> check_type_prog prog |> Printf.printf "%s\n ---> %b\n" (progToString prog);  exit 0
+    | Ok prog ->
+        if Lexer.verbose then
+        check_type_prog prog |> Printf.printf "%s\n ---> %b\n" (progToString prog)  
+        else check_type_prog prog |> Printf.printf "%b\n"; 
+        exit 0
     | Error err -> Printf.eprintf "MiniC Error compiling: %s\n\t%s" Sys.argv.(1) err; exit 1

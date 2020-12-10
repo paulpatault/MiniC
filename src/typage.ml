@@ -23,15 +23,16 @@ let type_sub_struct x ext env =
         end
   in
   try 
-    begin match Hashtbl.find (env.gl) x with
+    begin match x with
     | Struct name -> aux ext (Struct name) name 
     | _ -> raise (TypeError "jsp encore")
     end
-  with Not_found -> raise ( TypeError (sprintf "La variable [%s] appelee n'existe pas" x)) 
+  with Not_found -> raise ( TypeError (sprintf "La variable [%s] appelee n'existe pas" (typeToString x))) 
  
 let rec type_expr (e : expr) (env : env): typ =
   match e with
-  | Cst _ -> Int
+  | Cst _  -> Int
+  | FCst _ -> Float
   | Bool _ -> Bool
   | Dereferencing e -> 
       begin match type_expr e env with
@@ -43,11 +44,24 @@ let rec type_expr (e : expr) (env : env): typ =
       | Get _ -> Pointeur(type_expr e env)
       | _     -> raise ( TypeError "Tentative d'acces a l'adresse d'une expression qui n'est pas une variable" )
       end
+  | Cast(t, e) ->
+      let te = type_expr e env in
+      begin match t, te with
+      | Float, Int -> Float 
+      | Int, Float -> Int
+      | Bool, Int -> Bool
+      | Bool, Float -> Bool
+      | _ -> raise ( TypeError ( "Mauvais cast" ) )
+      end
   | Add (e1, e2) | Sub (e1, e2) | Mul (e1, e2) | Div (e1, e2) ->
       let t1 = type_expr e1 env in
-      let t2 = type_expr e2 env in
-      if t1 = Int && t2 = Int then Int 
-      else raise ( TypeError (sprintf "Operation arithmetique entre un [%s] et un [%s]" (typeToString t1) (typeToString t2) ))
+      let t2 = type_expr e2 env in 
+      begin match t1, t2 with
+      | Int, Int -> Int
+      | Float, Int -> Float
+      | Int, Float -> Float
+      | _ -> raise ( TypeError (sprintf "Operation arithmetique entre un [%s] et un [%s]" (typeToString t1) (typeToString t2) ))
+      end
   | Lt (e1, e2) | Le (e1, e2) | Gt (e1, e2) | Ge (e1, e2) | Eq (e1, e2) | Neq (e1, e2) -> 
       let t1 = type_expr e1 env in
       let t2 = type_expr e2 env in
@@ -67,14 +81,12 @@ let rec type_expr (e : expr) (env : env): typ =
       with Not_found -> raise ( TypeError (sprintf "La variable [%s] appelee n'existe pas" x)) 
       end
   | GetStruct (x, ext) ->
-      (*TODO*)
-      Printf.printf "%s\n" (exprToString e);
-      type_sub_struct x ext env
+      type_sub_struct (type_expr x env) ext env
   | Call (f, a) ->
       try
         let func = Hashtbl.find env.fu f in 
         let params_typ = List.fold_left (fun acc e -> (type_expr e env) :: acc) [] a in
-        let btype = List.for_all2 (fun t1 (_, t2) -> t1 = t2) params_typ func.params in
+        let btype = List.for_all2 (fun t1 (_, t2) -> t1 = t2) (List.rev params_typ) func.params in
         if btype then func.return
         else raise ( TypeError ("Parametre mal type"))
       with Not_found -> raise ( TypeError (sprintf "La fonction [%s] appelee n'existe pas" f )) 
@@ -118,9 +130,9 @@ let rec check_type_intr (i : instr) (env : env) (type_fun : typ): bool =
   | Expr e -> let _ = type_expr e env in true
   | SetSubStruct (x, ext, e) -> 
       let te = type_expr e env in
-      let ts = type_sub_struct x ext env in
+      let ts = type_sub_struct (type_expr x env) ext env in
       if te = ts then true
-      else raise ( TypeError (sprintf "La variable [%s] de type [%s] est assigee a un [%s]" x (typeToString ts) (typeToString te)) )
+      else raise ( TypeError (sprintf "La variable [%s] de type [%s] est assigee a un [%s]" (exprToString x) (typeToString ts) (typeToString te)) )
   
 let check_type_fun (f : fun_def) (env : env): bool =
   List.iter (fun (s, t) -> Hashtbl.add env.gl s t) f.params; 

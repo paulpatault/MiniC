@@ -14,11 +14,12 @@
 %}
 
 %token <int> CST
+%token <float> FCST
 %token <bool> BOOL
 %token <string> IDENT
 %token LPAR RPAR LBRACE RBRACE 
-%token SEMI COMMA DOT
-%token INT_KW BOOL_KW VOID_KW RETURN_KW STRUCT_KW
+%token SEMI COMMA DOT ARROW
+%token INT_KW BOOL_KW VOID_KW FLOAT_KW RETURN_KW STRUCT_KW
 %token PUTCHAR_KW SET IF_KW ELSE_KW WHILE_KW
 %token PLUS MINUS STAR SLASH ADDR
 %token LT LE GT GE AND OR NOT DOUBLE_EQ NEQ
@@ -29,7 +30,9 @@
 %left LT LE GT GE DOUBLE_EQ NEQ
 %left PLUS MINUS
 %left STAR SLASH
+(*%left DOT ARROW*)
 %nonassoc NOT ADDR
+
 
 %start program
 %type <Types.prog> program
@@ -38,6 +41,7 @@
 
 type_def:
 | INT_KW  { Int }
+| FLOAT_KW { Float }
 | BOOL_KW { Bool }
 | VOID_KW { Void }
 | t=type_def STAR
@@ -157,6 +161,7 @@ delimited_expr:
 
 ext:
 | el=nonempty_list(DOT e=IDENT { e }) { el }
+| el=nonempty_list(ARROW e=IDENT { e }) { el }
 ;
 
 instruction:
@@ -165,7 +170,7 @@ instruction:
 | id=IDENT SET e=expression SEMI 
   { Set(id, e) }
 | id=IDENT el=ext SET e=expression SEMI
-  { SetSubStruct(id, el, e) }
+  { SetSubStruct(Get id, el, e) }
 | IF_KW cond=delimited_expr block=block
   { If(cond, block, []) }
 | IF_KW cond=delimited_expr block1=block ELSE_KW block2=block 
@@ -178,9 +183,16 @@ instruction:
   { Expr(e) }
 ;
 
+cast:
+| LPAR t=type_def RPAR 
+  { t }
+;
+
 expression:
 | n=CST
   { Cst(n) }
+| f=FCST
+  { FCst(f) }
 | b=BOOL
   { Bool(b) }
 | stars=nonempty_list(STAR) id=IDENT 
@@ -192,8 +204,10 @@ expression:
   { Get(id) }
 | ADDR e=expression 
   { Addr(e) }
-| id=IDENT el=ext
-  { GetStruct(id, el) }
+(*| id=IDENT el=ext*)
+  (*{ GetStruct(id, el) }*)
+| e=expression el=ext
+  { GetStruct(e, el) } 
 | e=delimited_expr
   { e }
 | e1=expression PLUS e2=expression 
@@ -222,6 +236,8 @@ expression:
   { Neq(e1, e2) }
 | NOT e=expression
   { Not(e) }
+| t=cast e=expression %prec NOT
+  { Cast(t, e) }
 | MINUS n=CST 
   { Cst(-n) }
 | func=IDENT LPAR param=separated_list(COMMA, expression) RPAR 

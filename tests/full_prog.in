@@ -1,7 +1,7 @@
 struct Vec3 {
-  int x;
-  int y;
-  int z;
+  float x;
+  float y;
+  float z;
 };
 
 
@@ -11,33 +11,41 @@ struct Mat3x3 {
   struct Vec3 z;
 };
 
+int glob1 = 2; 
 
-struct Vec3 incr(struct Vec3 v){
+struct Vec3 incr_if_cond(struct Vec3 v, bool pcond){
   struct Vec3 res;
 
-  res.x = v.x + 1;
-  res.y = v.y + 1;
-  res.z = v.z + 1;
-  
+  if(pcond){
+    res.x = v.x + glob1;
+    res.y = v.y + glob1;
+    res.z = v.z + glob1; 
+  } else {
+    res.x = v.x - glob1;
+    res.y = v.y - glob1;
+    res.z = v.z - glob1; 
+  }
+ 
   return res;
 }
 
 int main() {
   
-  struct Vec3 alpha; 
+  struct Vec3* alpha; 
   struct Mat3x3 beta;
+  bool cond = true; 
 
-  alpha.x = 1;
-  alpha.y = 2;
-  alpha.z = 3;
+  (*alpha).x = 1.;
+  (*alpha).y = 2.;
+  (*alpha).z = 3.;
 
   
-  beta.x = alpha;
-  beta.y = incr(alpha);
-  beta.z = incr(beta.y);
+  beta.x = *alpha;
+  beta.y = incr_if_cond(*alpha, cond);
+  beta.z = incr_if_cond(beta.y, cond);
 
-  putchar(beta.y.z);
-  putchar(alpha.z);
+  putchar((int)beta.y.z);
+  putchar((int)(*alpha).z);
 
   return 0;
 }

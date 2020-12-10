@@ -7,37 +7,40 @@ let spaces () = String.make !space ' '
 
 let rec typeToString t = 
   match t with 
-  | Int  -> "int"
-  | Bool -> "bool"
-  | Void -> "void"
+  | Int   -> "int"
+  | Float -> "float"
+  | Bool  -> "bool"
+  | Void  -> "void"
   | Pointeur t -> sprintf "pointeur(%s)" (typeToString t)
   | Struct name -> sprintf "struct %s" name
 
 let rec exprToString e = 
   match e with 
-  | Cst n          -> string_of_int n
-  | Bool b         -> string_of_bool b
+  | Cst n           -> string_of_int n
+  | FCst f          -> string_of_float f
+  | Bool b          -> string_of_bool b
   | Dereferencing e -> sprintf "*%s" (exprToString e)
-  | Addr e         -> sprintf "&%s" (exprToString e) 
-  | Add (e1, e2)   -> sprintf "%s + %s" (exprToString e1) (exprToString e2)
-  | Sub (e1, e2)   -> sprintf "%s - %s" (exprToString e1) (exprToString e2)
-  | Mul (e1, e2)   -> sprintf "%s * %s" (exprToString e1) (exprToString e2)
-  | Div (e1, e2)   -> sprintf "%s / %s" (exprToString e1) (exprToString e2)
-  | Lt  (e1, e2)   -> sprintf "%s < %s" (exprToString e1) (exprToString e2)
-  | Le  (e1, e2)   -> sprintf "%s <= %s" (exprToString e1) (exprToString e2)
-  | Gt  (e1, e2)   -> sprintf "%s > %s" (exprToString e1) (exprToString e2)
-  | Ge  (e1, e2)   -> sprintf "%s >= %s" (exprToString e1) (exprToString e2)
-  | And (e1, e2)   -> sprintf "%s and %s" (exprToString e1) (exprToString e2)
-  | Or  (e1, e2)   -> sprintf "%s or %s" (exprToString e1) (exprToString e2)
-  | Eq  (e1, e2)   -> sprintf "%s == %s" (exprToString e1) (exprToString e2)
-  | Neq (e1, e2)   -> sprintf "%s != %s" (exprToString e1) (exprToString e2)
-  | Not e          -> sprintf "Not %s" (exprToString e)
-  | Get s          -> s
+  | Addr e          -> sprintf "&%s" (exprToString e) 
+  | Cast(t, e)      -> sprintf "(%s)%s" (typeToString t) (exprToString e) 
+  | Add (e1, e2)    -> sprintf "%s + %s" (exprToString e1) (exprToString e2)
+  | Sub (e1, e2)    -> sprintf "%s - %s" (exprToString e1) (exprToString e2)
+  | Mul (e1, e2)    -> sprintf "%s * %s" (exprToString e1) (exprToString e2)
+  | Div (e1, e2)    -> sprintf "%s / %s" (exprToString e1) (exprToString e2)
+  | Lt  (e1, e2)    -> sprintf "%s < %s" (exprToString e1) (exprToString e2)
+  | Le  (e1, e2)    -> sprintf "%s <= %s" (exprToString e1) (exprToString e2)
+  | Gt  (e1, e2)    -> sprintf "%s > %s" (exprToString e1) (exprToString e2)
+  | Ge  (e1, e2)    -> sprintf "%s >= %s" (exprToString e1) (exprToString e2)
+  | And (e1, e2)    -> sprintf "%s and %s" (exprToString e1) (exprToString e2)
+  | Or  (e1, e2)    -> sprintf "%s or %s" (exprToString e1) (exprToString e2)
+  | Eq  (e1, e2)    -> sprintf "%s == %s" (exprToString e1) (exprToString e2)
+  | Neq (e1, e2)    -> sprintf "%s != %s" (exprToString e1) (exprToString e2)
+  | Not e           -> sprintf "Not %s" (exprToString e)
+  | Get s           -> s
   | Call (name, argL) -> 
     let args = String.concat "," (List.map exprToString argL) in
     sprintf "%s(%s)" name args
   | GetStruct (name, ext) -> 
-      name ^ (List.fold_left (fun acc e -> acc ^ sprintf ".%s" e) "" ext)
+      (exprToString name) ^ (List.fold_left (fun acc e -> acc ^ sprintf ".%s" e) "" ext)
 
 let rec instrToString i =
   let res = ref (spaces ()) in
@@ -47,7 +50,7 @@ let rec instrToString i =
   | If (cond, seq1, seq2) -> 
     res := !res ^ sprintf "if(%s){\n" (exprToString cond);
 
-    let b1 = String.concat "\n" (List.map instrToString seq1) ^ "\n" in
+    let b1 = String.concat ("\n" ^ spaces () ) (List.map instrToString seq1) ^ "\n" in
     res := !res ^ spaces () ^ b1 ^ spaces () ^ "}";
 
     if seq2 = [] then !res
@@ -65,7 +68,7 @@ let rec instrToString i =
   | Return e -> !res ^ sprintf "return(%s);" (exprToString e)
   | Expr e -> !res ^ sprintf "%s;" (exprToString e)
   | SetSubStruct (name, ext, expr) -> 
-    !res ^ sprintf "%s%s = %s;" name 
+    !res ^ sprintf "%s%s = %s;" (exprToString name) 
     (List.fold_left (fun acc e -> acc ^ sprintf ".%s" e) "" ext)
     (exprToString expr)
 
@@ -74,7 +77,8 @@ let funToString f =
   let params = List.fold_left (fun acc (s, t) -> acc ^ (sprintf "%s %s," (typeToString t) s)) "" f.params in
   let fin_def = sprintf ") {\n" in
   incr space; 
-  let locals = List.fold_left (fun acc (s, t) -> acc ^ spaces () ^ sprintf "%s %s\n" (typeToString t) s) "" f.locals in
+  let locals = List.fold_left (fun acc (s, t) -> acc ^ spaces () ^ sprintf "%s %s;\n" (typeToString t) s) "" f.locals in
+  print_newline ();
   let code = List.fold_left (fun acc e -> acc ^ instrToString e ^ "\n") "" f.code in
   decr space;
   fdef ^ params ^ fin_def ^ locals ^ code ^ "}\n"
