@@ -38,3 +38,16 @@
     $ dune build
     $ ./_build/default/main.exe ../tests/minic-ok-1.in
     ```
+
++ Extensions
+  + Étendre le langage
+    + [x] Opérateurs 
+      + [x] Binaires (-, /, &&, ||, >=, ...)
+      + [x] Unaires (!, &, ...)
+    + [x] Pointeurs
+    + [x] Structures
+  + Raffiner l'analyse
+    + [x] Messages d'erreurs personnalisés
+  + Compléter le projet
+    + [x] Afficheur
+    + [] Interpréteur (inc.)
