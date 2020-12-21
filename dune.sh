@@ -9,6 +9,6 @@ NC='\033[0m'
 for file in ../tests/*
 do
     echo "Fichier ${BLUE}\"${file}\"${NC}:"
-    ./_build/default/main.exe $file
+    ./_build/default/main.exe $file $1
     echo
 done

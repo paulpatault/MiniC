@@ -117,7 +117,6 @@ let rec type_expr (e : expr) (env : env): typ =
           ))
       end 
 
-      (*type_sub_struct (type_expr x env) ext env*)
   | Call (f, a) ->
       try
         let func = Hashtbl.find env.fu f in 

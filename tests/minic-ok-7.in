@@ -10,5 +10,6 @@ int fun(int n) {
 }
 
 void main() {
-  putchar(fun(PARAM1));
+  int res = fun(PARAM1);
+  putchar(res);
 }

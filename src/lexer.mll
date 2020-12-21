@@ -2,7 +2,11 @@
   open Lexing
   open Mcparser
 
-  let verbose = try let _ = Sys.argv.(2) in true with Invalid_argument _ -> false
+  let verbose = 
+   try 
+    let _ = Sys.argv.(2) in 
+    true 
+   with Invalid_argument _ -> false
   
 
   let keyword_or_ident =

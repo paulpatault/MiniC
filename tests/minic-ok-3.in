@@ -13,5 +13,5 @@ int test(bool b) {
 
 void main() {
   int a = 1;
-  test(PARAM2);
+  putchar(test(PARAM2));
 }

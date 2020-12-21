@@ -37,7 +37,7 @@ int main() {
 
   (*alpha).x = 1.;
   (*alpha).y = 2.;
-  alpha.z = 3.;
+  alpha->z = 3.;
 
   
   beta.x = *alpha;
