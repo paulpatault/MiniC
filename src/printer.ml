@@ -1,11 +1,12 @@
 open Types
 open Printf
 
+(* Pour un affichage colore des erreurs dans le terminal *)
 let red_error = "\027[0;31m"
 let nc_error = "\027[0m"
 
+(* Pour l'indentation du code *)
 let space = ref 1
-
 let spaces () = String.make !space ' '
 
 
@@ -93,22 +94,24 @@ let structToString s =
   sprintf "%s {\n%s}\n" name core
 
 
-let funToString f = 
-  let params = 
-    List.fold_left 
-    (fun acc (s, t) -> sprintf "%s %s" (typeToString t) s :: acc) 
-    [] f.params in
-  incr space; 
-  let locals = 
-    List.fold_left 
-    (fun acc (s, t) -> sprintf "%s%s%s %s;\n" acc (spaces ()) (typeToString t) s) 
-    "" f.locals in
-  let code = 
-    List.fold_left 
-    (fun acc e -> acc ^ instrToString e ^ "\n") 
-    "" f.code in
-  decr space;
-  sprintf "%s %s(%s) {\n%s%s}\n" (typeToString f.return) (f.name) (String.concat ", " params) locals code
+let funToString f =
+  if f.name = "__assignGlobsVars" && f.code = [] then ""
+  else
+    let params = 
+      List.fold_left 
+      (fun acc (s, t) -> sprintf "%s %s" (typeToString t) s :: acc) 
+      [] f.params in
+    incr space; 
+    let locals = 
+      List.fold_left 
+      (fun acc (s, t) -> sprintf "%s%s%s %s;\n" acc (spaces ()) (typeToString t) s) 
+      "" f.locals in
+    let code = 
+      List.fold_left 
+      (fun acc e -> acc ^ instrToString e ^ "\n") 
+      "" f.code in
+    decr space;
+    sprintf "%s %s(%s) {\n%s%s}\n" (typeToString f.return) (f.name) (String.concat ", " params) locals code
 
 let progToString p =
   let structs = String.concat "\n" (List.map structToString p.structs) in

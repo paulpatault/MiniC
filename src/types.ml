@@ -1,10 +1,3 @@
-(* 
- * Ajout des types
- * - Bool
- * - Float 
- * - Pointeurs 
- * - Structs 
- *)
 type typ =
   | Int
   | Bool
@@ -13,12 +6,6 @@ type typ =
   | Pointeur of typ
   | Struct of string
 
-(*
- * Ajout de nombreux operateurs binaires : 
- * - operations : Sub, Div, And, Or
- * - comparaisons : Eq, Neq, Le, Gt, Ge 
- * Creation d'un Get specifique aux champs de structs. 
- *)
 type expr =
   | Cst           of int
   | FCst          of float
@@ -44,9 +31,7 @@ type expr =
   | GetStructPtr  of expr * string
   | Cast          of typ * expr
 
-(*
- * Ajout d'un setter particulier pour les champs de structs.
- *)
+
 type instr =
   | Putchar      of expr
   | Set          of expr * expr
@@ -63,12 +48,6 @@ type fun_def = {
   return: typ;
   locals: (string * typ) list;
   code:   seq;
-}
-
-type env = {
-  st: (string, (string * typ) list) Hashtbl.t;
-  gl: (string, typ) Hashtbl.t;
-  fu: (string, fun_def) Hashtbl.t;
 }
 
 type prog = {

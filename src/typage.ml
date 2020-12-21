@@ -2,6 +2,12 @@ open Types
 open Printf
 open Printer
 
+type env = {
+  st: (string, (string * typ) list) Hashtbl.t;
+  gl: (string, typ) Hashtbl.t;
+  fu: (string, fun_def) Hashtbl.t;
+}
+
 let rec type_expr (e : expr) (env : env): typ =
   match e with
   | Cst _  -> Int
