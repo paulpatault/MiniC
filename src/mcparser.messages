@@ -88,20 +88,22 @@ program: STRUCT_KW WHILE_KW
 
 program: VOID_KW IDENT LPAR RPAR LBRACE FCST WHILE_KW
 ##
-## Ends in an error in state: 127.
+## Ends in an error in state: 117.
 ##
-## expression -> expression . PLUS expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
-## expression -> expression . MINUS expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
-## expression -> expression . STAR expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
-## expression -> expression . SLASH expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
-## expression -> expression . LT expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
-## expression -> expression . LE expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
-## expression -> expression . GT expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
-## expression -> expression . GE expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
-## expression -> expression . AND expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
-## expression -> expression . OR expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
-## expression -> expression . DOUBLE_EQ expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
-## expression -> expression . NEQ expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
+## access -> expression . DOT IDENT [ STAR SLASH SET SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT ARROW AND ]
+## access -> expression . ARROW IDENT [ STAR SLASH SET SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT ARROW AND ]
+## expression -> expression . PLUS expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT ARROW AND ]
+## expression -> expression . MINUS expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT ARROW AND ]
+## expression -> expression . STAR expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT ARROW AND ]
+## expression -> expression . SLASH expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT ARROW AND ]
+## expression -> expression . LT expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT ARROW AND ]
+## expression -> expression . LE expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT ARROW AND ]
+## expression -> expression . GT expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT ARROW AND ]
+## expression -> expression . GE expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT ARROW AND ]
+## expression -> expression . AND expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT ARROW AND ]
+## expression -> expression . OR expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT ARROW AND ]
+## expression -> expression . DOUBLE_EQ expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT ARROW AND ]
+## expression -> expression . NEQ expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT ARROW AND ]
 ## instruction -> expression . SEMI [ WHILE_KW STAR RETURN_KW RBRACE PUTCHAR_KW NOT MINUS LPAR IF_KW IDENT FCST CST BOOL ADDR ]
 ##
 ## The known suffix of the stack is as follows:
@@ -110,66 +112,85 @@ program: VOID_KW IDENT LPAR RPAR LBRACE FCST WHILE_KW
 
 <Un ';' est attendu a la fin d'une expression.>
 
-program: VOID_KW IDENT LPAR RPAR LBRACE IDENT SET IDENT RPAR
+program: VOID_KW IDENT LPAR RPAR LBRACE IDENT RPAR
 ##
-## Ends in an error in state: 121.
+## Ends in an error in state: 119.
 ##
-## expression -> expression . PLUS expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
-## expression -> expression . MINUS expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
-## expression -> expression . STAR expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
-## expression -> expression . SLASH expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
-## expression -> expression . LT expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
-## expression -> expression . LE expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
-## expression -> expression . GT expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
-## expression -> expression . GE expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
-## expression -> expression . AND expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
-## expression -> expression . OR expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
-## expression -> expression . DOUBLE_EQ expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
-## expression -> expression . NEQ expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
-## instruction -> IDENT SET expression . SEMI [ WHILE_KW STAR RETURN_KW RBRACE PUTCHAR_KW NOT MINUS LPAR IF_KW IDENT FCST CST BOOL ADDR ]
+## expression -> access . [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT ARROW AND ]
+## instruction -> access . SET expression SEMI [ WHILE_KW STAR RETURN_KW RBRACE PUTCHAR_KW NOT MINUS LPAR IF_KW IDENT FCST CST BOOL ADDR ]
 ##
 ## The known suffix of the stack is as follows:
-## IDENT SET expression
+## access
 ##
 ## WARNING: This example involves spurious reductions.
 ## This implies that, although the LR(1) items shown above provide an
 ## accurate view of the past (what has been recognized so far), they
 ## may provide an INCOMPLETE view of the future (what was expected next).
-## In state 48, spurious reduction of production expression -> IDENT
+## In state 48, spurious reduction of production access -> IDENT
 ##
 
 <Un ';' est attendu a la fin d'une expression.>
+
+program: VOID_KW IDENT LPAR RPAR LBRACE IDENT SEMI VOID_KW
+##
+## Ends in an error in state: 115.
+##
+## list(instruction) -> instruction . list(instruction) [ RBRACE ]
+##
+## The known suffix of the stack is as follows:
+## instruction
+##
+
+<Une expression est attendue apres un '='.>
+
+program: VOID_KW IDENT LPAR RPAR LBRACE IDENT SET IDENT SET
+##
+## Ends in an error in state: 121.
+##
+## access -> expression . DOT IDENT [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT ARROW AND ]
+## access -> expression . ARROW IDENT [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT ARROW AND ]
+## expression -> expression . PLUS expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT ARROW AND ]
+## expression -> expression . MINUS expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT ARROW AND ]
+## expression -> expression . STAR expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT ARROW AND ]
+## expression -> expression . SLASH expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT ARROW AND ]
+## expression -> expression . LT expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT ARROW AND ]
+## expression -> expression . LE expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT ARROW AND ]
+## expression -> expression . GT expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT ARROW AND ]
+## expression -> expression . GE expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT ARROW AND ]
+## expression -> expression . AND expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT ARROW AND ]
+## expression -> expression . OR expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT ARROW AND ]
+## expression -> expression . DOUBLE_EQ expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT ARROW AND ]
+## expression -> expression . NEQ expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT ARROW AND ]
+## instruction -> access SET expression . SEMI [ WHILE_KW STAR RETURN_KW RBRACE PUTCHAR_KW NOT MINUS LPAR IF_KW IDENT FCST CST BOOL ADDR ]
+##
+## The known suffix of the stack is as follows:
+## access SET expression
+##
+## WARNING: This example involves spurious reductions.
+## This implies that, although the LR(1) items shown above provide an
+## accurate view of the past (what has been recognized so far), they
+## may provide an INCOMPLETE view of the future (what was expected next).
+## In state 48, spurious reduction of production access -> IDENT
+## In state 60, spurious reduction of production expression -> access
+##
+
+<Un identifiant ne peut pas etre suivi par un while.>
 
 program: VOID_KW IDENT LPAR RPAR LBRACE IDENT SET WHILE_KW
 ##
 ## Ends in an error in state: 120.
 ##
-## instruction -> IDENT SET . expression SEMI [ WHILE_KW STAR RETURN_KW RBRACE PUTCHAR_KW NOT MINUS LPAR IF_KW IDENT FCST CST BOOL ADDR ]
+## instruction -> access SET . expression SEMI [ WHILE_KW STAR RETURN_KW RBRACE PUTCHAR_KW NOT MINUS LPAR IF_KW IDENT FCST CST BOOL ADDR ]
 ##
 ## The known suffix of the stack is as follows:
-## IDENT SET
+## access SET
 ##
 
-<Une expression est attendue apres un '='.>
-
-program: VOID_KW IDENT LPAR RPAR LBRACE IDENT WHILE_KW
-##
-## Ends in an error in state: 119.
-##
-## access -> IDENT . ext [ STAR SLASH SET SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT ARROW AND ]
-## expression -> IDENT . [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
-## expression -> IDENT . LPAR loption(separated_nonempty_list(COMMA,expression)) RPAR [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
-## instruction -> IDENT . SET expression SEMI [ WHILE_KW STAR RETURN_KW RBRACE PUTCHAR_KW NOT MINUS LPAR IF_KW IDENT FCST CST BOOL ADDR ]
-##
-## The known suffix of the stack is as follows:
-## IDENT
-##
-
-<Un identifiant ne peut pas etre suivi par un while.>
+<Un ';' est attendu a la fin d'une expression.>
 
 program: VOID_KW IDENT LPAR RPAR LBRACE IF_KW LPAR BOOL RPAR LBRACE RBRACE ELSE_KW WHILE_KW
 ##
-## Ends in an error in state: 117.
+## Ends in an error in state: 111.
 ##
 ## instruction -> IF_KW delimited_expr block ELSE_KW . block [ WHILE_KW STAR RETURN_KW RBRACE PUTCHAR_KW NOT MINUS LPAR IF_KW IDENT FCST CST BOOL ADDR ]
 ##
@@ -181,7 +202,7 @@ program: VOID_KW IDENT LPAR RPAR LBRACE IF_KW LPAR BOOL RPAR LBRACE RBRACE ELSE_
 
 program: VOID_KW IDENT LPAR RPAR LBRACE IF_KW LPAR BOOL RPAR LBRACE RBRACE VOID_KW
 ##
-## Ends in an error in state: 116.
+## Ends in an error in state: 110.
 ##
 ## instruction -> IF_KW delimited_expr block . [ WHILE_KW STAR RETURN_KW RBRACE PUTCHAR_KW NOT MINUS LPAR IF_KW IDENT FCST CST BOOL ADDR ]
 ## instruction -> IF_KW delimited_expr block . ELSE_KW block [ WHILE_KW STAR RETURN_KW RBRACE PUTCHAR_KW NOT MINUS LPAR IF_KW IDENT FCST CST BOOL ADDR ]
@@ -194,7 +215,7 @@ program: VOID_KW IDENT LPAR RPAR LBRACE IF_KW LPAR BOOL RPAR LBRACE RBRACE VOID_
 
 program: VOID_KW IDENT LPAR RPAR LBRACE IF_KW LPAR BOOL RPAR WHILE_KW
 ##
-## Ends in an error in state: 115.
+## Ends in an error in state: 109.
 ##
 ## instruction -> IF_KW delimited_expr . block [ WHILE_KW STAR RETURN_KW RBRACE PUTCHAR_KW NOT MINUS LPAR IF_KW IDENT FCST CST BOOL ADDR ]
 ## instruction -> IF_KW delimited_expr . block ELSE_KW block [ WHILE_KW STAR RETURN_KW RBRACE PUTCHAR_KW NOT MINUS LPAR IF_KW IDENT FCST CST BOOL ADDR ]
@@ -203,11 +224,11 @@ program: VOID_KW IDENT LPAR RPAR LBRACE IF_KW LPAR BOOL RPAR WHILE_KW
 ## IF_KW delimited_expr
 ##
 
-<Il manque une '{' apres le la condition du if.>
+<Les instructions "if" doivent suivre la syntaxe suivante : if(condition){block d'instructions}>
 
 program: VOID_KW IDENT LPAR RPAR LBRACE IF_KW WHILE_KW
 ##
-## Ends in an error in state: 114.
+## Ends in an error in state: 108.
 ##
 ## instruction -> IF_KW . delimited_expr block [ WHILE_KW STAR RETURN_KW RBRACE PUTCHAR_KW NOT MINUS LPAR IF_KW IDENT FCST CST BOOL ADDR ]
 ## instruction -> IF_KW . delimited_expr block ELSE_KW block [ WHILE_KW STAR RETURN_KW RBRACE PUTCHAR_KW NOT MINUS LPAR IF_KW IDENT FCST CST BOOL ADDR ]
@@ -216,11 +237,11 @@ program: VOID_KW IDENT LPAR RPAR LBRACE IF_KW WHILE_KW
 ## IF_KW
 ##
 
-<Il manque une '{' apres le la condition du if.>
+<Les instructions "if" doivent suivre la syntaxe suivante : if(condition){block d'instructions}>
 
 program: VOID_KW IDENT LPAR RPAR LBRACE PUTCHAR_KW LPAR BOOL RPAR WHILE_KW
 ##
-## Ends in an error in state: 112.
+## Ends in an error in state: 106.
 ##
 ## instruction -> PUTCHAR_KW delimited_expr . SEMI [ WHILE_KW STAR RETURN_KW RBRACE PUTCHAR_KW NOT MINUS LPAR IF_KW IDENT FCST CST BOOL ADDR ]
 ##
@@ -232,7 +253,7 @@ program: VOID_KW IDENT LPAR RPAR LBRACE PUTCHAR_KW LPAR BOOL RPAR WHILE_KW
 
 program: VOID_KW IDENT LPAR RPAR LBRACE PUTCHAR_KW WHILE_KW
 ##
-## Ends in an error in state: 111.
+## Ends in an error in state: 105.
 ##
 ## instruction -> PUTCHAR_KW . delimited_expr SEMI [ WHILE_KW STAR RETURN_KW RBRACE PUTCHAR_KW NOT MINUS LPAR IF_KW IDENT FCST CST BOOL ADDR ]
 ##
@@ -267,22 +288,24 @@ program: VOID_KW IDENT LPAR RPAR LBRACE RBRACE WHILE_KW
 
 <Les instructions doivent etre dans une fonction.>
 
-program: VOID_KW IDENT LPAR RPAR LBRACE RETURN_KW IDENT RPAR
+program: VOID_KW IDENT LPAR RPAR LBRACE RETURN_KW IDENT SET
 ##
-## Ends in an error in state: 109.
+## Ends in an error in state: 103.
 ##
-## expression -> expression . PLUS expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
-## expression -> expression . MINUS expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
-## expression -> expression . STAR expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
-## expression -> expression . SLASH expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
-## expression -> expression . LT expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
-## expression -> expression . LE expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
-## expression -> expression . GT expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
-## expression -> expression . GE expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
-## expression -> expression . AND expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
-## expression -> expression . OR expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
-## expression -> expression . DOUBLE_EQ expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
-## expression -> expression . NEQ expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
+## access -> expression . DOT IDENT [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT ARROW AND ]
+## access -> expression . ARROW IDENT [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT ARROW AND ]
+## expression -> expression . PLUS expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT ARROW AND ]
+## expression -> expression . MINUS expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT ARROW AND ]
+## expression -> expression . STAR expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT ARROW AND ]
+## expression -> expression . SLASH expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT ARROW AND ]
+## expression -> expression . LT expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT ARROW AND ]
+## expression -> expression . LE expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT ARROW AND ]
+## expression -> expression . GT expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT ARROW AND ]
+## expression -> expression . GE expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT ARROW AND ]
+## expression -> expression . AND expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT ARROW AND ]
+## expression -> expression . OR expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT ARROW AND ]
+## expression -> expression . DOUBLE_EQ expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT ARROW AND ]
+## expression -> expression . NEQ expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT ARROW AND ]
 ## instruction -> RETURN_KW expression . SEMI [ WHILE_KW STAR RETURN_KW RBRACE PUTCHAR_KW NOT MINUS LPAR IF_KW IDENT FCST CST BOOL ADDR ]
 ##
 ## The known suffix of the stack is as follows:
@@ -292,14 +315,15 @@ program: VOID_KW IDENT LPAR RPAR LBRACE RETURN_KW IDENT RPAR
 ## This implies that, although the LR(1) items shown above provide an
 ## accurate view of the past (what has been recognized so far), they
 ## may provide an INCOMPLETE view of the future (what was expected next).
-## In state 48, spurious reduction of production expression -> IDENT
+## In state 48, spurious reduction of production access -> IDENT
+## In state 60, spurious reduction of production expression -> access
 ##
 
 <Un ';' est attendu a la fin d'une expression.>
 
 program: VOID_KW IDENT LPAR RPAR LBRACE RETURN_KW WHILE_KW
 ##
-## Ends in an error in state: 108.
+## Ends in an error in state: 102.
 ##
 ## instruction -> RETURN_KW . expression SEMI [ WHILE_KW STAR RETURN_KW RBRACE PUTCHAR_KW NOT MINUS LPAR IF_KW IDENT FCST CST BOOL ADDR ]
 ##
@@ -321,65 +345,9 @@ program: VOID_KW IDENT LPAR RPAR LBRACE SLASH
 
 <Le corps d'une fontion doit suivre les regles de la grammaire : definitions de variables locales, puis liste d'instructions.>
 
-program: VOID_KW IDENT LPAR RPAR LBRACE STAR IDENT SET IDENT RPAR
-##
-## Ends in an error in state: 131.
-##
-## expression -> expression . PLUS expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
-## expression -> expression . MINUS expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
-## expression -> expression . STAR expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
-## expression -> expression . SLASH expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
-## expression -> expression . LT expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
-## expression -> expression . LE expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
-## expression -> expression . GT expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
-## expression -> expression . GE expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
-## expression -> expression . AND expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
-## expression -> expression . OR expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
-## expression -> expression . DOUBLE_EQ expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
-## expression -> expression . NEQ expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
-## instruction -> access SET expression . SEMI [ WHILE_KW STAR RETURN_KW RBRACE PUTCHAR_KW NOT MINUS LPAR IF_KW IDENT FCST CST BOOL ADDR ]
-##
-## The known suffix of the stack is as follows:
-## access SET expression
-##
-## WARNING: This example involves spurious reductions.
-## This implies that, although the LR(1) items shown above provide an
-## accurate view of the past (what has been recognized so far), they
-## may provide an INCOMPLETE view of the future (what was expected next).
-## In state 48, spurious reduction of production expression -> IDENT
-##
-
-<YOUR SYNTAX ERROR MESSAGE HERE>
-
-program: VOID_KW IDENT LPAR RPAR LBRACE STAR IDENT SET WHILE_KW
-##
-## Ends in an error in state: 130.
-##
-## instruction -> access SET . expression SEMI [ WHILE_KW STAR RETURN_KW RBRACE PUTCHAR_KW NOT MINUS LPAR IF_KW IDENT FCST CST BOOL ADDR ]
-##
-## The known suffix of the stack is as follows:
-## access SET
-##
-
-<YOUR SYNTAX ERROR MESSAGE HERE>
-
-program: VOID_KW IDENT LPAR RPAR LBRACE STAR IDENT WHILE_KW
-##
-## Ends in an error in state: 129.
-##
-## access -> access . ext [ STAR SLASH SET SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT ARROW AND ]
-## expression -> access . [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
-## instruction -> access . SET expression SEMI [ WHILE_KW STAR RETURN_KW RBRACE PUTCHAR_KW NOT MINUS LPAR IF_KW IDENT FCST CST BOOL ADDR ]
-##
-## The known suffix of the stack is as follows:
-## access
-##
-
-<YOUR SYNTAX ERROR MESSAGE HERE>
-
 program: VOID_KW IDENT LPAR RPAR LBRACE VOID_KW IDENT SEMI SLASH
 ##
-## Ends in an error in state: 136.
+## Ends in an error in state: 126.
 ##
 ## list(decl_var_local) -> decl_var_local . list(decl_var_local) [ WHILE_KW STAR RETURN_KW RBRACE PUTCHAR_KW NOT MINUS LPAR IF_KW IDENT FCST CST BOOL ADDR ]
 ##
@@ -389,23 +357,25 @@ program: VOID_KW IDENT LPAR RPAR LBRACE VOID_KW IDENT SEMI SLASH
 
 <Le corps d'une fontion doit suivre les regles de la grammaire : definitions de variables locales, puis liste d'instructions.>
 
-program: VOID_KW IDENT LPAR RPAR LBRACE VOID_KW IDENT SET IDENT RPAR
+program: VOID_KW IDENT LPAR RPAR LBRACE VOID_KW IDENT SET IDENT SET
 ##
-## Ends in an error in state: 140.
+## Ends in an error in state: 130.
 ##
+## access -> expression . DOT IDENT [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT ARROW AND ]
+## access -> expression . ARROW IDENT [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT ARROW AND ]
 ## decl_var_local -> decl SET expression . SEMI [ WHILE_KW VOID_KW STRUCT_KW STAR RETURN_KW RBRACE PUTCHAR_KW NOT MINUS LPAR INT_KW IF_KW IDENT FLOAT_KW FCST CST BOOL_KW BOOL ADDR ]
-## expression -> expression . PLUS expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
-## expression -> expression . MINUS expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
-## expression -> expression . STAR expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
-## expression -> expression . SLASH expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
-## expression -> expression . LT expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
-## expression -> expression . LE expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
-## expression -> expression . GT expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
-## expression -> expression . GE expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
-## expression -> expression . AND expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
-## expression -> expression . OR expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
-## expression -> expression . DOUBLE_EQ expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
-## expression -> expression . NEQ expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
+## expression -> expression . PLUS expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT ARROW AND ]
+## expression -> expression . MINUS expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT ARROW AND ]
+## expression -> expression . STAR expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT ARROW AND ]
+## expression -> expression . SLASH expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT ARROW AND ]
+## expression -> expression . LT expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT ARROW AND ]
+## expression -> expression . LE expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT ARROW AND ]
+## expression -> expression . GT expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT ARROW AND ]
+## expression -> expression . GE expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT ARROW AND ]
+## expression -> expression . AND expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT ARROW AND ]
+## expression -> expression . OR expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT ARROW AND ]
+## expression -> expression . DOUBLE_EQ expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT ARROW AND ]
+## expression -> expression . NEQ expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT ARROW AND ]
 ##
 ## The known suffix of the stack is as follows:
 ## decl SET expression
@@ -414,14 +384,15 @@ program: VOID_KW IDENT LPAR RPAR LBRACE VOID_KW IDENT SET IDENT RPAR
 ## This implies that, although the LR(1) items shown above provide an
 ## accurate view of the past (what has been recognized so far), they
 ## may provide an INCOMPLETE view of the future (what was expected next).
-## In state 48, spurious reduction of production expression -> IDENT
+## In state 48, spurious reduction of production access -> IDENT
+## In state 60, spurious reduction of production expression -> access
 ##
 
 <Un ';' est attendu a la fin d'une expression.>
 
 program: VOID_KW IDENT LPAR RPAR LBRACE VOID_KW IDENT SET WHILE_KW
 ##
-## Ends in an error in state: 139.
+## Ends in an error in state: 129.
 ##
 ## decl_var_local -> decl SET . expression SEMI [ WHILE_KW VOID_KW STRUCT_KW STAR RETURN_KW RBRACE PUTCHAR_KW NOT MINUS LPAR INT_KW IF_KW IDENT FLOAT_KW FCST CST BOOL_KW BOOL ADDR ]
 ##
@@ -433,7 +404,7 @@ program: VOID_KW IDENT LPAR RPAR LBRACE VOID_KW IDENT SET WHILE_KW
 
 program: VOID_KW IDENT LPAR RPAR LBRACE VOID_KW IDENT WHILE_KW
 ##
-## Ends in an error in state: 138.
+## Ends in an error in state: 128.
 ##
 ## decl_var_local -> decl . SEMI [ WHILE_KW VOID_KW STRUCT_KW STAR RETURN_KW RBRACE PUTCHAR_KW NOT MINUS LPAR INT_KW IF_KW IDENT FLOAT_KW FCST CST BOOL_KW BOOL ADDR ]
 ## decl_var_local -> decl . SET expression SEMI [ WHILE_KW VOID_KW STRUCT_KW STAR RETURN_KW RBRACE PUTCHAR_KW NOT MINUS LPAR INT_KW IF_KW IDENT FLOAT_KW FCST CST BOOL_KW BOOL ADDR ]
@@ -446,7 +417,7 @@ program: VOID_KW IDENT LPAR RPAR LBRACE VOID_KW IDENT WHILE_KW
 
 program: VOID_KW IDENT LPAR RPAR LBRACE WHILE_KW LPAR IDENT RPAR LBRACE VOID_KW
 ##
-## Ends in an error in state: 107.
+## Ends in an error in state: 101.
 ##
 ## block -> LBRACE . list(instruction) RBRACE [ WHILE_KW STAR RETURN_KW RBRACE PUTCHAR_KW NOT MINUS LPAR IF_KW IDENT FCST ELSE_KW CST BOOL ADDR ]
 ##
@@ -454,11 +425,11 @@ program: VOID_KW IDENT LPAR RPAR LBRACE WHILE_KW LPAR IDENT RPAR LBRACE VOID_KW
 ## LBRACE
 ##
 
-<Il ne peut y avoir que des instructions a l'interieur d'une boucle.>
+<YOUR SYNTAX ERROR MESSAGE HERE>
 
 program: VOID_KW IDENT LPAR RPAR LBRACE WHILE_KW LPAR IDENT RPAR WHILE_KW
 ##
-## Ends in an error in state: 106.
+## Ends in an error in state: 100.
 ##
 ## instruction -> WHILE_KW delimited_expr . block [ WHILE_KW STAR RETURN_KW RBRACE PUTCHAR_KW NOT MINUS LPAR IF_KW IDENT FCST CST BOOL ADDR ]
 ##
@@ -466,7 +437,7 @@ program: VOID_KW IDENT LPAR RPAR LBRACE WHILE_KW LPAR IDENT RPAR WHILE_KW
 ## WHILE_KW delimited_expr
 ##
 
-<La condition d'une boucle doit etre suivie de '{'.>
+<Les instructions "while" doivent suivre la syntaxe suivante : while(condition){block d'instructions}>
 
 program: VOID_KW IDENT LPAR RPAR LBRACE WHILE_KW LPAR WHILE_KW
 ##
@@ -478,7 +449,7 @@ program: VOID_KW IDENT LPAR RPAR LBRACE WHILE_KW LPAR WHILE_KW
 ## LPAR
 ##
 
-<Il manque une parentheses fermante : ')'.>
+<Les instructions "while" doivent suivre la syntaxe suivante : while(condition){block d'instructions}>
 
 program: VOID_KW IDENT LPAR RPAR LBRACE WHILE_KW WHILE_KW
 ##
@@ -490,7 +461,7 @@ program: VOID_KW IDENT LPAR RPAR LBRACE WHILE_KW WHILE_KW
 ## WHILE_KW
 ##
 
-<La syntaxe de definition d'une boucle doit suivre : boucle(condition){ block }.>
+<Les instructions "while" doivent suivre la syntaxe suivante : while(condition){block d'instructions}>
 
 program: VOID_KW IDENT LPAR RPAR WHILE_KW
 ##
@@ -502,7 +473,7 @@ program: VOID_KW IDENT LPAR RPAR WHILE_KW
 ## decl params
 ##
 
-<La syntaxe de definition d'une boucle doit suivre : boucle(condition){ block }. >
+<Les fonctions doivent suivre la syntaxe suivante : type nom(params){block d'instructions}>
 
 program: VOID_KW IDENT LPAR STRUCT_KW WHILE_KW
 ##
@@ -514,7 +485,7 @@ program: VOID_KW IDENT LPAR STRUCT_KW WHILE_KW
 ## STRUCT_KW
 ##
 
-<YOUR SYNTAX ERROR MESSAGE HERE>
+<La declaration d'une stucture se fait par la syntaxe : struct nomstruct nom_variable;>
 
 program: VOID_KW IDENT LPAR VOID_KW IDENT COMMA WHILE_KW
 ##
@@ -526,7 +497,7 @@ program: VOID_KW IDENT LPAR VOID_KW IDENT COMMA WHILE_KW
 ## decl COMMA
 ##
 
-<Les parametres de fonctions sont optionnels, mais s'il y en a, ils doivent etre separes pas des ','.>
+<La declaration d'une stucture se fait par la syntaxe : struct nomstruct nom_variable;>
 
 program: VOID_KW IDENT LPAR VOID_KW IDENT WHILE_KW
 ##
@@ -569,7 +540,7 @@ program: VOID_KW IDENT SET ADDR WHILE_KW
 ##
 ## Ends in an error in state: 53.
 ##
-## expression -> ADDR . expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> ADDR . expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
 ##
 ## The known suffix of the stack is as follows:
 ## ADDR
@@ -577,35 +548,44 @@ program: VOID_KW IDENT SET ADDR WHILE_KW
 
 <On ne peut recuperer que l'adresse d'une variable.>
 
-program: VOID_KW IDENT SET IDENT AND FCST WHILE_KW
+program: VOID_KW IDENT SET IDENT AND IDENT SET
 ##
-## Ends in an error in state: 97.
+## Ends in an error in state: 92.
 ##
-## expression -> expression . PLUS expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . MINUS expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . STAR expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . SLASH expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . LT expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . LE expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . GT expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . GE expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . AND expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression AND expression . [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . OR expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . DOUBLE_EQ expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . NEQ expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## access -> expression . DOT IDENT [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## access -> expression . ARROW IDENT [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . PLUS expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . MINUS expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . STAR expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . SLASH expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . LT expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . LE expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . GT expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . GE expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . AND expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression AND expression . [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . OR expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . DOUBLE_EQ expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . NEQ expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
 ##
 ## The known suffix of the stack is as follows:
 ## expression AND expression
+##
+## WARNING: This example involves spurious reductions.
+## This implies that, although the LR(1) items shown above provide an
+## accurate view of the past (what has been recognized so far), they
+## may provide an INCOMPLETE view of the future (what was expected next).
+## In state 48, spurious reduction of production access -> IDENT
+## In state 60, spurious reduction of production expression -> access
 ##
 
 <Un ';' est attendu a la fin d'une expression.>
 
 program: VOID_KW IDENT SET IDENT AND WHILE_KW
 ##
-## Ends in an error in state: 96.
+## Ends in an error in state: 91.
 ##
-## expression -> expression AND . expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression AND . expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
 ##
 ## The known suffix of the stack is as follows:
 ## expression AND
@@ -613,87 +593,56 @@ program: VOID_KW IDENT SET IDENT AND WHILE_KW
 
 <Il ne peut y avoir que des operations entre expressions a l'interieur d'une definition de variable.>
 
-program: VOID_KW IDENT SET IDENT ARROW IDENT WHILE_KW
-##
-## Ends in an error in state: 65.
-##
-## nonempty_list(__anonymous_2) -> ARROW IDENT . [ STAR SLASH SET SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
-## nonempty_list(__anonymous_2) -> ARROW IDENT . nonempty_list(__anonymous_2) [ STAR SLASH SET SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
-##
-## The known suffix of the stack is as follows:
-## ARROW IDENT
-##
-
-<YOUR SYNTAX ERROR MESSAGE HERE>
-
-program: VOID_KW IDENT SET IDENT ARROW WHILE_KW
-##
-## Ends in an error in state: 64.
-##
-## nonempty_list(__anonymous_2) -> ARROW . IDENT [ STAR SLASH SET SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
-## nonempty_list(__anonymous_2) -> ARROW . IDENT nonempty_list(__anonymous_2) [ STAR SLASH SET SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
-##
-## The known suffix of the stack is as follows:
-## ARROW
-##
-
-<YOUR SYNTAX ERROR MESSAGE HERE>
-
-program: VOID_KW IDENT SET IDENT DOT IDENT WHILE_KW
-##
-## Ends in an error in state: 62.
-##
-## nonempty_list(__anonymous_1) -> DOT IDENT . [ STAR SLASH SET SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
-## nonempty_list(__anonymous_1) -> DOT IDENT . nonempty_list(__anonymous_1) [ STAR SLASH SET SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
-##
-## The known suffix of the stack is as follows:
-## DOT IDENT
-##
-
-<YOUR SYNTAX ERROR MESSAGE HERE>
-
 program: VOID_KW IDENT SET IDENT DOT WHILE_KW
 ##
-## Ends in an error in state: 61.
+## Ends in an error in state: 67.
 ##
-## nonempty_list(__anonymous_1) -> DOT . IDENT [ STAR SLASH SET SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
-## nonempty_list(__anonymous_1) -> DOT . IDENT nonempty_list(__anonymous_1) [ STAR SLASH SET SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## access -> expression DOT . IDENT [ STAR SLASH SET SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
 ##
 ## The known suffix of the stack is as follows:
-## DOT
+## expression DOT
 ##
 
 <Un ';' est attendu a la fin d'une expression.>
 
-program: VOID_KW IDENT SET IDENT DOUBLE_EQ FCST WHILE_KW
+program: VOID_KW IDENT SET IDENT DOUBLE_EQ IDENT SET
 ##
-## Ends in an error in state: 95.
+## Ends in an error in state: 90.
 ##
-## expression -> expression . PLUS expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . MINUS expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . STAR expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . SLASH expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . LT expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . LE expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . GT expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . GE expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . AND expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . OR expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . DOUBLE_EQ expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression DOUBLE_EQ expression . [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . NEQ expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## access -> expression . DOT IDENT [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## access -> expression . ARROW IDENT [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . PLUS expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . MINUS expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . STAR expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . SLASH expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . LT expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . LE expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . GT expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . GE expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . AND expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . OR expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . DOUBLE_EQ expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression DOUBLE_EQ expression . [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . NEQ expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
 ##
 ## The known suffix of the stack is as follows:
 ## expression DOUBLE_EQ expression
+##
+## WARNING: This example involves spurious reductions.
+## This implies that, although the LR(1) items shown above provide an
+## accurate view of the past (what has been recognized so far), they
+## may provide an INCOMPLETE view of the future (what was expected next).
+## In state 48, spurious reduction of production access -> IDENT
+## In state 60, spurious reduction of production expression -> access
 ##
 
 <Un ';' est attendu a la fin d'une expression.>
 
 program: VOID_KW IDENT SET IDENT DOUBLE_EQ WHILE_KW
 ##
-## Ends in an error in state: 94.
+## Ends in an error in state: 89.
 ##
-## expression -> expression DOUBLE_EQ . expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression DOUBLE_EQ . expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
 ##
 ## The known suffix of the stack is as follows:
 ## expression DOUBLE_EQ
@@ -701,35 +650,44 @@ program: VOID_KW IDENT SET IDENT DOUBLE_EQ WHILE_KW
 
 <Une comparaison s'effectue entre deux expressions.>
 
-program: VOID_KW IDENT SET IDENT GE FCST WHILE_KW
+program: VOID_KW IDENT SET IDENT GE IDENT SET
 ##
-## Ends in an error in state: 93.
+## Ends in an error in state: 88.
 ##
-## expression -> expression . PLUS expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . MINUS expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . STAR expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . SLASH expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . LT expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . LE expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . GT expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . GE expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression GE expression . [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . AND expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . OR expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . DOUBLE_EQ expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . NEQ expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## access -> expression . DOT IDENT [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## access -> expression . ARROW IDENT [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . PLUS expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . MINUS expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . STAR expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . SLASH expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . LT expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . LE expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . GT expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . GE expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression GE expression . [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . AND expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . OR expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . DOUBLE_EQ expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . NEQ expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
 ##
 ## The known suffix of the stack is as follows:
 ## expression GE expression
+##
+## WARNING: This example involves spurious reductions.
+## This implies that, although the LR(1) items shown above provide an
+## accurate view of the past (what has been recognized so far), they
+## may provide an INCOMPLETE view of the future (what was expected next).
+## In state 48, spurious reduction of production access -> IDENT
+## In state 60, spurious reduction of production expression -> access
 ##
 
 <Un ';' est attendu a la fin d'une expression.>
 
 program: VOID_KW IDENT SET IDENT GE WHILE_KW
 ##
-## Ends in an error in state: 92.
+## Ends in an error in state: 87.
 ##
-## expression -> expression GE . expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression GE . expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
 ##
 ## The known suffix of the stack is as follows:
 ## expression GE
@@ -737,35 +695,44 @@ program: VOID_KW IDENT SET IDENT GE WHILE_KW
 
 <Une comparaison s'effectue entre deux expressions.>
 
-program: VOID_KW IDENT SET IDENT GT FCST WHILE_KW
+program: VOID_KW IDENT SET IDENT GT IDENT SET
 ##
-## Ends in an error in state: 91.
+## Ends in an error in state: 86.
 ##
-## expression -> expression . PLUS expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . MINUS expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . STAR expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . SLASH expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . LT expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . LE expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . GT expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression GT expression . [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . GE expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . AND expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . OR expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . DOUBLE_EQ expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . NEQ expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## access -> expression . DOT IDENT [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## access -> expression . ARROW IDENT [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . PLUS expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . MINUS expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . STAR expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . SLASH expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . LT expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . LE expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . GT expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression GT expression . [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . GE expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . AND expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . OR expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . DOUBLE_EQ expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . NEQ expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
 ##
 ## The known suffix of the stack is as follows:
 ## expression GT expression
+##
+## WARNING: This example involves spurious reductions.
+## This implies that, although the LR(1) items shown above provide an
+## accurate view of the past (what has been recognized so far), they
+## may provide an INCOMPLETE view of the future (what was expected next).
+## In state 48, spurious reduction of production access -> IDENT
+## In state 60, spurious reduction of production expression -> access
 ##
 
 <Un ';' est attendu a la fin d'une expression.>
 
 program: VOID_KW IDENT SET IDENT GT WHILE_KW
 ##
-## Ends in an error in state: 90.
+## Ends in an error in state: 85.
 ##
-## expression -> expression GT . expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression GT . expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
 ##
 ## The known suffix of the stack is as follows:
 ## expression GT
@@ -773,35 +740,44 @@ program: VOID_KW IDENT SET IDENT GT WHILE_KW
 
 <Une comparaison s'effectue entre deux expressions.>
 
-program: VOID_KW IDENT SET IDENT LE FCST WHILE_KW
+program: VOID_KW IDENT SET IDENT LE IDENT SET
 ##
-## Ends in an error in state: 89.
+## Ends in an error in state: 84.
 ##
-## expression -> expression . PLUS expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . MINUS expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . STAR expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . SLASH expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . LT expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . LE expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression LE expression . [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . GT expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . GE expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . AND expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . OR expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . DOUBLE_EQ expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . NEQ expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## access -> expression . DOT IDENT [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## access -> expression . ARROW IDENT [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . PLUS expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . MINUS expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . STAR expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . SLASH expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . LT expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . LE expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression LE expression . [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . GT expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . GE expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . AND expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . OR expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . DOUBLE_EQ expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . NEQ expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
 ##
 ## The known suffix of the stack is as follows:
 ## expression LE expression
+##
+## WARNING: This example involves spurious reductions.
+## This implies that, although the LR(1) items shown above provide an
+## accurate view of the past (what has been recognized so far), they
+## may provide an INCOMPLETE view of the future (what was expected next).
+## In state 48, spurious reduction of production access -> IDENT
+## In state 60, spurious reduction of production expression -> access
 ##
 
 <Un ';' est attendu a la fin d'une expression.>
 
 program: VOID_KW IDENT SET IDENT LE WHILE_KW
 ##
-## Ends in an error in state: 88.
+## Ends in an error in state: 83.
 ##
-## expression -> expression LE . expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression LE . expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
 ##
 ## The known suffix of the stack is as follows:
 ## expression LE
@@ -811,7 +787,7 @@ program: VOID_KW IDENT SET IDENT LE WHILE_KW
 
 program: VOID_KW IDENT SET IDENT LPAR IDENT COMMA WHILE_KW
 ##
-## Ends in an error in state: 98.
+## Ends in an error in state: 93.
 ##
 ## separated_nonempty_list(COMMA,expression) -> expression COMMA . separated_nonempty_list(COMMA,expression) [ RPAR ]
 ##
@@ -821,22 +797,24 @@ program: VOID_KW IDENT SET IDENT LPAR IDENT COMMA WHILE_KW
 
 <Les parametres de fonctions sont optionnels, mais s'il y en a, ils doivent etre separes pas des ','.>
 
-program: VOID_KW IDENT SET IDENT LPAR IDENT SEMI
+program: VOID_KW IDENT SET IDENT LPAR IDENT SET
 ##
-## Ends in an error in state: 73.
+## Ends in an error in state: 64.
 ##
-## expression -> expression . PLUS expression [ STAR SLASH RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . MINUS expression [ STAR SLASH RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . STAR expression [ STAR SLASH RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . SLASH expression [ STAR SLASH RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . LT expression [ STAR SLASH RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . LE expression [ STAR SLASH RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . GT expression [ STAR SLASH RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . GE expression [ STAR SLASH RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . AND expression [ STAR SLASH RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . OR expression [ STAR SLASH RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . DOUBLE_EQ expression [ STAR SLASH RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . NEQ expression [ STAR SLASH RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## access -> expression . DOT IDENT [ STAR SLASH RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## access -> expression . ARROW IDENT [ STAR SLASH RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . PLUS expression [ STAR SLASH RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . MINUS expression [ STAR SLASH RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . STAR expression [ STAR SLASH RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . SLASH expression [ STAR SLASH RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . LT expression [ STAR SLASH RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . LE expression [ STAR SLASH RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . GT expression [ STAR SLASH RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . GE expression [ STAR SLASH RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . AND expression [ STAR SLASH RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . OR expression [ STAR SLASH RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . DOUBLE_EQ expression [ STAR SLASH RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . NEQ expression [ STAR SLASH RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
 ## separated_nonempty_list(COMMA,expression) -> expression . [ RPAR ]
 ## separated_nonempty_list(COMMA,expression) -> expression . COMMA separated_nonempty_list(COMMA,expression) [ RPAR ]
 ##
@@ -847,7 +825,8 @@ program: VOID_KW IDENT SET IDENT LPAR IDENT SEMI
 ## This implies that, although the LR(1) items shown above provide an
 ## accurate view of the past (what has been recognized so far), they
 ## may provide an INCOMPLETE view of the future (what was expected next).
-## In state 48, spurious reduction of production expression -> IDENT
+## In state 48, spurious reduction of production access -> IDENT
+## In state 60, spurious reduction of production expression -> access
 ##
 
 <Un ';' est attendu a la fin d'une expression.>
@@ -856,7 +835,7 @@ program: VOID_KW IDENT SET IDENT LPAR WHILE_KW
 ##
 ## Ends in an error in state: 49.
 ##
-## expression -> IDENT LPAR . loption(separated_nonempty_list(COMMA,expression)) RPAR [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> IDENT LPAR . loption(separated_nonempty_list(COMMA,expression)) RPAR [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
 ##
 ## The known suffix of the stack is as follows:
 ## IDENT LPAR
@@ -864,35 +843,44 @@ program: VOID_KW IDENT SET IDENT LPAR WHILE_KW
 
 <Les parametres de fonctions sont optionnels, mais s'il y en a, ils doivent etre separes pas des ','.>
 
-program: VOID_KW IDENT SET IDENT LT FCST WHILE_KW
+program: VOID_KW IDENT SET IDENT LT IDENT SET
 ##
-## Ends in an error in state: 87.
+## Ends in an error in state: 82.
 ##
-## expression -> expression . PLUS expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . MINUS expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . STAR expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . SLASH expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . LT expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression LT expression . [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . LE expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . GT expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . GE expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . AND expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . OR expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . DOUBLE_EQ expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . NEQ expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## access -> expression . DOT IDENT [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## access -> expression . ARROW IDENT [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . PLUS expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . MINUS expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . STAR expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . SLASH expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . LT expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression LT expression . [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . LE expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . GT expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . GE expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . AND expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . OR expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . DOUBLE_EQ expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . NEQ expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
 ##
 ## The known suffix of the stack is as follows:
 ## expression LT expression
+##
+## WARNING: This example involves spurious reductions.
+## This implies that, although the LR(1) items shown above provide an
+## accurate view of the past (what has been recognized so far), they
+## may provide an INCOMPLETE view of the future (what was expected next).
+## In state 48, spurious reduction of production access -> IDENT
+## In state 60, spurious reduction of production expression -> access
 ##
 
 <Un ';' est attendu a la fin d'une expression.>
 
 program: VOID_KW IDENT SET IDENT LT WHILE_KW
 ##
-## Ends in an error in state: 86.
+## Ends in an error in state: 81.
 ##
-## expression -> expression LT . expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression LT . expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
 ##
 ## The known suffix of the stack is as follows:
 ## expression LT
@@ -900,35 +888,44 @@ program: VOID_KW IDENT SET IDENT LT WHILE_KW
 
 <Une comparaison s'effectue entre deux expressions.>
 
-program: VOID_KW IDENT SET IDENT MINUS FCST WHILE_KW
+program: VOID_KW IDENT SET IDENT MINUS IDENT SET
 ##
-## Ends in an error in state: 85.
+## Ends in an error in state: 80.
 ##
-## expression -> expression . PLUS expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . MINUS expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression MINUS expression . [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . STAR expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . SLASH expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . LT expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . LE expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . GT expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . GE expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . AND expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . OR expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . DOUBLE_EQ expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . NEQ expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## access -> expression . DOT IDENT [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## access -> expression . ARROW IDENT [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . PLUS expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . MINUS expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression MINUS expression . [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . STAR expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . SLASH expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . LT expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . LE expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . GT expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . GE expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . AND expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . OR expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . DOUBLE_EQ expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . NEQ expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
 ##
 ## The known suffix of the stack is as follows:
 ## expression MINUS expression
+##
+## WARNING: This example involves spurious reductions.
+## This implies that, although the LR(1) items shown above provide an
+## accurate view of the past (what has been recognized so far), they
+## may provide an INCOMPLETE view of the future (what was expected next).
+## In state 48, spurious reduction of production access -> IDENT
+## In state 60, spurious reduction of production expression -> access
 ##
 
 <Un ';' est attendu a la fin d'une expression.>
 
 program: VOID_KW IDENT SET IDENT MINUS WHILE_KW
 ##
-## Ends in an error in state: 84.
+## Ends in an error in state: 79.
 ##
-## expression -> expression MINUS . expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression MINUS . expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
 ##
 ## The known suffix of the stack is as follows:
 ## expression MINUS
@@ -936,35 +933,44 @@ program: VOID_KW IDENT SET IDENT MINUS WHILE_KW
 
 <Une operation s'effectue entre deux expressions.>
 
-program: VOID_KW IDENT SET IDENT NEQ FCST WHILE_KW
+program: VOID_KW IDENT SET IDENT NEQ IDENT SET
 ##
-## Ends in an error in state: 83.
+## Ends in an error in state: 78.
 ##
-## expression -> expression . PLUS expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . MINUS expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . STAR expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . SLASH expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . LT expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . LE expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . GT expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . GE expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . AND expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . OR expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . DOUBLE_EQ expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . NEQ expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression NEQ expression . [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## access -> expression . DOT IDENT [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## access -> expression . ARROW IDENT [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . PLUS expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . MINUS expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . STAR expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . SLASH expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . LT expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . LE expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . GT expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . GE expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . AND expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . OR expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . DOUBLE_EQ expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . NEQ expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression NEQ expression . [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
 ##
 ## The known suffix of the stack is as follows:
 ## expression NEQ expression
+##
+## WARNING: This example involves spurious reductions.
+## This implies that, although the LR(1) items shown above provide an
+## accurate view of the past (what has been recognized so far), they
+## may provide an INCOMPLETE view of the future (what was expected next).
+## In state 48, spurious reduction of production access -> IDENT
+## In state 60, spurious reduction of production expression -> access
 ##
 
 <Un ';' est attendu a la fin d'une expression.>
 
 program: VOID_KW IDENT SET IDENT NEQ WHILE_KW
 ##
-## Ends in an error in state: 82.
+## Ends in an error in state: 77.
 ##
-## expression -> expression NEQ . expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression NEQ . expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
 ##
 ## The known suffix of the stack is as follows:
 ## expression NEQ
@@ -972,35 +978,44 @@ program: VOID_KW IDENT SET IDENT NEQ WHILE_KW
 
 <Une comparaison s'effectue entre deux expressions.>
 
-program: VOID_KW IDENT SET IDENT OR FCST WHILE_KW
+program: VOID_KW IDENT SET IDENT OR IDENT SET
 ##
-## Ends in an error in state: 81.
+## Ends in an error in state: 76.
 ##
-## expression -> expression . PLUS expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . MINUS expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . STAR expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . SLASH expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . LT expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . LE expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . GT expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . GE expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . AND expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . OR expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression OR expression . [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . DOUBLE_EQ expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . NEQ expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## access -> expression . DOT IDENT [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## access -> expression . ARROW IDENT [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . PLUS expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . MINUS expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . STAR expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . SLASH expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . LT expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . LE expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . GT expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . GE expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . AND expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . OR expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression OR expression . [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . DOUBLE_EQ expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . NEQ expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
 ##
 ## The known suffix of the stack is as follows:
 ## expression OR expression
+##
+## WARNING: This example involves spurious reductions.
+## This implies that, although the LR(1) items shown above provide an
+## accurate view of the past (what has been recognized so far), they
+## may provide an INCOMPLETE view of the future (what was expected next).
+## In state 48, spurious reduction of production access -> IDENT
+## In state 60, spurious reduction of production expression -> access
 ##
 
 <Un ';' est attendu a la fin d'une expression.>
 
 program: VOID_KW IDENT SET IDENT OR WHILE_KW
 ##
-## Ends in an error in state: 80.
+## Ends in an error in state: 75.
 ##
-## expression -> expression OR . expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression OR . expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
 ##
 ## The known suffix of the stack is as follows:
 ## expression OR
@@ -1008,35 +1023,44 @@ program: VOID_KW IDENT SET IDENT OR WHILE_KW
 
 <Une comparaison s'effectue entre deux expressions.>
 
-program: VOID_KW IDENT SET IDENT PLUS FCST WHILE_KW
+program: VOID_KW IDENT SET IDENT PLUS IDENT SET
 ##
-## Ends in an error in state: 79.
+## Ends in an error in state: 74.
 ##
-## expression -> expression . PLUS expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression PLUS expression . [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . MINUS expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . STAR expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . SLASH expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . LT expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . LE expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . GT expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . GE expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . AND expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . OR expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . DOUBLE_EQ expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . NEQ expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## access -> expression . DOT IDENT [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## access -> expression . ARROW IDENT [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . PLUS expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression PLUS expression . [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . MINUS expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . STAR expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . SLASH expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . LT expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . LE expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . GT expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . GE expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . AND expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . OR expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . DOUBLE_EQ expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . NEQ expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
 ##
 ## The known suffix of the stack is as follows:
 ## expression PLUS expression
+##
+## WARNING: This example involves spurious reductions.
+## This implies that, although the LR(1) items shown above provide an
+## accurate view of the past (what has been recognized so far), they
+## may provide an INCOMPLETE view of the future (what was expected next).
+## In state 48, spurious reduction of production access -> IDENT
+## In state 60, spurious reduction of production expression -> access
 ##
 
 <Un ';' est attendu a la fin d'une expression.>
 
 program: VOID_KW IDENT SET IDENT PLUS WHILE_KW
 ##
-## Ends in an error in state: 78.
+## Ends in an error in state: 73.
 ##
-## expression -> expression PLUS . expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression PLUS . expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
 ##
 ## The known suffix of the stack is as follows:
 ## expression PLUS
@@ -1044,23 +1068,25 @@ program: VOID_KW IDENT SET IDENT PLUS WHILE_KW
 
 <Un ';' est attendu a la fin d'une expression.>
 
-program: VOID_KW IDENT SET IDENT RPAR
+program: VOID_KW IDENT SET IDENT SET
 ##
-## Ends in an error in state: 146.
+## Ends in an error in state: 136.
 ##
+## access -> expression . DOT IDENT [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT ARROW AND ]
+## access -> expression . ARROW IDENT [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT ARROW AND ]
 ## decl_var_glob -> decl SET expression . SEMI [ VOID_KW STRUCT_KW INT_KW FLOAT_KW BOOL_KW ]
-## expression -> expression . PLUS expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
-## expression -> expression . MINUS expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
-## expression -> expression . STAR expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
-## expression -> expression . SLASH expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
-## expression -> expression . LT expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
-## expression -> expression . LE expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
-## expression -> expression . GT expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
-## expression -> expression . GE expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
-## expression -> expression . AND expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
-## expression -> expression . OR expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
-## expression -> expression . DOUBLE_EQ expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
-## expression -> expression . NEQ expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
+## expression -> expression . PLUS expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT ARROW AND ]
+## expression -> expression . MINUS expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT ARROW AND ]
+## expression -> expression . STAR expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT ARROW AND ]
+## expression -> expression . SLASH expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT ARROW AND ]
+## expression -> expression . LT expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT ARROW AND ]
+## expression -> expression . LE expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT ARROW AND ]
+## expression -> expression . GT expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT ARROW AND ]
+## expression -> expression . GE expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT ARROW AND ]
+## expression -> expression . AND expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT ARROW AND ]
+## expression -> expression . OR expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT ARROW AND ]
+## expression -> expression . DOUBLE_EQ expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT ARROW AND ]
+## expression -> expression . NEQ expression [ STAR SLASH SEMI PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT ARROW AND ]
 ##
 ## The known suffix of the stack is as follows:
 ## decl SET expression
@@ -1069,16 +1095,50 @@ program: VOID_KW IDENT SET IDENT RPAR
 ## This implies that, although the LR(1) items shown above provide an
 ## accurate view of the past (what has been recognized so far), they
 ## may provide an INCOMPLETE view of the future (what was expected next).
-## In state 48, spurious reduction of production expression -> IDENT
+## In state 48, spurious reduction of production access -> IDENT
+## In state 60, spurious reduction of production expression -> access
+##
+
+<Un ';' est attendu a la fin d'une expression.>
+
+program: VOID_KW IDENT SET IDENT SLASH IDENT SET
+##
+## Ends in an error in state: 72.
+##
+## access -> expression . DOT IDENT [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## access -> expression . ARROW IDENT [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . PLUS expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . MINUS expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . STAR expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . SLASH expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression SLASH expression . [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . LT expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . LE expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . GT expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . GE expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . AND expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . OR expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . DOUBLE_EQ expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . NEQ expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+##
+## The known suffix of the stack is as follows:
+## expression SLASH expression
+##
+## WARNING: This example involves spurious reductions.
+## This implies that, although the LR(1) items shown above provide an
+## accurate view of the past (what has been recognized so far), they
+## may provide an INCOMPLETE view of the future (what was expected next).
+## In state 48, spurious reduction of production access -> IDENT
+## In state 60, spurious reduction of production expression -> access
 ##
 
 <Un ';' est attendu a la fin d'une expression.>
 
 program: VOID_KW IDENT SET IDENT SLASH WHILE_KW
 ##
-## Ends in an error in state: 76.
+## Ends in an error in state: 71.
 ##
-## expression -> expression SLASH . expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression SLASH . expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
 ##
 ## The known suffix of the stack is as follows:
 ## expression SLASH
@@ -1086,11 +1146,44 @@ program: VOID_KW IDENT SET IDENT SLASH WHILE_KW
 
 <Une operation s'effectue entre deux expressions.>
 
+program: VOID_KW IDENT SET IDENT STAR IDENT SET
+##
+## Ends in an error in state: 66.
+##
+## access -> expression . DOT IDENT [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## access -> expression . ARROW IDENT [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . PLUS expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . MINUS expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . STAR expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression STAR expression . [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . SLASH expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . LT expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . LE expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . GT expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . GE expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . AND expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . OR expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . DOUBLE_EQ expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . NEQ expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+##
+## The known suffix of the stack is as follows:
+## expression STAR expression
+##
+## WARNING: This example involves spurious reductions.
+## This implies that, although the LR(1) items shown above provide an
+## accurate view of the past (what has been recognized so far), they
+## may provide an INCOMPLETE view of the future (what was expected next).
+## In state 48, spurious reduction of production access -> IDENT
+## In state 60, spurious reduction of production expression -> access
+##
+
+<Un ';' est attendu a la fin d'une expression.>
+
 program: VOID_KW IDENT SET IDENT STAR WHILE_KW
 ##
-## Ends in an error in state: 74.
+## Ends in an error in state: 65.
 ##
-## expression -> expression STAR . expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> expression STAR . expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
 ##
 ## The known suffix of the stack is as follows:
 ## expression STAR
@@ -1102,9 +1195,8 @@ program: VOID_KW IDENT SET IDENT WHILE_KW
 ##
 ## Ends in an error in state: 48.
 ##
-## access -> IDENT . ext [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
-## expression -> IDENT . [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> IDENT . LPAR loption(separated_nonempty_list(COMMA,expression)) RPAR [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## access -> IDENT . [ STAR SLASH SET SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> IDENT . LPAR loption(separated_nonempty_list(COMMA,expression)) RPAR [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
 ##
 ## The known suffix of the stack is as follows:
 ## IDENT
@@ -1116,31 +1208,33 @@ program: VOID_KW IDENT SET LPAR BOOL_KW RPAR WHILE_KW
 ##
 ## Ends in an error in state: 58.
 ##
-## expression -> cast . expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> cast . expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
 ##
 ## The known suffix of the stack is as follows:
 ## cast
 ##
 
-<YOUR SYNTAX ERROR MESSAGE HERE>
+<Un cast s'effectue de la facon suivante : (type_dest) source;>
 
-program: VOID_KW IDENT SET LPAR IDENT SEMI
+program: VOID_KW IDENT SET LPAR IDENT SET
 ##
-## Ends in an error in state: 103.
+## Ends in an error in state: 97.
 ##
-## delimited_expr -> LPAR expression . RPAR [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE LBRACE GT GE DOUBLE_EQ COMMA AND ]
-## expression -> expression . PLUS expression [ STAR SLASH RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
-## expression -> expression . MINUS expression [ STAR SLASH RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
-## expression -> expression . STAR expression [ STAR SLASH RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
-## expression -> expression . SLASH expression [ STAR SLASH RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
-## expression -> expression . LT expression [ STAR SLASH RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
-## expression -> expression . LE expression [ STAR SLASH RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
-## expression -> expression . GT expression [ STAR SLASH RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
-## expression -> expression . GE expression [ STAR SLASH RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
-## expression -> expression . AND expression [ STAR SLASH RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
-## expression -> expression . OR expression [ STAR SLASH RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
-## expression -> expression . DOUBLE_EQ expression [ STAR SLASH RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
-## expression -> expression . NEQ expression [ STAR SLASH RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ AND ]
+## access -> expression . DOT IDENT [ STAR SLASH RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT ARROW AND ]
+## access -> expression . ARROW IDENT [ STAR SLASH RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT ARROW AND ]
+## delimited_expr -> LPAR expression . RPAR [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE LBRACE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
+## expression -> expression . PLUS expression [ STAR SLASH RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT ARROW AND ]
+## expression -> expression . MINUS expression [ STAR SLASH RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT ARROW AND ]
+## expression -> expression . STAR expression [ STAR SLASH RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT ARROW AND ]
+## expression -> expression . SLASH expression [ STAR SLASH RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT ARROW AND ]
+## expression -> expression . LT expression [ STAR SLASH RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT ARROW AND ]
+## expression -> expression . LE expression [ STAR SLASH RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT ARROW AND ]
+## expression -> expression . GT expression [ STAR SLASH RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT ARROW AND ]
+## expression -> expression . GE expression [ STAR SLASH RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT ARROW AND ]
+## expression -> expression . AND expression [ STAR SLASH RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT ARROW AND ]
+## expression -> expression . OR expression [ STAR SLASH RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT ARROW AND ]
+## expression -> expression . DOUBLE_EQ expression [ STAR SLASH RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT ARROW AND ]
+## expression -> expression . NEQ expression [ STAR SLASH RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT ARROW AND ]
 ##
 ## The known suffix of the stack is as follows:
 ## LPAR expression
@@ -1149,14 +1243,15 @@ program: VOID_KW IDENT SET LPAR IDENT SEMI
 ## This implies that, although the LR(1) items shown above provide an
 ## accurate view of the past (what has been recognized so far), they
 ## may provide an INCOMPLETE view of the future (what was expected next).
-## In state 48, spurious reduction of production expression -> IDENT
+## In state 48, spurious reduction of production access -> IDENT
+## In state 60, spurious reduction of production expression -> access
 ##
 
 <Un ';' est attendu a la fin d'une expression.>
 
 program: VOID_KW IDENT SET LPAR VOID_KW WHILE_KW
 ##
-## Ends in an error in state: 101.
+## Ends in an error in state: 95.
 ##
 ## cast -> LPAR type_def . RPAR [ STAR NOT MINUS LPAR IDENT FCST CST BOOL ADDR ]
 ## type_def -> type_def . STAR [ STAR RPAR ]
@@ -1165,14 +1260,14 @@ program: VOID_KW IDENT SET LPAR VOID_KW WHILE_KW
 ## LPAR type_def
 ##
 
-<YOUR SYNTAX ERROR MESSAGE HERE>
+<Un cast s'effectue de la facon suivante : (type_dest) source;>
 
 program: VOID_KW IDENT SET LPAR WHILE_KW
 ##
 ## Ends in an error in state: 47.
 ##
 ## cast -> LPAR . type_def RPAR [ STAR NOT MINUS LPAR IDENT FCST CST BOOL ADDR ]
-## delimited_expr -> LPAR . expression RPAR [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## delimited_expr -> LPAR . expression RPAR [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
 ##
 ## The known suffix of the stack is as follows:
 ## LPAR
@@ -1184,7 +1279,7 @@ program: VOID_KW IDENT SET MINUS WHILE_KW
 ##
 ## Ends in an error in state: 45.
 ##
-## expression -> MINUS . CST [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> MINUS . CST [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
 ##
 ## The known suffix of the stack is as follows:
 ## MINUS
@@ -1196,26 +1291,13 @@ program: VOID_KW IDENT SET NOT WHILE_KW
 ##
 ## Ends in an error in state: 44.
 ##
-## expression -> NOT . expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
+## expression -> NOT . expression [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
 ##
 ## The known suffix of the stack is as follows:
 ## NOT
 ##
 
-<Un varible ne peut etre definie qu'a partir d'expressions.>
-
-program: VOID_KW IDENT SET STAR IDENT WHILE_KW
-##
-## Ends in an error in state: 60.
-##
-## access -> access . ext [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ DOT COMMA ARROW AND ]
-## expression -> access . [ STAR SLASH SEMI RPAR PLUS OR NEQ MINUS LT LE GT GE DOUBLE_EQ COMMA AND ]
-##
-## The known suffix of the stack is as follows:
-## access
-##
-
-<YOUR SYNTAX ERROR MESSAGE HERE>
+<Un ';' est attendu a la fin d'une expression.>
 
 program: VOID_KW IDENT SET STAR WHILE_KW
 ##
@@ -1232,7 +1314,7 @@ program: VOID_KW IDENT SET STAR WHILE_KW
 
 program: VOID_KW IDENT SET WHILE_KW
 ##
-## Ends in an error in state: 145.
+## Ends in an error in state: 135.
 ##
 ## decl_var_glob -> decl SET . expression SEMI [ VOID_KW STRUCT_KW INT_KW FLOAT_KW BOOL_KW ]
 ##
@@ -1244,7 +1326,7 @@ program: VOID_KW IDENT SET WHILE_KW
 
 program: VOID_KW IDENT WHILE_KW
 ##
-## Ends in an error in state: 144.
+## Ends in an error in state: 134.
 ##
 ## decl_function -> decl . params fun_block [ VOID_KW STRUCT_KW INT_KW FLOAT_KW EOF BOOL_KW ]
 ## decl_var_glob -> decl . SEMI [ VOID_KW STRUCT_KW INT_KW FLOAT_KW BOOL_KW ]

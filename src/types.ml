@@ -40,7 +40,8 @@ type expr =
   | Not           of expr
   | Get           of string
   | Call          of string * expr list
-  | GetStruct     of expr * string list
+  | GetStruct     of expr * string
+  | GetStructPtr  of expr * string
   | Cast          of typ * expr
 
 (*
@@ -48,12 +49,12 @@ type expr =
  *)
 type instr =
   | Putchar      of expr
-  | Set          of string * expr
+  | Set          of expr * expr
   | If           of expr * seq * seq
   | While        of expr * seq
+  | For          of instr * expr * instr * seq
   | Return       of expr
   | Expr         of expr
-  | SetSubStruct of expr * expr
 and seq = instr list
 
 type fun_def = {

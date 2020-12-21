@@ -1,6 +1,8 @@
 
+int glob = 1;
 
-int fun(int n) while (true){
+int fun(int n) 
+  while (true) {
       return 1;
   }
 }

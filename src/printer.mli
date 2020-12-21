@@ -1,5 +1,7 @@
 open Types
 
+val red_error : string
+val nc_error : string
 val typeToString : typ -> string
 val exprToString : expr -> string
 val instrToString : instr -> string

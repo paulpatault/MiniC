@@ -12,6 +12,7 @@
         "if",            IF_KW;
         "else",          ELSE_KW;
         "while",         WHILE_KW;
+        "for",           FOR_KW;
         "int",           INT_KW;
         "float",         FLOAT_KW;
         "bool",          BOOL_KW;

@@ -20,7 +20,7 @@
 %token LPAR RPAR LBRACE RBRACE 
 %token SEMI COMMA DOT ARROW
 %token INT_KW BOOL_KW VOID_KW FLOAT_KW RETURN_KW STRUCT_KW
-%token PUTCHAR_KW SET IF_KW ELSE_KW WHILE_KW
+%token PUTCHAR_KW SET IF_KW ELSE_KW WHILE_KW FOR_KW
 %token PLUS MINUS STAR SLASH ADDR
 %token LT LE GT GE AND OR NOT DOUBLE_EQ NEQ
 %token EOF
@@ -30,12 +30,13 @@
 %left LT LE GT GE DOUBLE_EQ NEQ
 %left PLUS MINUS
 %left STAR SLASH
-(*%left DOT ARROW*)
+%right DOT ARROW
 %nonassoc NOT ADDR
-
 
 %start program
 %type <Types.prog> program
+%type <string*Types.typ> decl
+%type <Types.typ> type_def
 
 %%
 
@@ -80,7 +81,7 @@ program:
           params=[];
           return=Void;
           locals=[];
-          code= List.rev !ag_list;
+          code=List.rev !ag_list;
         }::fl; 
     } 
   }
@@ -89,7 +90,7 @@ program:
 decl_struct:
 | STRUCT_KW id=IDENT LBRACE core=struct_core RBRACE SEMI 
   { (id, core) }
-; 
+;
 
 decl:
 | t=type_def id=IDENT 
@@ -104,9 +105,9 @@ decl_var_glob:
 | decl=decl SEMI 
   { decl }
 | decl=decl SET e=expression SEMI 
-  { 
+  {
     let id, _ = decl in
-    ag_list := Set(id, e) :: !ag_list;
+    ag_list := Set(Get id, e) :: !ag_list;
     decl 
   }
 ;
@@ -135,8 +136,8 @@ fun_block:
         (
           fun (decls, ass) (d, a) -> 
             match a with 
-            None -> (d::decls, ass) 
-            | Some(e') -> (d::decls, Set(fst d, e') :: ass)
+            | None -> (d::decls, ass) 
+            | Some(e') -> (d::decls, Set(Get (fst d), e') :: ass)
         ) 
         ([],[]) locals 
     in
@@ -159,24 +160,25 @@ delimited_expr:
   { e }
 ;
 
-ext:
-| el=nonempty_list(DOT e=IDENT { e }) { el }
-| el=nonempty_list(ARROW e=IDENT { e }) { el }
-;
-
 instruction:
 | PUTCHAR_KW e=delimited_expr SEMI 
   { Putchar(e) }
-| id=IDENT SET e=expression SEMI 
-  { Set(id, e) }
-| a=access SET e2=expression SEMI
-  { SetSubStruct(a, e2) }
+| a=access SET e=expression SEMI
+  { Set(a, e) }
 | IF_KW cond=delimited_expr block=block
   { If(cond, block, []) }
 | IF_KW cond=delimited_expr block1=block ELSE_KW block2=block 
   { If(cond, block1, block2) }
 | WHILE_KW cond=delimited_expr block=block 
   { While(cond, block) }
+| FOR_KW LPAR 
+  id=IDENT SET e1=expression SEMI 
+  cond=expression SEMI 
+  id2=IDENT SET e2=expression 
+  RPAR block=block
+  {
+    For(Set(Get id, e1), cond, Set(Get id2, e2), block) 
+  }
 | RETURN_KW e=expression SEMI
   { Return(e) }
 | e=expression SEMI
@@ -189,18 +191,18 @@ cast:
 ;
 
 access:
-| LPAR a=access RPAR { a }
+| id=IDENT 
+  { Get id }
 | stars=nonempty_list(STAR) id=IDENT 
   {
     let len = List.length stars in
     makeDereferencing len id
   }
-| a=access el=ext
-  { GetStruct(a, el) }
-| id=IDENT el=ext
-  { GetStruct(Get id, el)  }
+| id=expression DOT ext=IDENT
+  { GetStruct(id, ext)  }
+| id=expression ARROW ext=IDENT
+  { GetStructPtr(id, ext) }
 ;
-
 
 expression:
 | n=CST
@@ -213,8 +215,6 @@ expression:
   { Addr(e) }
 | a=access 
   { a }
-| id=IDENT 
-  { Get(id) }
 | e=delimited_expr
   { e }
 | e1=expression PLUS e2=expression 

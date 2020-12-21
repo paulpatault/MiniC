@@ -37,15 +37,15 @@ int main() {
 
   (*alpha).x = 1.;
   (*alpha).y = 2.;
-  (*alpha).z = 3.;
+  alpha.z = 3.;
 
   
   beta.x = *alpha;
   beta.y = incr_if_cond(*alpha, cond);
   beta.z = incr_if_cond(beta.y, cond);
 
-  putchar((int)beta.y.z);
-  putchar((int)(*alpha).z);
+  putchar((int)(beta.y.z));
+  putchar((int)((*alpha).z));
 
   return 0;
 }

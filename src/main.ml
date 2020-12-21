@@ -47,8 +47,7 @@ let () =
   in
   match res with
     | Ok prog ->
-        if Lexer.verbose then
-        check_type_prog prog |> Printf.printf "%s\n ---> %b\n" (progToString prog)  
-        else check_type_prog prog |> Printf.printf "%b\n"; 
+        if Lexer.verbose then Printf.printf "\n%s\n" (progToString prog);
+        check_type_prog prog |> Printf.printf "%b\n"; 
         exit 0
     | Error err -> Printf.eprintf "MiniC Error compiling: %s\n\t%s" Sys.argv.(1) err; exit 1
