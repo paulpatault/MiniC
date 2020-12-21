@@ -52,7 +52,8 @@
 
 Les opérateurs `+ - * / < <= > >=` peuvent s'appliquer à 
 des combinaisons d'entiers et de flottants. Par contre les opérateurs logiques 
-`&& || !` s'appliquent seulement à des booleans.
+`&& || !` s'appliquent seulement à des booleans. En plus des nouveaux types et opérateurs, 
+j'ai ajouté une possibilité de `cast` (int → float, float → int, ...).
 
 2. Afficheur 
 
@@ -85,3 +86,10 @@ commence par `minic-ok` sont cencé être bien écrit, bien typés et interprét
 enfin ceux dont le nom commence par `syntax-err` doivent déclencher une erreur de 
 syntaxe (les deux derniers sont seulement typable mais pas interprétables car ils
 contiennent des structures).
+
+
+
+#### Dépot Github 
+
+Je compte maintenir et avancer ce DM, vous pourrez trouver les mises à jour ici:
+https://github.com/paulpatault/MiniC
