@@ -89,7 +89,9 @@ contiennent des structures).
 
 
 
-#### Dépot Github 
+#### Ressources
 
-Je compte maintenir et avancer ce DM, vous pourrez trouver les mises à jour ici:
-https://github.com/paulpatault/MiniC
++ [Writing a C compiler](https://norasandler.com/2017/11/29/Write-a-Compiler.html)
++ [C compiler in OCaml](https://github.com/noti0na1/socc)
++ [Parse error with menhir](https://baturin.org/blog/declarative-parse-error-reporting-with-menhir/)
+
