@@ -2,12 +2,11 @@
   open Lexing
   open Mcparser
 
-  let verbose = 
-   try 
+  let verbose =
+   try
     let _ = Sys.argv.(2) in 
-    true 
+    true
    with Invalid_argument _ -> false
-  
 
   let keyword_or_ident =
     let h = Hashtbl.create 17 in

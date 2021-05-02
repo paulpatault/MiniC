@@ -1,5 +1,5 @@
 open Printer
-open Typage 
+open Typage
 open Lexing
 open Printf
 
@@ -39,7 +39,7 @@ let rec parse lexbuf (checkpoint : Types.prog MI.checkpoint) =
        raise (SyntaxError (None, "Erreur de sytaxe"))
 
 
-let () = 
+let () =
   let cin = open_in Sys.argv.(1) in
   let lexbuf = Lexing.from_channel cin in
   let res =
@@ -52,7 +52,7 @@ let () =
   match res with
     | Ok prog ->
         if Lexer.verbose then printf "\n%s\n" (progToString prog);
-        if check_type_prog prog 
+        if check_type_prog prog
         then (
           printf "Bien typé !\n";
           printf "\n---Interpretation---\n\n";
